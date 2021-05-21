@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "n-bott",
+  "private_key_id": "secret",
+  "private_key": "secret",
+  "client_email": "secret",
+  "client_id": "103442271294859073542",
+  "auth_uri": "secret",
+  "token_uri": "secret",
+  "auth_provider_x509_cert_url": "secret",
+  "client_x509_cert_url": "secret"
+}
