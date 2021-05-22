@@ -1,12 +1,12 @@
 {
   "type": "service_account",
-  "project_id": "n-bott",
-  "private_key_id": "secret",
-  "private_key": "secret",
-  "client_email": "secret",
-  "client_id": "103442271294859073542",
-  "auth_uri": "secret",
-  "token_uri": "secret",
-  "auth_provider_x509_cert_url": "secret",
-  "client_x509_cert_url": "secret"
+  "project_id": "sociolitic",
+  "private_key_id": "4fc8cad8df90cbcfbafd51a11eebd112b4a9f0d3",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCqqvFYKTfq83nx\nagJcBgolVVD5T6DFpunUL8au7femYcaOamC6O9NTFo7ugqa7Xkf6nDlcS0dK9raw\n/9SSAkqz6rfWVfJjissnKM2ZGizRYiNolbgRT93Whlw31TKUjiPXLIXHurl8XfzW\n+SH2MH5Z2epqbU8Pfk5VqWZM1bBVCNf1V3blvfh7xXH5V3T7x5KXFrZ0QB2fQ3nR\nU0gNrljBAFTBqkQg/pj71qx1WN5Ft4dkn7cXkjI9b7hw3w6xskjBZZ4vzS7yoeU3\niqVpKxL53yXH1MyLMoTykFG6m0up4yx4a8ljDFJwDDamjjZLCrq7hQTNJ0iJJJpw\nM7iNrBK1AgMBAAECggEAHjqY9NyYIu1tM+1q7ZHESkiKRx5rg5bE4+hycJmFu9ql\nqKP+7f2auKTOPEC394gDh8gUANz0i7qXMVKe/B2bzbJNTZF7lVYIFa+Mewm/1nZj\nfyrFp4tV56F0xA7nHpjukDY6m93e7MBZAFqwQULlnlSSyLcDweLFTTbr/7/5s5XL\nOJEVS7jMoUd/eaaR+cH1UrP7flQzZDsT6qPqRLfPOSvH06Djg66bIM6HTMYwr/tm\nvVL8HMLvte7ODieIGNZuqIv1Ey0mOQOeV7izvy52TGdJVDuqI457orvGBgzZKWxx\n6Tl0xxjvzLNvfBy22n3nnBNQ1jmPrjm2oYb9RXWLAQKBgQDetrhQzhh1F80zI8f0\nO5r9UGENdonUTyQh5gwWeZ4LwQLXfRj3FGJpN9UhiMnWQ6dsoi/7U3WNQmrYmAUW\nTFO+P6s1K3GDw6AMnxMAY/PhHimgP9dCUyoRTR7oOn3ISMx3CBgWOMLgz7kbNfg0\nsmBeRbSASIr8eyHa5rp3fZzyXQKBgQDELOI9RnFIPZfl411+Rf9v8ljlzvb/jkJz\nI71LJZKYfYrJrNJsLTPxUoZkY7RQYnrfdoiUEyxsriDWvWGu/jCuKwsXWVkq9aB4\ni0GUnW0PvnmV3JESQ3y8qVZm0FPe/AwMpYjZcDQewZk76bNnlyYrMUuOt4vCRH8z\nYUzR/XjMOQKBgHlC3XpJrLFcg0Kb8cv+BDZ2ZFFzQDpT2OWIHv7BuxbFQWnY2BX3\niFmnp6j5lIPQFEGm0R8zYubFye0iYGqypkoI2ow5mjXW9rbIig0FXw0sYhe5ite2\n9kmzRufEqSW61XDd/FdlEl5bW3sAWKNAmA3cQBo05U/xLw7D37UdtK2VAoGBAKtC\nN7ugjHKxerLxm4QKHaYgHqV42b5d9frIX4+D3IeNSaUoX4aaq7boAXUQabCnWHdO\n5orGdkjmdrqhF+8J73uNDiCzGpnbVt0FTRotmLFe6ov+wxL7oaCeAFS/WAjZZrd/\np4mTX5zeDCT2r20m0eZxIXIVIEhXPeif781+h39ZAoGBANz3txL8Fcc5+LEm1GwJ\n927sFFqgWs40tWnCQzWn9+FULDiVUnK566zTVRL68/uz3w4ByTBJ2WAhtq7B7Tyi\nKmqQeW4SwV8A0MMfPdnogIS6yytTa/HJJYn17JwTMYp1/CAtdD2tn1s2GXTEkCeY\nCFhHdtbu1PXhJ9mQmndUu4k9\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-clvnk@sociolitic.iam.gserviceaccount.com",
+  "client_id": "110006109620924383079",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-clvnk%40sociolitic.iam.gserviceaccount.com"
 }

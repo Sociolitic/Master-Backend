@@ -5,9 +5,9 @@ const Users = require('../models/users');
 
 var serviceAccount = require(__dirname + "/key.json");
 
-// admin.initializeApp({
-//   credential: admin.credential.cert(serviceAccount)
-// });
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
 
 router.post('/verify', (req, res) => {
     data = JSON.parse(JSON.stringify(req.body))
@@ -16,7 +16,8 @@ router.post('/verify', (req, res) => {
         console.log(uid);
         res.send(uid);
         data.user.userId=uid
-        data.user.pro=false
+        data.user.plan="free"
+        console.log(data);
         Users.findOne({ email: data.user.email}, function (err, docs) {
           if (err){
               console.log(err);

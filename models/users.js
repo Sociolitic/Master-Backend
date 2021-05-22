@@ -15,8 +15,8 @@ const userSchema = new Schema(
 		photo: {
 			type: "String"
 		},
-		pro: {
-			type: "boolean"
+		plan: {
+			type: "String"
 		}
 	},
 	{
