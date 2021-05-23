@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Sociolitic</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="Datta Able Bootstrap admin template made using Bootstrap 4 and it has huge amount of ready made feature, UI components, pages which completely fulfills any dashboard needs." />
+    <meta name="keywords" content="admin templates, bootstrap admin templates, bootstrap 4, dashboard, dashboard templets, sass admin templets, html admin templates, responsive, bootstrap admin templates free download,premium bootstrap admin templates, datta able, datta able bootstrap admin template, free admin theme, free dashboard template"/>
+    <meta name="author" content="CodedThemes"/>
+    <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-analytics.js"></script>
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyDrqOimL_5FP7CnyT0BKpAbPVI471y1QqM",
+            authDomain: "sociolitic.firebaseapp.com",
+            projectId: "sociolitic",
+            storageBucket: "sociolitic.appspot.com",
+            messagingSenderId: "1075477400639",
+            appId: "1:1075477400639:web:d9fd5e9024dc03759ffc8a",
+            measurementId: "G-VYNRYTD9W3"
+        };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+      var auth = firebase.auth()
+      var provider = new firebase.auth.GoogleAuthProvider();
+      var Guser;
+        auth.onAuthStateChanged(user => {
+            if(user){
+                Guser=user
+            }else{
+                window.location.replace('http:/localhost:8080/auth-signup.html')
+            }
+        })
+    </script>
+    <!-- Favicon icon -->
+    <link rel="icon" href="assets/images/logo.png" type="image/png">
+    <!-- fontawesome icon -->
+    <link rel="stylesheet" href="assets/fonts/fontawesome/css/fontawesome-all.min.css">
+    <!-- animation css -->
+    <link rel="stylesheet" href="assets/plugins/animation/css/animate.min.css">
+    <!-- vendor css -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/tags.css">
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/tags.js"></script>
+</head>
+
+<body>
+    <div class="auth-wrapper">
+        <div class="auth-content">
+            <div class="auth-bg">
+                <span class="r"></span>
+                <span class="r s"></span>
+                <span class="r s"></span>
+                <span class="r"></span>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="mb-4">
+                    </div>
+                    <h3 class="mb-4"><i class="feather icon-bar-chart-2"> &nbsp; Select Brand</i></h3>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control brand" placeholder="Your Brand" autofocus>
+                    </div>
+
+                    <div class="input-group mb-4">
+                        <input type="text" class="form-control competitors" data-role="tagsinput" name="competitors" placeholder="Your competitors" required>
+                        <small id="emailHelp" class="form-text text-muted">Enter your competitors to be monitored.</small>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-primary shadow-2 mb-4 continue">Continue</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Required Js -->
+<script src="assets/js/vendor-all.min.js"></script>
+<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script>
+    var tags = document.querySelector('.competitors');
+    var brand = document.querySelector('.brand')
+    document.querySelector('.continue').addEventListener("click",()=>{
+        var data = JSON.stringify({
+            "user": {
+                "email": Guser.email
+            },
+            "brand": brand.value,
+            "competitors": tags.value
+        });
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.addEventListener("readystatechange", function() {
+                if(this.readyState === 4) {
+                        window.location.replace('http://localhost:8080')
+                }
+        });
+
+        xhr.open("POST", "http://localhost:8080/brand/update");
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        xhr.send(data);
+    })
+</script>
+</body>
+</html>

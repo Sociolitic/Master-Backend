@@ -33,6 +33,8 @@ app.use(cors())
 
 let authRouter = require('./routes/auth');
 app.use('/auth', authRouter);
+let brandRouter = require('./routes/brand');
+app.use('/brand', brandRouter);
 
 app.use(express.static(path.join(__dirname, 'public')));
 

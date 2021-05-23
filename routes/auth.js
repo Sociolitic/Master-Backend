@@ -14,9 +14,10 @@ router.post('/verify', (req, res) => {
     admin.auth().verifyIdToken(data.user.userId).then((decodedToken) => {
         const uid = decodedToken.uid;
         console.log(uid);
-        res.send(uid);
         data.user.userId=uid
         data.user.plan="free"
+        data.user.competitors=[]
+        data.user.stage=1
         console.log(data);
         Users.findOne({ email: data.user.email}, function (err, docs) {
           if (err){
@@ -28,8 +29,13 @@ router.post('/verify', (req, res) => {
                   if (err)
                       console.log(err);
                   console.log(dbResult)
+                  res.json({token: uid, stage: dbResult.stage});
               });
               }else{
+                console.log(docs.stage);
+                if(docs.stage == 1){
+                  res.json({token: uid, stage: docs.stage});
+                }
                 console.log("User Already Exists");
               }
           }
@@ -40,5 +46,16 @@ router.post('/verify', (req, res) => {
     });
 })
 
+router.post('/fetch', (req, res) => {
+      data = JSON.parse(JSON.stringify(req.body))
+      Users.findOne({ userId: data.user}, function (err, docs) {
+        if (err){
+            console.log(err);
+        }
+        else{
+            res.json(docs)
+        }
+    })
+})
 
 module.exports = router;
