@@ -27,14 +27,16 @@
       firebase.initializeApp(firebaseConfig);
       firebase.analytics();
     </script>
-    <!-- Favicon icon -->
-    <link rel="icon" href="assets/images/logo.png" type="image/png">
+      <link rel="icon" href="assets/images/favicon.png" type="image/png">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>    
+    <link rel="icon" href="assets/images/favicon.png" type="image/png">
     <!-- fontawesome icon -->
     <link rel="stylesheet" href="assets/fonts/fontawesome/css/fontawesome-all.min.css">
     <!-- animation css -->
     <link rel="stylesheet" href="assets/plugins/animation/css/animate.min.css">
     <!-- vendor css -->
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/spinner.css">
 
 </head>
 
@@ -59,12 +61,12 @@
             <div class="navbar-content scroll-div">
                 <ul class="nav pcoded-inner-navbar">
                     <li class="nav-item pcoded-menu-caption">
-                        <label>Navigation</label>
+                        <label>Home</label>
                     </li>
                     <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" class="nav-item active">
-                        <a href="index.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
+                        <a href="index.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext"><span class="brandName"></span> Dashboard</span></a>
                     </li>
-                    <li class="nav-item pcoded-menu-caption">
+                    <!-- <li class="nav-item pcoded-menu-caption">
                         <label>UI Element</label>
                     </li>
                     <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds" class="nav-item pcoded-hasmenu">
@@ -80,17 +82,26 @@
 
                             <li class=""><a href="icon-feather.html" class="">Feather<span class="pcoded-badge label label-danger">NEW</span></a></li>
                         </ul>
-                    </li>
+                    </li> -->
                     <li class="nav-item pcoded-menu-caption">
-                        <label>Forms & table</label>
+                        <label>Social Media</label>
                     </li>
                     <li data-username="form elements advance componant validation masking wizard picker select" class="nav-item">
-                        <a href="form_elements.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-file-text"></i></span><span class="pcoded-mtext">Form elements</span></a>
+                        <a href="form_elements.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-instagram"></i></span><span class="pcoded-mtext">Instagram</span></a>
                     </li>
                     <li data-username="Table bootstrap datatable footable" class="nav-item">
-                        <a href="tbl_bootstrap.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-server"></i></span><span class="pcoded-mtext">Table</span></a>
+                        <a href="tbl_bootstrap.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-twitter"></i></span><span class="pcoded-mtext">Twitter</span></a>
                     </li>
-                    <li class="nav-item pcoded-menu-caption">
+                    <li data-username="Table bootstrap datatable footable" class="nav-item">
+                        <a href="tbl_bootstrap.html" class="nav-link "><span class="pcoded-micon"><i class='bx bxl-reddit' ></i></span><span class="pcoded-mtext">Reddit</span></a>
+                    </li>
+                    <li data-username="Table bootstrap datatable footable" class="nav-item">
+                        <a href="tbl_bootstrap.html" class="nav-link "><span class="pcoded-micon"><i class='bx bxl-tumblr'></i></span><span class="pcoded-mtext">Tumblr</span></a>
+                    </li>
+                    <li data-username="Table bootstrap datatable footable" class="nav-item">
+                        <a href="tbl_bootstrap.html" class="nav-link "><span class="pcoded-micon"><i class='bx bxl-youtube' ></i></span><span class="pcoded-mtext">Youtube</span></a>
+                    </li>
+                    <!-- <li class="nav-item pcoded-menu-caption">
                         <label>Chart & Maps</label>
                     </li>
                     <li data-username="Charts Morris" class="nav-item"><a href="chart-morris.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-pie-chart"></i></span><span class="pcoded-mtext">Chart</span></a></li>
@@ -106,7 +117,7 @@
                         </ul>
                     </li>
                     <li data-username="Sample Page" class="nav-item"><a href="sample-page.html" class="nav-link"><span class="pcoded-micon"><i class="feather icon-sidebar"></i></span><span class="pcoded-mtext">Sample page</span></a></li>
-                    <li data-username="Disabled Menu" class="nav-item disabled"><a href="javascript:" class="nav-link"><span class="pcoded-micon"><i class="feather icon-power"></i></span><span class="pcoded-mtext">Disabled menu</span></a></li>
+                    <li data-username="Disabled Menu" class="nav-item disabled"><a href="javascript:" class="nav-link"><span class="pcoded-micon"><i class="feather icon-power"></i></span><span class="pcoded-mtext">Disabled menu</span></a></li> -->
                 </ul>
             </div>
         </div>
@@ -219,13 +230,15 @@
                                 </a>
                             </div>
                             <ul class="pro-body">
-                                <li><a href="javascript:" class="dropdown-item"><i class="feather icon-settings"></i> Settings</a></li>
-                                <li><a href="javascript:" class="dropdown-item"><i class="feather icon-user"></i> Profile</a></li>
+                                <li><a href="http://localhost:8080/settings.html" class="dropdown-item"><i class="feather icon-settings"></i> Settings</a></li>
                             </ul>
                         </div>
                     </div>
                 </li>
             </ul>
+        </div>
+        <div class="spinnerloader">
+            <div class="spinner"></div>
         </div>
     </header>
     <!-- [ Header ] end -->
@@ -246,10 +259,10 @@
                                 <div class="col-md-6 col-xl-4">
                                     <div class="card daily-sales">
                                         <div class="card-block">
-                                            <h6 class="mb-4">Daily Sales</h6>
+                                            <h6 class="mb-4">Daily Mentions</h6>
                                             <div class="row d-flex align-items-center">
                                                 <div class="col-9">
-                                                    <h3 class="f-w-300 d-flex align-items-center m-b-0"><i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>$ 249.95</h3>
+                                                    <h3 class="f-w-300 d-flex align-items-center m-b-0"><i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>2942</h3>
                                                 </div>
 
                                                 <div class="col-3 text-right">
@@ -267,10 +280,10 @@
                                 <div class="col-md-6 col-xl-4">
                                     <div class="card Monthly-sales">
                                         <div class="card-block">
-                                            <h6 class="mb-4">Monthly Sales</h6>
+                                            <h6 class="mb-4">Daily Negetive Reviews</h6>
                                             <div class="row d-flex align-items-center">
                                                 <div class="col-9">
-                                                    <h3 class="f-w-300 d-flex align-items-center  m-b-0"><i class="feather icon-arrow-down text-c-red f-30 m-r-10"></i>$ 2.942.32</h3>
+                                                    <h3 class="f-w-300 d-flex align-items-center  m-b-0"><i class="feather icon-arrow-down text-c-red f-30 m-r-10"></i>942</h3>
                                                 </div>
                                                 <div class="col-3 text-right">
                                                     <p class="m-b-0">36%</p>
@@ -287,10 +300,10 @@
                                 <div class="col-md-12 col-xl-4">
                                     <div class="card yearly-sales">
                                         <div class="card-block">
-                                            <h6 class="mb-4">Yearly Sales</h6>
+                                            <h6 class="mb-4">Daily Positive Reviews</h6>
                                             <div class="row d-flex align-items-center">
                                                 <div class="col-9">
-                                                    <h3 class="f-w-300 d-flex align-items-center  m-b-0"><i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>$ 8.638.32</h3>
+                                                    <h3 class="f-w-300 d-flex align-items-center  m-b-0"><i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>834</h3>
                                                 </div>
                                                 <div class="col-3 text-right">
                                                     <p class="m-b-0">80%</p>
@@ -307,7 +320,7 @@
                                 <div class="col-xl-8 col-md-6">
                                     <div class="card Recent-Users">
                                         <div class="card-header">
-                                            <h5>Recent Users</h5>
+                                            <h5>Recent mentions of <span class="brandName"></span></h5>
                                         </div>
                                         <div class="card-block px-0 py-3">
                                             <div class="table-responsive">
@@ -322,7 +335,7 @@
                                                             <td>
                                                                 <h6 class="text-muted"><i class="fas fa-circle text-c-green f-10 m-r-15"></i>11 MAY 12:56</h6>
                                                             </td>
-                                                            <td><a href="#!" class="label theme-bg2 text-white f-12">Reject</a><a href="#!" class="label theme-bg text-white f-12">Approve</a></td>
+                                                            <td><a href="#!" class="label theme-bg text-white f-12">Reply</a></td>
                                                         </tr>
                                                         <tr class="unread">
                                                             <td><img class="rounded-circle" style="width:40px;" src="assets/images/user/avatar-2.jpg" alt="activity-user"></td>
@@ -333,7 +346,7 @@
                                                             <td>
                                                                 <h6 class="text-muted"><i class="fas fa-circle text-c-red f-10 m-r-15"></i>11 MAY 10:35</h6>
                                                             </td>
-                                                            <td><a href="#!" class="label theme-bg2 text-white f-12">Reject</a><a href="#!" class="label theme-bg text-white f-12">Approve</a></td>
+                                                            <td><a href="#!" class="label theme-bg text-white f-12">Reply</a></td>
                                                         </tr>
                                                         <tr class="unread">
                                                             <td><img class="rounded-circle" style="width:40px;" src="assets/images/user/avatar-3.jpg" alt="activity-user"></td>
@@ -344,7 +357,7 @@
                                                             <td>
                                                                 <h6 class="text-muted"><i class="fas fa-circle text-c-green f-10 m-r-15"></i>9 MAY 17:38</h6>
                                                             </td>
-                                                            <td><a href="#!" class="label theme-bg2 text-white f-12">Reject</a><a href="#!" class="label theme-bg text-white f-12">Approve</a></td>
+                                                            <td><a href="#!" class="label theme-bg text-white f-12">Reply</a></td>
                                                         </tr>
                                                         <tr class="unread">
                                                             <td><img class="rounded-circle" style="width:40px;" src="assets/images/user/avatar-1.jpg" alt="activity-user"></td>
@@ -355,7 +368,7 @@
                                                             <td>
                                                                 <h6 class="text-muted f-w-300"><i class="fas fa-circle text-c-red f-10 m-r-15"></i>19 MAY 12:56</h6>
                                                             </td>
-                                                            <td><a href="#!" class="label theme-bg2 text-white f-12">Reject</a><a href="#!" class="label theme-bg text-white f-12">Approve</a></td>
+                                                            <td><a href="#!" class="label theme-bg text-white f-12">Reply</a></td>
                                                         </tr>
                                                         <tr class="unread">
                                                             <td><img class="rounded-circle" style="width:40px;" src="assets/images/user/avatar-2.jpg" alt="activity-user"></td>
@@ -366,7 +379,7 @@
                                                             <td>
                                                                 <h6 class="text-muted"><i class="fas fa-circle text-c-green f-10 m-r-15"></i>21 July 12:56</h6>
                                                             </td>
-                                                            <td><a href="#!" class="label theme-bg2 text-white f-12">Reject</a><a href="#!" class="label theme-bg text-white f-12">Approve</a></td>
+                                                            <td><a href="#!" class="label theme-bg text-white f-12">Reply</a></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -382,14 +395,14 @@
                                         <div class="card-block">
                                             <div class="row align-items-center justify-content-center">
                                                 <div class="col">
-                                                    <h5 class="m-0">Upcoming Event</h5>
+                                                    <h5 class="m-0">Positive Streak</h5>
                                                 </div>
                                                 <div class="col-auto">
                                                     <label class="label theme-bg2 text-white f-14 f-w-400 float-right">34%</label>
                                                 </div>
                                             </div>
-                                            <h2 class="mt-3 f-w-300">45<sub class="text-muted f-14">Competitors</sub></h2>
-                                            <h6 class="text-muted mt-4 mb-0">You can participate in event </h6>
+                                            <h2 class="mt-3 f-w-300">45<sub class="text-muted f-14"> hours</sub></h2>
+                                            <h6 class="text-muted mt-4 mb-0">Your brand is in a very good shape</h6>
                                             <i class="fab fa-angellist text-c-purple f-50"></i>
                                         </div>
                                     </div>
@@ -400,8 +413,8 @@
                                                     <i class="feather icon-zap f-30 text-c-green"></i>
                                                 </div>
                                                 <div class="col">
-                                                    <h3 class="f-w-300">235</h3>
-                                                    <span class="d-block text-uppercase">TOTAL IDEAS</span>
+                                                    <h3 class="f-w-300">235752</h3>
+                                                    <span class="d-block text-uppercase">TOTAL MENTIONS</span>
                                                 </div>
                                             </div>
                                         </div>

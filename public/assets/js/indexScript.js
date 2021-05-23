@@ -2,7 +2,8 @@ var auth = firebase.auth()
 var accountImage = document.querySelector('.accountImage')
 var accountName = document.querySelector('.accountName')
 var mainContainer = document.querySelector('.pcoded-main-container')
-
+var Guser;
+var loader = document.querySelector('.spinnerloader')
 auth.onAuthStateChanged(user => {
     if(user){
         Guser=user
@@ -28,7 +29,11 @@ function onSignedIn(user){
     
     xhr.addEventListener("readystatechange", function() {
             if(this.readyState === 4) {
-                    console.log(JSON.parse(this.responseText));
+                    Guser = JSON.parse(this.responseText);
+                    document.querySelectorAll('.brandName').forEach((e)=>{
+                        e.innerText = Guser.brand
+                    })
+                    document.querySelector('.spinnerloader').style.display = 'none'
             }
     });
     
