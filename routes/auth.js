@@ -58,4 +58,20 @@ router.post('/fetch', (req, res) => {
     })
 })
 
+router.post('/update', (req, res) => {
+  data = JSON.parse(JSON.stringify(req.body))
+  Users.findOne({ userId: data.user}, function (err, docs) {
+    if (err){
+        console.log(err);
+    }
+    else{
+        docs.alerts = data.alerts
+        docs.reports = data.reports
+        docs.newsletters = data.newsletters
+        docs.save()
+        res.end("Done")
+    }
+})
+})
+
 module.exports = router;

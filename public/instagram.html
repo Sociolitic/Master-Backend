@@ -36,19 +36,9 @@
     <!-- animation css -->
     <link rel="stylesheet" href="assets/plugins/animation/css/animate.min.css">
     <!-- vendor css -->
+    <link rel="stylesheet" href="assets/css/style.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>    
 
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/tags.css">
-
-    <script src="assets/js/jquery.js"></script>
-    <script src="assets/js/tags.js"></script>
-
-    <style>
-        .auth-wrapper{
-            min-height: 50vh;
-        }
-    </style>
 </head>
 
 <body>
@@ -265,70 +255,24 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="card">
-                                        <div class="col-sm-12">
-                                            <h5 class="mt-4">Settings</h5>
-                                            <hr>
-                                            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                                                <li class="nav-item">
-                                                    <a class="nav-link active" id="homePill-tab" data-toggle="pill" href="#homePill" role="tab" aria-controls="homePill" aria-selected="true">Profile</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" id="brandPill-tab" data-toggle="pill" href="#brandPill" role="tab" aria-controls="brandPill" aria-selected="false">Brand</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" id="profilePill-tab" data-toggle="pill" href="#profilePill" role="tab" aria-controls="profilePill" aria-selected="false">Dashboard</a>
-                                                </li>
-                                            </ul>
-                                            <div class="tab-content" id="pills-tabContent">
-                                                <div class="tab-pane fade show active" id="homePill" role="tabpanel" aria-labelledby="homePill-tab">
-                                                    <div class="col-md-6">
-                                                        <form>
-                                                            <!-- <div class="form-group">
-                                                                <label>Text</label>
-                                                                <input type="text" class="form-control" placeholder="Text">
-                                                            </div> -->
-                                                            <div class="form-group form-check">
-                                                                <input type="checkbox" class="form-check-input alerts" id="exampleCheck1">
-                                                                <label class="form-check-label" for="exampleCheck1">Receive Alerts</label>
-                                                            </div>
-                                                            <div class="form-group form-check">
-                                                                <input type="checkbox" class="form-check-input reports" id="exampleCheck2">
-                                                                <label class="form-check-label" for="exampleCheck2">Receive Weekly Reports</label>
-                                                            </div>
-                                                            <div class="form-group form-check">
-                                                                <input type="checkbox" class="form-check-input newsletters" id="exampleCheck3">
-                                                                <label class="form-check-label" for="exampleCheck3">Receive our newsletters</label>
-                                                            </div>
-                                                            <button class="btn btn-success saveButton" type="button">Save</button>
-                                                        </form>
+                                        <div class="card-header">
+                                            <h5>Instagram Mentions</h5>
+                                        </div>
+                                        <div class="card-block">
+                                            <div class="col-xl-12 col-md-12">
+                                                <div class="card Recent-Users">
+                                                    <div class="card-header">
+                                                        <h5>Recent mentions of <span class="brandName"></span></h5>
                                                     </div>
-                                                </div>
-                                                <div class="tab-pane fade" id="brandPill" role="tabpanel" aria-labelledby="brandPill-tab">
-                                                    <div class="auth-wrapper">
-                                                        <div class="auth-content">
-                                                            <div class="card">
-                                                                <div class="card-body">
-                                                                    <div class="mb-4">
-                                                                    </div>
-                                                                    <h3 class="mb-4"><i class="feather icon-bar-chart-2"> &nbsp; Select Brand</i></h3>
-                                                                    <div class="input-group mb-3">
-                                                                        <input type="text" class="form-control brand" placeholder="Your Brand" autofocus>
-                                                                    </div>
-                                                
-                                                                    <div class="input-group mb-4 competitorsBlock">
-                                                                        <input type="text" id="competitors" class="form-control competitors" data-role="tagsinput" name="competitors" placeholder="Your competitors" required>
-                                                                    </div>
-                                                                    <div class="text-center">
-                                                                        <button class="btn btn-primary shadow-2 mb-4 continue">Continue</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                                    <div class="card-block px-0 py-3">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover">
+                                                                <tbody class="dataBody">
+                                                                    
+                                                                </tbody>
+                                                            </table>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="tab-pane fade" id="profilePill" role="tabpanel" aria-labelledby="profilePill-tab">
-                                                    <p class="mb-0">Consequat occaecat ullamco amet non eiusmod nostrud dolore irure incididunt est duis anim sunt officia. Fugiat velit proident aliquip nisi incididunt nostrud exercitation proident est nisi. Irure magna elit commodo anim ex veniam culpa eiusmod id nostrud sit cupidatat in veniam ad. Eiusmod consequat eu adipisicing minim anim aliquip cupidatat culpa excepteur quis. Occaecat sit eu exercitation irure Lorem incididunt nostrud.
-                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -342,7 +286,6 @@
             </div>
         </div>
     </div>
-
 <script src="assets/js/vendor-all.min.js"></script>
 	<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/pcoded.min.js"></script>
@@ -353,10 +296,6 @@
     var accountImage = document.querySelector('.accountImage')
     var accountName = document.querySelector('.accountName')
     var mainContainer = document.querySelector('.pcoded-main-container')
-    var saveButton = document.querySelector('.saveButton')
-    var alerts = document.querySelector('.alerts')
-    var reports = document.querySelector('.reports')
-    var newsletters = document.querySelector('.newsletters')
     auth.onAuthStateChanged(user => {
         if(user){
             Guser=user
@@ -383,28 +322,11 @@
         
         xhr.addEventListener("readystatechange", function() {
                 if(this.readyState === 4) {
-                        userDetails = JSON.parse(this.responseText);
-                        console.log(userDetails);
+                        Guser = JSON.parse(this.responseText);
                         document.querySelectorAll('.brandName').forEach((e)=>{
-                            e.innerText = userDetails.brand
+                            e.innerText = Guser.brand
                         })
-                        document.querySelector('.spinnerloader').style.display = 'none'
-
-                        var tags = document.querySelector('.competitors');
-                        var tagsBlock = document.querySelector('.competitorsBlock');
-                        var brand = document.querySelector('.brand')
-                        brand.value = userDetails.brand
-                        alerts.checked = userDetails.alerts
-                        reports.checked = userDetails.reports
-                        newsletters.checked = userDetails.newsletters
-                        // tagsBlock.innerHTML = `<input type="text" class="form-control competitors" data-role="tagsinput" name="competitors" value="${userDetails.competitors.join(', ')}" placeholder="Your competitors" required>`
-
-                        tags.value = userDetails.competitors.join(', ')
-                        // $('.competitors').tagsInput('add', 'some tag');
-                        // $('#competitors').tagsinput('add', 'some tag');
-                        console.log($('#competitors').val())
-
-
+                        fetchInsta(Guser.brand)
                 }
         });
         
@@ -418,30 +340,43 @@
         window.location.replace('/auth-signup.html')
     }
 
-    saveButton.addEventListener("click",()=>{
-        var data = JSON.stringify({
-            "user": Guser.uid,
-            "alerts": alerts.checked,
-            "reports": reports.checked,
-            "newsletters": newsletters.checked
-        });
-
+    function fetchInsta(query){
+        // var content  = `<tr class="unread"><td><img class="rounded-circle" style="width:40px;" src="assets/images/user/avatar-1.jpg" alt="activity-user"></td><td><h6 class="mb-1">Isabella Christensen</h6><p class="m-0">Lorem Ipsum is simply…</p></td><td><h6 class="text-muted"><i class="fas fa-circle text-c-green f-10 m-r-15"></i>11 MAY 12:56</h6></td><td><a href="#!" class="label theme-bg text-white f-12">Reply</a></td></tr>`
         var xhr = new XMLHttpRequest();
-
+        var tableContent = document.querySelector('.dataBody')
         xhr.addEventListener("readystatechange", function() {
                 if(this.readyState === 4) {
-                        saveButton.innerHTML = "Saved"
-                        setTimeout(()=>{
-                            saveButton.innerHTML = "Save"
-                        },5000)
+                        result = JSON.parse(this.responseText);
+                        document.querySelector('.spinnerloader').style.display = 'none'
+
+                        for(node of result){
+                            node=node.node
+                            let dataNode = {
+                                date: node.taken_at_timestamp,
+                                image: node.thumbnail_src,
+                                owner: node.owner.id,
+                                url: 'https://instagram.com/p/' + node.shortcode,
+                                displayUrl: node.display_url,
+                                caption : node.edge_media_to_caption.edges[0].node.text,
+                                likes : node.edge_liked_by
+                            }
+                                tableContent.innerHTML += `<tr class="unread"><td>
+                                <img class="rounded-circle" style="width:40px;" src="${dataNode.image}" alt="image"></td><td>
+                                    <h6 class="mb-1">${dataNode.owner}</h6>
+                                    <p class="m-0">${dataNode.caption.substr(0,50)}</p></td><td>
+                                    <h6 class="text-muted"><i class="fas fa-circle text-c-green f-10 m-r-15"></i>
+                                    ${new Date(dataNode.date)}
+                                    </h6></td><td>
+                                <a href="${dataNode.url}/?utm_source=ig_web_copy_link" class="label theme-bg text-white f-12">Reply</a></td></tr>`
+                        }
                 }
         });
-
-        xhr.open("POST", "http://localhost:8080/auth/update");
-        xhr.setRequestHeader("Content-Type", "application/json");
-
-        xhr.send(data);
-    })
+    
+        xhr.open("GET", "http://localhost:8080/data/instagram/"+query);
+    
+        xhr.send();
+    }
+    
     </script>
 
 </body>

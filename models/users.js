@@ -27,7 +27,19 @@ const userSchema = new Schema(
 		}],
 		stage: {
 			type: "Number"
-		}
+		},
+		alerts: {
+			type: "Boolean",
+			default: false
+		},
+		reports: {
+			type: "Boolean",
+			default: false
+		},
+		newsletters: {
+			type: "Boolean",
+			default: false
+		},
 	},
 	{
 		usePushEach: true,
