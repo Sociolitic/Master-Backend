@@ -8,7 +8,7 @@ router.get('/instagram/:query', (req, res) => {
     data = JSON.parse(JSON.stringify(req.body))
     var options = {
         'method': 'GET',
-        'url': 'http://sociolitic-env.eba-5muchqmr.ap-south-1.elasticbeanstalk.com:8000/search/'+req.params.query
+        'url': 'https://sociolitic.nbot.live:8000/search/'+req.params.query
     };
     request(options, function (error, response) {
         if (error) throw new Error(error);
@@ -16,6 +16,28 @@ router.get('/instagram/:query', (req, res) => {
     });
 
 })
+router.get('/instagram1/:query', (req, res) => {
+    data = JSON.parse(JSON.stringify(req.body))
+    var options = {
+        'method': 'GET',
+        'url': 'http://instagram:8000/search/'+req.params.query
+    };
+    request(options, function (error, response) {
+        if (error) throw new Error(error);
+        res.send(response.body);
+    });
 
+})
+router.get('/instagram2/:query', (req, res) => {
+    data = JSON.parse(JSON.stringify(req.body))
+    var options = {
+        'method': 'GET',
+        'url': 'http://instagram/search/'+req.params.query
+    };
+    request(options, function (error, response) {
+        if (error) throw new Error(error);
+        res.send(response.body);
+    });
 
+})
 module.exports = router;
