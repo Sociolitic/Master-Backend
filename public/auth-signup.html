@@ -161,7 +161,7 @@
             Guser=user
             signedIn=true
             console.log("Signed in");
-            // window.location.replace("http://localhost:8080")
+            // window.location.replace("http://sociolitic-env.eba-5muchqmr.ap-south-1.elasticbeanstalk.com")
         }else{
             signedIn=false
             console.log("Signed Out");
@@ -188,7 +188,7 @@
             redirect: 'follow'
         };
 
-        fetch("http://localhost:8080/auth/verify", requestOptions)
+        fetch("http://sociolitic-env.eba-5muchqmr.ap-south-1.elasticbeanstalk.com/auth/verify", requestOptions)
             .then(response => response.text())
             .then(result => postLogin(JSON.parse(result)))
             .catch(error => console.log('error', error));
@@ -197,9 +197,9 @@
         console.log(result.token);
         setCookie("SocioliticId",result.token,9999)
         if(result.stage == 1){
-            window.location.replace("http://localhost:8080/selectBrand.html")
+            window.location.replace("http://sociolitic-env.eba-5muchqmr.ap-south-1.elasticbeanstalk.com/selectBrand.html")
         }else{
-            window.location.replace("http://localhost:8080")
+            window.location.replace("http://sociolitic-env.eba-5muchqmr.ap-south-1.elasticbeanstalk.com")
         }
     }
     function deleteCookie(name) {

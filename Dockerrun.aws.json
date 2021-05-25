@@ -1,0 +1,40 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "volumes": [
+    {
+      "name": "master",
+      "host": {
+        "sourcePath": "/var/app/current/master"
+      }
+    },
+    {
+      "name": "instagram",
+      "host": {
+        "sourcePath": "/var/app/current/instagram"
+      }
+    }
+  ],
+  "containerDefinitions": [
+    {
+      "name": "instagram",
+      "image": "nithinsgowda/instagram-crawler",
+      "essential": true,
+      "memory": 256
+    },
+    {
+      "name": "master",
+      "image": "nithinsgowda/sociolitic",
+      "essential": true,
+      "memory": 512,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 8080
+        }
+      ],
+      "links": [
+        "instagram"
+      ]
+    }
+  ]
+}

@@ -37,7 +37,7 @@ function onSignedIn(user){
             }
     });
     
-    xhr.open("POST", "http://localhost:8080/auth/fetch");
+    xhr.open("POST", "http://sociolitic-env.eba-5muchqmr.ap-south-1.elasticbeanstalk.com/auth/fetch");
     xhr.setRequestHeader("Content-Type", "application/json");
     
     xhr.send(data);
