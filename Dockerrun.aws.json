@@ -19,7 +19,13 @@
       "name": "instagram",
       "image": "nithinsgowda/instagram-crawler",
       "essential": true,
-      "memory": 256
+      "memory": 256,
+      "portMappings": [
+        {
+          "hostPort": 8000,
+          "containerPort": 8080
+        }
+      ],
     },
     {
       "name": "master",
