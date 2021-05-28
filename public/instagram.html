@@ -353,7 +353,7 @@
                             node=node.node
                             let dataNode = {
                                 date: node.taken_at_timestamp,
-                                image: node.thumbnail_src,
+                                image: "http://localhost:8080/proxy?url=" + node.thumbnail_src,
                                 owner: node.owner.id,
                                 url: 'https://instagram.com/p/' + node.shortcode,
                                 displayUrl: node.display_url,

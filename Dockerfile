@@ -6,8 +6,6 @@ COPY package*.json ./
 
 EXPOSE 8080
 
-# RUN apt-get update
-
 RUN npm install
 
 COPY . .

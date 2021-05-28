@@ -37,6 +37,8 @@ let brandRouter = require('./routes/brand');
 app.use('/brand', brandRouter);
 let dataRouter = require('./routes/data');
 app.use('/data', dataRouter);
+let proxyRouter = require('./routes/proxy');
+app.use('/proxy', proxyRouter);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
