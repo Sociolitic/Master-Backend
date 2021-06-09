@@ -63,7 +63,28 @@ router.get('/instagram4/:query', (req, res) => {
         res.send(response.body);
     });
 })
-
+router.get('/instagram5/:query', (req, res) => {
+    data = JSON.parse(JSON.stringify(req.body))
+    var options = {
+        'method': 'GET',
+        'url': '10.0.0.2:8000/search/'+req.params.query
+    };
+    request(options, function (error, response) {
+        if (error) throw new Error(error);
+        res.send(response.body);
+    });
+})
+router.get('/instagram6/:query', (req, res) => {
+    data = JSON.parse(JSON.stringify(req.body))
+    var options = {
+        'method': 'GET',
+        'url': '10.0.0.2/search/'+req.params.query
+    };
+    request(options, function (error, response) {
+        if (error) throw new Error(error);
+        res.send(response.body);
+    });
+})
 router.get('/cc/:query', (req, res) => {
     data = JSON.parse(JSON.stringify(req.body))
     var options = {

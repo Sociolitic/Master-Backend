@@ -9,7 +9,8 @@
         "portMappings": [
             {
               "hostPort": 8000,
-              "containerPort": 8000
+              "containerPort": 8000,
+              "bindIP": "10.0.0.2"
             }
         ]
       },
