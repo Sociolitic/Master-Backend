@@ -8,7 +8,7 @@ router.get('/instagram/:query', (req, res) => {
     data = JSON.parse(JSON.stringify(req.body))
     var options = {
         'method': 'GET',
-        'url': 'https://sociolitic.nbot.live:8000/search/'+req.params.query
+        'url': 'http://localhost:8080:8000/search/'+req.params.query
     };
     request(options, function (error, response) {
         if (error) throw new Error(error);
@@ -39,6 +39,8 @@ router.get('/instagram2/:query', (req, res) => {
         res.send(response.body);
     });
 })
+
+
 router.get('/instagram3/:query', (req, res) => {
     data = JSON.parse(JSON.stringify(req.body))
     var options = {
@@ -55,6 +57,18 @@ router.get('/instagram4/:query', (req, res) => {
     var options = {
         'method': 'GET',
         'url': 'instagram:8000/search/'+req.params.query
+    };
+    request(options, function (error, response) {
+        if (error) throw new Error(error);
+        res.send(response.body);
+    });
+})
+
+router.get('/cc/:query', (req, res) => {
+    data = JSON.parse(JSON.stringify(req.body))
+    var options = {
+        'method': 'GET',
+        'url': req.params.query + '/search/cat'
     };
     request(options, function (error, response) {
         if (error) throw new Error(error);
