@@ -8,7 +8,7 @@ router.get('/instagram/:query', (req, res) => {
     data = JSON.parse(JSON.stringify(req.body))
     var options = {
         'method': 'GET',
-        'url': 'http://localhost:8080:8000/search/'+req.params.query
+        'url': 'http://localhost:8080/search/'+req.params.query
     };
     request(options, function (error, response) {
         if (error) throw new Error(error);
@@ -67,7 +67,7 @@ router.get('/instagram5/:query', (req, res) => {
     data = JSON.parse(JSON.stringify(req.body))
     var options = {
         'method': 'GET',
-        'url': '10.0.0.2:8000/search/'+req.params.query
+        'url': 'http://10.0.0.2:8000/search/'+req.params.query
     };
     request(options, function (error, response) {
         if (error) throw new Error(error);
@@ -78,7 +78,7 @@ router.get('/instagram6/:query', (req, res) => {
     data = JSON.parse(JSON.stringify(req.body))
     var options = {
         'method': 'GET',
-        'url': '10.0.0.2/search/'+req.params.query
+        'url': 'http://10.0.0.2/search/'+req.params.query
     };
     request(options, function (error, response) {
         if (error) throw new Error(error);
@@ -89,7 +89,7 @@ router.get('/cc/:query', (req, res) => {
     data = JSON.parse(JSON.stringify(req.body))
     var options = {
         'method': 'GET',
-        'url': req.params.query + '/search/cat'
+        'url': 'http://'+req.params.query + '/search/cat'
     };
     request(options, function (error, response) {
         if (error) throw new Error(error);
