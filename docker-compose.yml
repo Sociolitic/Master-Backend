@@ -8,4 +8,9 @@ services:
         links:
             - "instagram:instagram"
     instagram:
-        image: instagram-docker
+        image: instagram-crawler
+        ports: 
+            - 8000:8000
+        environment:
+            - username=sociolitic
+            - password=pesusmmpanel

@@ -12,6 +12,9 @@
               "containerPort": 8000,
               "bindIP": "10.0.0.2"
             }
+        ],
+        "links": [
+          "master"
         ]
       },
       {
