@@ -8,20 +8,19 @@ router.get('/instagram/:query', (req, res) => {
     data = JSON.parse(JSON.stringify(req.body))
     var options = {
         'method': 'GET',
-        'url': 'http://localhost:8000/search/'+req.params.query
+        'url': 'http://instagram:8000/search/'+req.params.query
     };
     request(options, function (error, response) {
         if (error) throw new Error(error);
         res.send(response.body);
     });
-
 })
 
 router.get('/instagram1/:query', (req, res) => {
     data = JSON.parse(JSON.stringify(req.body))
     var options = {
         'method': 'GET',
-        'url': 'http://instagram:8000/search/'+req.params.query
+        'url': 'http://instagram:8000'
     };
     request(options, function (error, response) {
         if (error) throw new Error(error);
