@@ -31,7 +31,7 @@ router.post('/confirm',bodyParser.raw({ type: 'application/json' }), (request, r
     response.end('Done')
 })
 
-app.post('/stripe/create-checkout-session', async (req, res) => {
+router.post('/stripe/create-checkout-session', async (req, res) => {
   data = JSON.parse(JSON.stringify(req.body))
 
   const session = await stripe.checkout.sessions.create({
