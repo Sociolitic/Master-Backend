@@ -31,6 +31,34 @@ router.post('/confirm',bodyParser.raw({ type: 'application/json' }), (request, r
     response.end('Done')
 })
 
+app.post('/stripe/create-checkout-session', async (req, res) => {
+  data = JSON.parse(JSON.stringify(req.body))
+
+  const session = await stripe.checkout.sessions.create({
+    customer_email: data.email,
+    submit_type: 'pay',
+    payment_method_types: ['card'],
+    line_items: [
+      {
+        price_data: {
+          currency: 'inr',
+          product_data: {
+            name: 'Sociolitic subscription',
+            images: [data.photo],
+          },
+          unit_amount: 500,
+        },
+        quantity: 1,
+      },
+    ],
+    mode: 'payment',
+    success_url: `https://nbot.live/pages/success.html`,
+    cancel_url: `https://nbot.live/pages/failed.html`,
+  });
+
+  res.json({ id: session.id });
+});
+
 // mailer.alertAdmin("Hi")
 
 router.use(express.urlencoded({ extended: true })); 

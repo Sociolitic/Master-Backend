@@ -37,7 +37,7 @@ let brandRouter = require('./routes/brand');
 app.use('/brand', brandRouter);
 let dataRouter = require('./routes/data');
 app.use('/data', dataRouter);
-let proxyRouter = require('./routes/proxy');
+let proxyRouter = require('pass-cors');
 app.use('/proxy', proxyRouter);
 
 app.use(express.static(path.join(__dirname, 'public')));

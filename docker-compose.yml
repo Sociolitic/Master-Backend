@@ -9,8 +9,3 @@ services:
             - "instagram:instagram"
     instagram:
         image: instagram-crawler
-        ports: 
-            - 8000:8000
-        environment:
-            - username=sociolitic
-            - password=pesusmmpanel
