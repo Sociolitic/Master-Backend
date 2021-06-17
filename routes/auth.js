@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var admin = require("firebase-admin");
 const Users = require('../models/users');
+let alerts = require('./mail');
 
 var serviceAccount = require(__dirname + "/key.json");
 
@@ -29,6 +30,7 @@ router.post('/verify', (req, res) => {
                   if (err)
                       console.log(err);
                   console.log(dbResult)
+                  alerts.informAdmin(`${data.user.name} just signed up for Sociolitic.`,true)
                   res.json({token: uid, stage: dbResult.stage});
               });
               }else{

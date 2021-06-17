@@ -12,8 +12,8 @@ var cors = require('cors')
 app.use(cors())
 var request = require('request');
 const path = require('path')
-let mailRouter = require('./routes/mail');
-app.use('/mail', mailRouter);
+let alerts = require('./routes/mail');
+app.use('/mail', alerts);
 
 let paymentsRouter = require('./routes/payments');
 app.use('/pay', paymentsRouter);
@@ -42,4 +42,7 @@ app.use('/proxy', proxyRouter);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.listen(process.env.PORT||port, () => console.log(`Example app listening on 8080`))
+app.listen(process.env.PORT||port, () => {
+    console.log(`Example app listening on 8080`)
+    alerts.informAdmin("Sociolitic Server up")
+})
