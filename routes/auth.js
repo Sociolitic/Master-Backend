@@ -35,6 +35,8 @@ router.post('/verify', (req, res) => {
                 console.log(docs.stage);
                 if(docs.stage == 1){
                   res.json({token: uid, stage: docs.stage});
+                }else{
+                  res.json({token: uid, stage: docs.stage});
                 }
                 console.log("User Already Exists");
               }
