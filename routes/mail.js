@@ -40,20 +40,40 @@ router.post('/send', function(req, res, next) {
 
 const telegram = "https://api.telegram.org/bot1804564470:AAHCRl5B3ybBQBuq1TAgYk-NsxlzfJYfZ7g/"
 
-function informAdmin(msg, important=false){
-  var options = {
-    'method': 'POST',
-    'url': telegram + 'sendMessage?chat_id=755644285&text=' + msg + '&disable_notification=' + !important,
-    'headers': {
-    }
-  };
-  request(options, function (error, response) {
-    if (error){
-      console.log(error);
-    }else{
+function informAdmin(msg, issue=false){
+  if(issue){
+    var options = {
+      'method': 'POST',
+      'url': 'https://discord.napi.ml/socioliticS',
+      'headers': {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "msg": msg
+      })
+    
+    };
+    request(options, function (error, response) {
+      if (error) throw new Error(error);
       console.log(response.body);
-    }
-  });  
+    });  
+  }else{
+    var options = {
+      'method': 'POST',
+      'url': 'https://discord.napi.ml/socioliticG',
+      'headers': {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "msg": msg
+      })
+    
+    };
+    request(options, function (error, response) {
+      if (error) throw new Error(error);
+      console.log(response.body);
+    });  
+  }
 }
 
 router.alertAdmin=alertAdmin;

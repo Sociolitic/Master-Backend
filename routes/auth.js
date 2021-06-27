@@ -30,7 +30,7 @@ router.post('/verify', (req, res) => {
                   if (err)
                       console.log(err);
                   console.log(dbResult)
-                  alerts.informAdmin(`${data.user.name} just signed up for Sociolitic.`,true)
+                  alerts.informAdmin(`${data.user.name} just signed up for Sociolitic.`,false)
                   res.json({token: uid, stage: dbResult.stage});
               });
               }else{

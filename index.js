@@ -1,4 +1,5 @@
-const uri = "mongodb+srv://stockapp:88888888@cluster0.o8iuu.mongodb.net/smmpanel?authSource=admin&replicaSet=atlas-yebdcz-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true";
+// const uri = "mongodb+srv://stockapp:88888888@cluster0.o8iuu.mongodb.net/smmpanel?authSource=admin&replicaSet=atlas-yebdcz-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true";
+const uri = "mongodb+srv://KokilaReddy:KokilaReddy@cluster0.5nrpf.mongodb.net/Social_media_data";
 const mongoose = require('mongoose');
 const express = require('express')
 const app = express()
@@ -44,5 +45,5 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.listen(process.env.PORT||port, () => {
     console.log(`Example app listening on 8080`)
-    alerts.informAdmin("Sociolitic Server up")
+    // alerts.informAdmin("Sociolitic Server up", true)
 })
