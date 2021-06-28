@@ -4,6 +4,7 @@ var request = require('request');
 
 // const Users = require('../models/users');
 const youtube = require('../models/youtube');
+const reddit = require('../models/redditData');
 
 router.get('/instagram/:query', (req, res) => {
     data = JSON.parse(JSON.stringify(req.body))
@@ -49,15 +50,51 @@ router.get('/youtube',(req,res)=>{
             })
         }
     }, 1000);
-    // youtube.find({tag: q}, function (err, docs){
-    //     if(err){
-    //         throw new Error(err)
-    //     }else{
-    //         console.log(docs);
-    //         res.send(docs)
-    //     }
-    // })
 })
 
+router.get('/reddit', (req, res) => {
+    q=req.query.q
+    d2=new Date()
+    var options = {
+        'method': 'GET',
+        'url': 'http://localhost:5000/reddit/search/?q=' + q + '&sort=hot&limit=7'  //Change to docker name
+    };
+    var stop=false
+    request(options, function (error, response) {
+        if (error){
+            throw new Error(error)
+        }else{
+            console.log("DONE");
+            stop=true
+        }
+    });
+    reddit.find({tag: q, updatedAt : { $lte : d2}}, function (err, docs){
+        if(err){
+            throw new Error(err)
+        }else{
+            res.write(JSON.stringify(docs))
+        }
+    })
+    d=new Date()
+    var interval = setInterval(() => {
+        if(stop){
+            clearInterval(interval)
+            res.end()
+        }else{
+            reddit.find({tag: q, updatedAt : { $gt : d}}, function (err, docs){
+                d=new Date()
+                if(err){
+                    throw new Error(err)
+                }else{
+                    console.log(docs[0]);
+                    if(docs[0]){
+                        res.write(JSON.stringify(docs))
+                    }
+                }
+            })
+        }
+    }, 1000);
+    console.log(d,d2);
+})
 
 module.exports = router;
