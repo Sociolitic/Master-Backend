@@ -31,7 +31,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(upload.array()); 
 app.use(express.json()); 
 app.use(cors())
-
 let authRouter = require('./routes/auth');
 app.use('/auth', authRouter);
 let brandRouter = require('./routes/brand');

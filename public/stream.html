@@ -18,17 +18,18 @@
     c=0
 
     xhr.addEventListener("readystatechange", function() {
-        if(this.readyState === 3) {
-            var newData = xhr.response.substr(xhr.seenBytes);
-            // console.log("newData: <<" +newData+ ">>");
+        console.log(this.readyState);
 
+        if(this.readyState === 3) {
+
+            var newData = xhr.response.substr(xhr.seenBytes);
             if(c==0){
-                data=JSON.parse(this.responseText)
+                data=JSON.parse(newData)
+                console.log(data);
                 for(element of data){
                     res.innerHTML +=  `<p><b>${element.title}</b></p>`  
                 }
             }else{
-                // console.log(this.response);
                 data=JSON.parse(newData)
                 console.log(data);
                 for(element of data){
@@ -41,15 +42,11 @@
             console.log(c);
         }
         if(this.readyState === 4) {
-            // data=JSON.parse(this.responseText)
             res.innerHTML+=`DONE <br>`
-            // for(element of data){
-            //     res.innerHTML +=  `<p><b>${element.title}</b></p>`  
-            // }
         }
     });
 
-    xhr.open("GET", "http://localhost:8080/data/reddit?q=home");
+    xhr.open("GET", "http://localhost:8080/data/reddit?q=ant");
 
     xhr.send();
 

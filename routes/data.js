@@ -57,7 +57,7 @@ router.get('/reddit', (req, res) => {
     d2=new Date()
     var options = {
         'method': 'GET',
-        'url': 'http://localhost:5000/reddit/search/?q=' + q + '&sort=hot&limit=7'  //Change to docker name
+        'url': 'http://localhost:5000/reddit/search/?q=' + q + '&sort=hot&limit=12'  //Change to docker name
     };
     var stop=false
     request(options, function (error, response) {
@@ -68,33 +68,44 @@ router.get('/reddit', (req, res) => {
             stop=true
         }
     });
+    res.writeHead(200, {
+        'Transfer-Encoding': 'chunked',
+        'X-Content-Type-Options': 'nosniff'});
     reddit.find({tag: q, updatedAt : { $lte : d2}}, function (err, docs){
         if(err){
             throw new Error(err)
         }else{
-            res.write(JSON.stringify(docs))
+            if(docs[0]){
+                res.write(JSON.stringify(docs))
+            }
         }
     })
-    d=new Date()
+    var done=true
     var interval = setInterval(() => {
         if(stop){
             clearInterval(interval)
             res.end()
         }else{
-            reddit.find({tag: q, updatedAt : { $gt : d}}, function (err, docs){
-                d=new Date()
-                if(err){
-                    throw new Error(err)
-                }else{
-                    console.log(docs[0]);
-                    if(docs[0]){
-                        res.write(JSON.stringify(docs))
+            if(done){
+                reddit.find({tag: q, updatedAt : { $gt : d2}}, function (err, docs){
+                    done=false
+                    if(err){
+                        throw new Error(err)
+                    }else{
+                        done=true
+                        if(docs[0]){
+                            res.write(JSON.stringify(docs))
+                            d2=docs[docs.length-1].updatedAt
+                            console.log(d2);
+                            for(e of docs){
+                                console.log(e.title);
+                            }
+                        }
                     }
-                }
-            })
+                })
+            }
         }
     }, 1000);
-    console.log(d,d2);
 })
 
 module.exports = router;
