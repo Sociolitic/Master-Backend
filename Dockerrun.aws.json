@@ -20,10 +20,28 @@
         ]
       },
       {
-        "name": "master",
+        "name": "data",
+        "image": "sociolitic/data-crawlers",
+        "essential": true,
+        "memory": 256,
+        "portMappings": [
+            {
+              "hostPort": 5000,
+              "containerPort": 5000
+            }
+        ],
+        "environment": [
+          {
+            "name": "Container",
+            "value": "data"
+          }
+        ]
+      },
+      {
+        "name": "data",
         "image": "nithinsgowda/sociolitic",
         "essential": true,
-        "memory": 512,
+        "memory": 256,
         "portMappings": [
           {
             "hostPort": 80,
@@ -31,7 +49,8 @@
           }
         ],
         "links": [
-          "instagram"
+          "instagram",
+          "data"
         ]
       }
     ]
