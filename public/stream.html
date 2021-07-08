@@ -28,18 +28,9 @@
         if(this.readyState === 3) {
 
             newData = this.response.substr(this.seenBytes);
-            if(c==0){
-                data=JSON.parse(newData)
-                console.log(data);
-                for(element of data){
-                    res.innerHTML +=  `<p><b>${element.title}</b></p>`  
-                }
-            }else{
-                console.log(newData);
-                data=JSON.parse(newData)
-                for(element of data){
-                    res.innerHTML +=  `<p>${element.title}</p>`  
-                }
+            data=JSON.parse(newData)
+            for(element of data){
+                    res.innerHTML +=  `<p><b>${element.text}</b></p>`  
             }
             this.seenBytes = this.responseText.length;
 
@@ -47,6 +38,11 @@
             console.log(c);
         }
         if(this.readyState === 4) {
+            // data=JSON.parse(this.responseText)
+
+            // for(element of data){
+            //         res.innerHTML +=  `<p><b>${element.text}</b></p>`  
+            // }
             res.innerHTML+=`DONE <br>`
         }
     });
@@ -56,14 +52,14 @@
     load.addEventListener("click",()=>{
         c=0
         xhr.seenBytes=0
-        xhr.open("GET", "http://localhost:8080/data/reddit?q=elon");
+        xhr.open("GET", "http://localhost:8080/data/twitter?q=covid");
         xhr.send();
     })
 
     more.addEventListener("click",()=>{
         c=0
         xhr.seenBytes=0
-        xhr.open("GET", "http://localhost:8080/data/reddit?q=elon&more=1");
+        xhr.open("GET", "http://localhost:8080/data/twitter?q=covid&more=1");
         xhr.send();
     })
 

@@ -38,7 +38,7 @@
         ]
       },
       {
-        "name": "data",
+        "name": "master",
         "image": "nithinsgowda/sociolitic",
         "essential": true,
         "memory": 256,
