@@ -34,7 +34,7 @@ router.get('/reddit', (req, res) => {
                 console.log("MOREE",limit);
                 options = {
                     'method': 'GET',
-                    'url': `http://data:5000/reddit/search/?q=${q}&sort=hot&limit=${limit+5}`  //Change to docker name
+                    'url': `http://35.153.143.39:5000/reddit/search/?q=${q}&sort=hot&limit=${limit+5}`  //Change to docker name
                 };
                 request(options, function (error, response) {
                     if (error){
@@ -73,7 +73,7 @@ router.get('/reddit', (req, res) => {
                 console.log("PREVV");
                 options = {
                     'method': 'GET',
-                    'url': `http://data:5000/reddit/search/?q=${q}&sort=hot&limit=${limit}`  //Change to docker name
+                    'url': `http://35.153.143.39:5000/reddit/search/?q=${q}&sort=hot&limit=${limit}`  //Change to docker name
                 };
                 request(options, function (error, response) {
                     if (error){
@@ -147,7 +147,7 @@ router.get('/youtube', (req, res) => {
                 console.log("MOREE",limit);
                 options = {
                     'method': 'GET',
-                    'url': `http://localhost:5000/youtube/search/?q=${q}&limit=${limit+5}`  //Change to docker name
+                    'url': `http://35.153.143.39:5000/youtube/search/?q=${q}&limit=${limit+5}`  //Change to docker name
                 };
                 request(options, function (error, response) {
                     if (error){
@@ -186,7 +186,7 @@ router.get('/youtube', (req, res) => {
                 console.log("PREVV");
                 options = {
                     'method': 'GET',
-                    'url': `http://localhost:5000/youtube/search/?q=${q}&limit=${limit}`  //Change to docker name
+                    'url': `http://35.153.143.39:5000/youtube/search/?q=${q}&limit=${limit}`  //Change to docker name
                 };
                 request(options, function (error, response) {
                     if (error){
@@ -344,7 +344,7 @@ router.get('/instagram', (req, res) => {
                 console.log("MOREE",limit);
                 options = {
                     'method': 'GET',
-                    'url': `http://localhost:5000/youtube/search/?q=${q}&limit=${limit+5}`  //Change to docker name
+                    'url': `http://35.153.143.39:5000/youtube/search/?q=${q}&limit=${limit+5}`  //Change to docker name
                 };
                 request(options, function (error, response) {
                     if (error){
@@ -383,7 +383,7 @@ router.get('/instagram', (req, res) => {
                 console.log("PREVV");
                 options = {
                     'method': 'GET',
-                    'url': `http://localhost:5000/youtube/search/?q=${q}&limit=${limit}`  //Change to docker name
+                    'url': `http://35.153.143.39:5000/youtube/search/?q=${q}&limit=${limit}`  //Change to docker name
                 };
                 request(options, function (error, response) {
                     if (error){
@@ -458,7 +458,7 @@ router.get('/tumblr', (req, res) => {
                 console.log("MOREE",limit);
                 options = {
                     'method': 'GET',
-                    'url': `http://localhost:5000/youtube/search/?q=${q}&limit=${limit+5}`  //Change to docker name
+                    'url': `http://35.153.143.39:5000/youtube/search/?q=${q}&limit=${limit+5}`  //Change to docker name
                 };
                 request(options, function (error, response) {
                     if (error){
@@ -497,7 +497,7 @@ router.get('/tumblr', (req, res) => {
                 console.log("PREVV");
                 options = {
                     'method': 'GET',
-                    'url': `http://localhost:5000/youtube/search/?q=${q}&limit=${limit}`  //Change to docker name
+                    'url': `http://35.153.143.39:5000/youtube/search/?q=${q}&limit=${limit}`  //Change to docker name
                 };
                 request(options, function (error, response) {
                     if (error){
