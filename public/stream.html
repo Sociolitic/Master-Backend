@@ -52,14 +52,14 @@
     load.addEventListener("click",()=>{
         c=0
         xhr.seenBytes=0
-        xhr.open("GET", "http://localhost:8080/data/twitter?q=covid");
+        xhr.open("GET", "https://sociolitic.nbot.live/data/twitter?q=covid");
         xhr.send();
     })
 
     more.addEventListener("click",()=>{
         c=0
         xhr.seenBytes=0
-        xhr.open("GET", "http://localhost:8080/data/twitter?q=covid&more=1");
+        xhr.open("GET", "https://sociolitic.nbot.live/data/twitter?q=covid&more=1");
         xhr.send();
     })
 

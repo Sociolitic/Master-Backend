@@ -2,28 +2,10 @@
     "AWSEBDockerrunVersion": 2,
     "containerDefinitions": [
       {
-        "name": "instagram",
-        "image": "nithinsgowda/instagram-crawler",
-        "essential": true,
-        "memory": 256,
-        "portMappings": [
-            {
-              "hostPort": 8000,
-              "containerPort": 8000
-            }
-        ],
-        "environment": [
-          {
-            "name": "Container",
-            "value": "instagram"
-          }
-        ]
-      },
-      {
         "name": "data",
         "image": "sociolitic/data-crawlers",
         "essential": true,
-        "memory": 256,
+        "memory": 700,
         "portMappings": [
             {
               "hostPort": 5000,
@@ -49,7 +31,6 @@
           }
         ],
         "links": [
-          "instagram",
           "data"
         ]
       }

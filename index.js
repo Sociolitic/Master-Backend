@@ -13,6 +13,12 @@ var cors = require('cors')
 app.use(cors())
 var request = require('request');
 const path = require('path')
+const io = require('socket.io')(7000);
+
+io.on('connection', (socket)=>{
+    console.log('a user connected', socket.id);
+});
+
 let alerts = require('./routes/mail');
 app.use('/mail', alerts);
 
@@ -44,5 +50,5 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.listen(process.env.PORT||port, () => {
     console.log(`Example app listening on 8080`)
-    // alerts.informAdmin("Sociolitic Server up", true)
+    alerts.informAdmin("Sociolitic Server up", true)
 })
