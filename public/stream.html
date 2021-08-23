@@ -13,55 +13,29 @@
     <button class="load" type="button">Load</button>
     <button class="more" type="button">Load More</button>
 </body>
+<script src="https://cdn.socket.io/3.1.3/socket.io.min.js" integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh" crossorigin="anonymous"></script>
+
 <script>
-    var var1,var2
-    var xhr = new XMLHttpRequest();
-    res = document.querySelector('.res')
-    load = document.querySelector('.load')
-    more = document.querySelector('.more')
-    c=0
-    var newData
-
-    xhr.addEventListener("readystatechange", function() {
-        console.log(this.readyState);
-
-        if(this.readyState === 3) {
-
-            newData = this.response.substr(this.seenBytes);
-            data=JSON.parse(newData)
-            for(element of data){
-                    res.innerHTML +=  `<p><b>${element.text}</b></p>`  
+    const socket = io('http://localhost:7000');
+    socket.on('connect',()=>{
+        console.log('connected');
+        socket.on('twitterFeed',(data)=>{
+            for(d of data){
+                document.querySelector('.res').innerHTML+=d.text + '<br><hr>'
             }
-            this.seenBytes = this.responseText.length;
-
-            c+=1
-            console.log(c);
-        }
-        if(this.readyState === 4) {
-            // data=JSON.parse(this.responseText)
-
-            // for(element of data){
-            //         res.innerHTML +=  `<p><b>${element.text}</b></p>`  
-            // }
-            res.innerHTML+=`DONE <br>`
-        }
-    });
-
-
-
-    load.addEventListener("click",()=>{
-        c=0
-        xhr.seenBytes=0
-        xhr.open("GET", "https://sociolitic.nbot.live/data/twitter?q=covid");
-        xhr.send();
+            console.log(data);
+        })
+        socket.on('twitterFeedEnd',(data)=>{
+            // socket.emit('twitterMore',"Tesla")
+            console.log(data);
+        })
+        
     })
 
-    more.addEventListener("click",()=>{
-        c=0
-        xhr.seenBytes=0
-        xhr.open("GET", "https://sociolitic.nbot.live/data/twitter?q=covid&more=1");
-        xhr.send();
+    document.querySelector('.load').addEventListener('click',()=>{
+        socket.emit('twitter',"Tesla")
     })
 
+    
 </script>
 </html>
