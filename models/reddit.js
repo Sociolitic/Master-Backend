@@ -2,50 +2,57 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const customSchema = new Schema(
-	{
+  {
     "_id": {
       "$oid": {
         "type": "ObjectId"
       }
     },
-    "title": {
+    "source": {
       "type": "String"
     },
-    "score": {
-      "type": "Number"
+    "text": {
+      "type": "String"
     },
     "id": {
       "type": "String"
-    },
-    "url": {
-      "type": "String"
-    },
-    "comments_num": {
-      "type": "Number"
-    },
-    "Body": {
-      "type": "String"
-    },
-    "created_time": {
-      "type": "Date"
-    },
-    "comments": {
-      "comment": {
-        "type": [
-          "String"
-        ]
-      },
-      "sentiment": {
-        "type": [
-          "String"
-        ]
-      }
     },
     "tag": {
       "type": "String"
     },
     "sentiment": {
       "type": "String"
+    },
+    "created_time": {
+      "$date": {
+        "type": "Date"
+      }
+    },
+    "misc": {
+      "score": {
+        "type": "Number"
+      },
+      "comments": {
+        "comment": {
+          "type": [
+            "String"
+          ]
+        },
+        "sentiment": {
+          "type": [
+            "String"
+          ]
+        }
+      },
+      "url": {
+        "type": "String"
+      },
+      "comments_num": {
+        "type": "Number"
+      },
+      "body": {
+        "type": "String"
+      }
     },
     "createdAt": {
       "$date": {

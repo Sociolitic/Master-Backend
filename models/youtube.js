@@ -8,79 +8,6 @@ const youTubeSchema = new Schema(
         "type": "ObjectId"
       }
     },
-    "tags": {
-      "type": [
-        "String"
-      ]
-    },
-    "channelId": {
-      "type": "String"
-    },
-    "channelTitle": {
-      "type": "String"
-    },
-    "publishedTime": {
-      "type": "Date"
-    },
-    "categoryId": {
-      "type": "Number"
-    },
-    "category": {
-      "type": "String"
-    },
-    "title": {
-      "type": "String"
-    },
-    "videoId": {
-      "type": "String"
-    },
-    "viewCount": {
-      "type": "Number"
-    },
-    "likeCount": {
-      "type": "Number"
-    },
-    "dislikeCount": {
-      "type": "Number"
-    },
-    "commentCount": {
-      "type": "Number"
-    },
-    "favoriteCount": {
-      "type": "Number"
-    },
-    "comments": {
-      "Comment": {
-        "type": [
-          "String"
-        ]
-      },
-      "Author_name": {
-        "type": [
-          "String"
-        ]
-      },
-      "Date": {
-        "type": [
-          "String"
-        ]
-      },
-      "Author_channel_id": {
-        "type": [
-          "String"
-        ]
-      },
-      "Likes": {
-        "type": [
-          "Number"
-        ]
-      },
-      "totalReplyCount": {
-        "type": [
-          "Number"
-        ]
-      }
-    },
     "tag": {
       "type": "String"
     },
@@ -95,6 +22,91 @@ const youTubeSchema = new Schema(
     "updatedAt": {
       "$date": {
         "type": "Date"
+      }
+    },
+    "source": {
+      "type": "String"
+    },
+    "text": {
+      "type": "String"
+    },
+    "id": {
+      "type": "String"
+    },
+    "created_time": {
+      "$date": {
+        "type": "Date"
+      }
+    },
+    "misc": {
+      "tags": {
+        "type": [
+          "String"
+        ]
+      },
+      "channelId": {
+        "type": "String"
+      },
+      "channelTitle": {
+        "type": "String"
+      },
+      "categoryId": {
+        "type": "Number"
+      },
+      "category": {
+        "type": "String"
+      },
+      "viewCount": {
+        "type": "Number"
+      },
+      "likeCount": {
+        "type": "Number"
+      },
+      "dislikeCount": {
+        "type": "Number"
+      },
+      "commentCount": {
+        "type": "Number"
+      },
+      "favoriteCount": {
+        "type": "Number"
+      },
+      "comments": {
+        "Comment": {
+          "type": [
+            "String"
+          ]
+        },
+        "Author_name": {
+          "type": [
+            "String"
+          ]
+        },
+        "Date": {
+          "type": [
+            "String"
+          ]
+        },
+        "Author_channel_id": {
+          "type": [
+            "String"
+          ]
+        },
+        "Likes": {
+          "type": [
+            "Number"
+          ]
+        },
+        "totalReplyCount": {
+          "type": [
+            "Number"
+          ]
+        },
+        "Sentiment": {
+          "type": [
+            "String"
+          ]
+        }
       }
     }
   },

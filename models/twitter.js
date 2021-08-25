@@ -8,34 +8,58 @@ const customSchema = new Schema(
         "type": "ObjectId"
       }
     },
+    "source": {
+      "type": "String"
+    },
     "text": {
       "type": "String"
     },
-    "tweet_id": {
+    "id": {
       "type": "String"
-    },
-    "user_id": {
-      "type": "String"
-    },
-    "geo": {
-      "type": "Mixed"
-    },
-    "lang": {
-      "type": "String"
-    },
-    "retweet_count": {
-      "type": "Number"
-    },
-    "created_time": {
-      "$date": {
-        "type": "Date"
-      }
     },
     "tag": {
       "type": "String"
     },
     "sentiment": {
       "type": "String"
+    },
+    "created_time": {
+      "$date": {
+        "type": "Date"
+      }
+    },
+    "misc": {
+      "user_name": {
+        "type": "String"
+      },
+      "user_id": {
+        "type": "String"
+      },
+      "retweet_count": {
+        "type": "Number"
+      },
+      "geo": {
+        "type": "Mixed"
+      },
+      "lang": {
+        "type": "String"
+      },
+      "entities": {
+        "hashtags": {
+          "type": "Array"
+        },
+        "symbols": {
+          "type": "Array"
+        },
+        "user_mentions": {
+          "type": "Array"
+        },
+        "urls": {
+          "type": [
+            "Mixed"
+          ]
+        }
+      }
     },
     "createdAt": {
       "$date": {

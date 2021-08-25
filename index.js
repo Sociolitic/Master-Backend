@@ -11,6 +11,7 @@ app.use(upload.array());
 app.use(express.json()); 
 var cors = require('cors')
 app.use(cors())
+app.use(require('express-status-monitor')());
 var request = require('request');
 const path = require('path')
 
