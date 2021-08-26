@@ -18,12 +18,9 @@ const userSchema = new Schema(
 		plan: {
 			type: "String"
 		},
-		brand: {
+		profiles: [{
 			type: "String",
 			default: "null"
-		},
-		competitors: [{
-			type: "String",
 		}],
 		stage: {
 			type: "Number"

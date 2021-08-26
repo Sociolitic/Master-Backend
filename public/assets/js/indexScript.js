@@ -37,7 +37,7 @@ function onSignedIn(user){
             }
     });
     
-    xhr.open("POST", "https://sociolitic.nbot.live/auth/fetch");
+    xhr.open("POST", "http://localhost:8080/auth/fetch");
     xhr.setRequestHeader("Content-Type", "application/json");
     
     xhr.send(data);

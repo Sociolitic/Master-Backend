@@ -1,21 +1,62 @@
 var express = require('express');
 var router = express.Router();
 var request = require('request');
+var jwt = require('jsonwebtoken');
+const profiles = require('../models/profiles');
 
 // const Users = require('../models/users');
 const youtube = require('../models/youtube');
-
 const twitter = require('../models/twitter');
-
 const reddit = require('../models/reddit');
-
 const tumblr = require('../models/tumblr');
-
 const io = require('socket.io')(7000, {
     cors: {
         origin: '*'
     }
 });
+
+function authMiddleware(req,res,next){
+    if(req.headers.authorization){
+        var token = req.headers.authorization.split(' ')[1];
+        jwt.verify(token, 'socioliticSecret', function(err,decoded){
+            if(err){
+                return res.status(401).send({
+                    message: 'Failed to authenticate token.'
+                });
+            }else{
+                req.decoded=decoded
+                next()
+            }
+        })
+    }else{
+        res.status(401).send({
+            message: 'No token provided.'
+        });
+    }  
+}
+
+function validateProfile(req,res,next){
+    profiles.findOne({brand: req.query.q},(err,docs)=>{
+        if(err){
+            console.log(err);
+            res.status(500).send({
+                message: 'Error in server'
+            })
+        }else if(docs){
+            if(docs.users.includes(req.decoded._id) && docs.quota>0){
+                req.profiles = docs
+                next()
+            }else{
+                res.status(401).send({
+                    message: 'You are not authorized to access this profile'
+                })
+            }
+        }
+        console.log(55,docs.users,req.decoded._id);
+    })
+}
+
+router.use(authMiddleware);
 
 io.on('connection', (socket)=>{
     console.log('a user connected', socket.id);
@@ -33,9 +74,9 @@ io.on('connection', (socket)=>{
     })
 });
 
-router.get('/reddit', (req, res) => {
+router.get('/reddit', validateProfile, (req, res) => {
     res.setHeader('Content-Type', 'application/json')
-
+    console.log(51,req.decoded);
     // Old data
     reddit.find({tag: req.query.q, updatedAt : { $lte : new Date()}}, function (err, docs){
         if(err){
@@ -48,7 +89,7 @@ router.get('/reddit', (req, res) => {
     })
 })
 
-router.get('/youtube', (req, res) => {
+router.get('/youtube', validateProfile, (req, res) => {
     res.setHeader('Content-Type', 'application/json')
 
     // Old data
@@ -63,7 +104,7 @@ router.get('/youtube', (req, res) => {
     })
 })
 
-router.get('/twitter', (req, res) => {
+router.get('/twitter', validateProfile, (req, res) => {
     res.setHeader('Content-Type', 'application/json')
 
     // Old data
@@ -78,7 +119,7 @@ router.get('/twitter', (req, res) => {
     })
 })
 
-router.get('/tumblr', (req, res) => {
+router.get('/tumblr', validateProfile, (req, res) => {
     res.setHeader('Content-Type', 'application/json')
 
     // Old data
@@ -285,7 +326,7 @@ function tumblrStreamNew(query,socket){
     } , 1000);
 }
 
-router.get('/aggregate', (req, res) => {
+router.get('/aggregate', validateProfile, (req, res) => {
     res.setHeader('Content-type', 'application/json')
     q=req.query.q
     var options = {
@@ -300,6 +341,5 @@ router.get('/aggregate', (req, res) => {
     });
 
 })
-
 
 module.exports = router;

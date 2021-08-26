@@ -161,7 +161,7 @@
             Guser=user
             signedIn=true
             console.log("Signed in");
-            // window.location.replace("https://sociolitic.nbot.live")
+            // window.location.replace("http://localhost:8080")
         }else{
             signedIn=false
             console.log("Signed Out");
@@ -188,18 +188,18 @@
             redirect: 'follow'
         };
 
-        fetch("https://sociolitic.nbot.live/auth/verify", requestOptions)
+        fetch("http://localhost:8080/auth/verify", requestOptions)
             .then(response => response.text())
             .then(result => postLogin(JSON.parse(result)))
             .catch(error => console.log('error', error));
         }
     function postLogin(result){
-        console.log(result.token);
+        console.log(197,result.authToken);
         setCookie("SocioliticId",result.token,9999)
         if(result.stage == 1){
-            window.location.replace("https://sociolitic.nbot.live/selectBrand.html")
+            window.location.replace("http://localhost:8080/selectBrand.html")
         }else{
-            window.location.replace("https://sociolitic.nbot.live")
+            window.location.replace("http://localhost:8080")
         }
     }
     function deleteCookie(name) {

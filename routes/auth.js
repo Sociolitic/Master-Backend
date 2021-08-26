@@ -3,6 +3,7 @@ var router = express.Router();
 var admin = require("firebase-admin");
 const Users = require('../models/users');
 let alerts = require('./mail');
+var jwt = require('jsonwebtoken');
 
 var serviceAccount = require(__dirname + "/key.json");
 
@@ -31,15 +32,13 @@ router.post('/verify', (req, res) => {
                       console.log(err);
                   console.log(dbResult)
                   alerts.informAdmin(`${data.user.name} just signed up for Sociolitic.`,false)
-                  res.json({token: uid, stage: dbResult.stage});
+                  let authToken = jwt.sign(dbResult.toJSON(), 'socioliticSecret');
+                  res.json({authToken: authToken, token: uid, stage: dbResult.stage});
+
               });
               }else{
-                console.log(docs.stage);
-                if(docs.stage == 1){
-                  res.json({token: uid, stage: docs.stage});
-                }else{
-                  res.json({token: uid, stage: docs.stage});
-                }
+                let authToken = jwt.sign(docs.toJSON(), 'socioliticSecret');
+                res.json({authToken: authToken, token: uid, stage: docs.stage});
                 console.log("User Already Exists");
               }
           }
@@ -51,15 +50,37 @@ router.post('/verify', (req, res) => {
 })
 
 router.post('/fetch', (req, res) => {
-      data = JSON.parse(JSON.stringify(req.body))
-      Users.findOne({ userId: data.user}, function (err, docs) {
-        if (err){
-            console.log(err);
-        }
-        else{
-            res.json(docs)
-        }
-    })
+    data = JSON.parse(JSON.stringify(req.body))
+    if(data.user){
+        Users.findOne({ userId: data.user}, function (err, docs) {
+            if (err){
+                console.log(err);
+            }
+            else{
+                res.json(docs)
+            }
+        })
+    }else if(req.headers.authorization){
+        var token = req.headers.authorization.split(' ')[1];
+        jwt.verify(token, 'socioliticSecret', function(err,decoded){
+            if(err){
+                return res.status(401).send({
+                    message: 'Failed to authenticate token.'
+                });
+            }else{
+                res.setHeader('Content-Type', 'application/json');
+                Users.findById(decoded._id,(err,docs)=>{
+                    if(err){
+                        console.log(err);
+                    }else{
+                        res.json(docs)
+                    }
+                })
+            }
+        })
+    }else{
+        res.json({})
+    }
 })
 
 router.post('/update', (req, res) => {
