@@ -34,8 +34,8 @@ function alertAdmin(msg){
 
 router.post('/send', function(req, res, next) {
     data = JSON.parse(JSON.stringify(req.body))
-    console.log(data.to);
-	res.end("Done");
+    sendMail(data.to,data.title,data.msg)
+	  res.end("Done");
 });
 
 const telegram = "https://api.telegram.org/bot1804564470:AAHCRl5B3ybBQBuq1TAgYk-NsxlzfJYfZ7g/"
@@ -44,7 +44,7 @@ function informAdmin(msg, issue=false){
   if(issue){
     var options = {
       'method': 'POST',
-      'url': 'https://discord.napi.ml/socioliticS',
+      'url': 'https://discord.napi.ml/socioliticS/0',
       'headers': {
         'Content-Type': 'application/json'
       },
@@ -60,7 +60,7 @@ function informAdmin(msg, issue=false){
   }else{
     var options = {
       'method': 'POST',
-      'url': 'https://discord.napi.ml/socioliticG',
+      'url': 'https://discord.napi.ml/socioliticG/0',
       'headers': {
         'Content-Type': 'application/json'
       },

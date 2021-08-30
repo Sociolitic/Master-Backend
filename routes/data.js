@@ -4,6 +4,7 @@ var request = require('request');
 var jwt = require('jsonwebtoken');
 const profiles = require('../models/profiles');
 const Users = require('../models/users');
+const { informAdmin } = require('./mail')
 
 // const Users = require('../models/users');
 const youtube = require('../models/youtube');
@@ -58,6 +59,10 @@ function validateProfile(req,res,next){
             })
         }
     })
+}
+
+async function getProfileDetails(profileId){
+    return await profiles.findById(profileId)
 }
 
 router.use(authMiddleware);
@@ -122,6 +127,16 @@ io.use(function(socket, next){
                 socket.emit('error','Not authorised to acccess this profile')
             }
         })
+        socket.on('refresh', (data)=>{
+            Users.findById(socket.decoded._id, function(err, user){
+                if(err){
+                    return next(new Error('Authentication error'));
+                }else{
+                    console.log(socket.profiles,user.profiles);
+                    socket.profiles = user.profiles
+                }
+            })
+        })
 });
 
 router.get('/reddit', validateProfile, (req, res) => {
@@ -184,7 +199,9 @@ router.get('/tumblr', validateProfile, (req, res) => {
     })
 })
 
-function redditStream(query,socket,streamEvent='reddit'){
+async function redditStream(query,socket,streamEvent='reddit'){
+    query = await getProfileDetails(query)
+    query = query.brand;
     var store={}
     limit=50
     var stop= false
@@ -196,6 +213,7 @@ function redditStream(query,socket,streamEvent='reddit'){
     request(options, function (error, response) {
         if (error){
             console.log(error)
+            informAdmin(error,true)
         }else{
             stop=true
         }
@@ -232,9 +250,11 @@ function redditStream(query,socket,streamEvent='reddit'){
     } , 500);
 }
 
-function twitterStream(query,socket,streamEvent='twitter'){
+async function twitterStream(query,socket,streamEvent='twitter'){
+    query = await getProfileDetails(query)
+    query = query.brand;
     var store={}
-    limit=30
+    limit=50
     var stop= false
     thisTime=new Date()
     options = {
@@ -244,8 +264,10 @@ function twitterStream(query,socket,streamEvent='twitter'){
     request(options, function (error, response) {
         if (error){
             console.log(error)
+            informAdmin(error,true)
         }else{
             stop=true
+            informAdmin(response,true)
         }
     });
 
@@ -280,7 +302,9 @@ function twitterStream(query,socket,streamEvent='twitter'){
     } , 1000);
 }
 
-function youtubeStream(query,socket,streamEvent='youtube'){
+async function youtubeStream(query,socket,streamEvent='youtube'){
+    query = await getProfileDetails(query)
+    query = query.brand;
     var store={}
     limit=30
     var stop= false
@@ -292,6 +316,7 @@ function youtubeStream(query,socket,streamEvent='youtube'){
     request(options, function (error, response) {
         if (error){
             console.log(error)
+            informAdmin(error,true)
         }else{
             stop=true
         }
@@ -328,7 +353,9 @@ function youtubeStream(query,socket,streamEvent='youtube'){
     } , 1000);
 }
 
-function tumblrStream(query,socket,streamEvent='tumblr'){
+async function tumblrStream(query,socket,streamEvent='tumblr'){
+    query = await getProfileDetails(query)
+    query = query.brand;
     var store={}
     limit=30
     var stop= false
@@ -339,6 +366,7 @@ function tumblrStream(query,socket,streamEvent='tumblr'){
     };
     request(options, function (error, response) {
         if (error){
+            informAdmin(error,true)
             throw new Error(error)
         }else{
             stop=true
@@ -390,6 +418,20 @@ router.get('/aggregate', validateProfile, (req, res) => {
         res.json(JSON.parse(response.body));
     });
 
+})
+
+router.post('/status',(req,res)=>{
+    res.setHeader('Content-type', 'application/json')
+    var options = {
+        'method': 'GET',
+        'url': `http://172.31.43.159:5000/`,
+        'headers': {
+    }
+    };
+    request(options, function (error, response) {
+        if (error) informAdmin(error);
+        res.json(response.body);
+    });
 })
 
 module.exports = router;

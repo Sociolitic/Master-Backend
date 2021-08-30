@@ -138,4 +138,20 @@ router.post('/assignProfile', (req, res) => {
       })
 })
 
+router.post('/findProfiles', async (req, res) => {
+    data = JSON.parse(JSON.stringify(req.body))
+    responseData={}
+    for(id of data.profiles){
+        let err, profile = await profiles.findById(id)
+        if(err){
+            console.log(err);
+        }else{
+            responseData[id]=profile
+        }
+        console.log(responseData);
+    }
+    res.setHeader('Content-Type', 'application/json');
+    res.json(responseData)
+})
+
 module.exports = router;
