@@ -41,6 +41,7 @@ router.post('/send', function(req, res, next) {
 const telegram = "https://api.telegram.org/bot1804564470:AAHCRl5B3ybBQBuq1TAgYk-NsxlzfJYfZ7g/"
 
 function informAdmin(msg, issue=false){
+  // console.log("ATLEAST GOT HERE", msg, msg.toString());
   if(issue){
     var options = {
       'method': 'POST',
@@ -49,13 +50,13 @@ function informAdmin(msg, issue=false){
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        "msg": msg
+        "msg": msg.toString()
       })
     
     };
     request(options, function (error, response) {
       if (error) throw new Error(error);
-      console.log(response.body);
+      console.log(1,response.body);
     });  
   }else{
     var options = {
@@ -65,13 +66,13 @@ function informAdmin(msg, issue=false){
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        "msg": msg
+        "msg": msg.toString()
       })
     
     };
     request(options, function (error, response) {
       if (error) throw new Error(error);
-      console.log(response.body);
+      console.log(1,response.body);
     });  
   }
 }

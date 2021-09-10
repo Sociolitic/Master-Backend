@@ -16,6 +16,8 @@ const io = require('socket.io')(7000, {
         origin: '*'
     }
 });
+var cors = require('cors')
+router.use(cors())
 
 function authMiddleware(req,res,next){
     if(req.headers.authorization){
@@ -40,7 +42,7 @@ function authMiddleware(req,res,next){
 function validateProfile(req,res,next){
     profiles.findById(req.query.q,(err,docs)=>{
         if(err){
-            console.log(err);
+            console.log(111,err);
             res.status(500).send({
                 message: 'Error in server'
             })
@@ -132,7 +134,6 @@ io.use(function(socket, next){
                 if(err){
                     return next(new Error('Authentication error'));
                 }else{
-                    console.log(socket.profiles,user.profiles);
                     socket.profiles = user.profiles
                 }
             })
@@ -141,7 +142,6 @@ io.use(function(socket, next){
 
 router.get('/reddit', validateProfile, (req, res) => {
     res.setHeader('Content-Type', 'application/json')
-    console.log(51,req.decoded);
     // Old data
     reddit.find({tag: req.profile.brand, updatedAt : { $lte : new Date()}}, function (err, docs){
         if(err){
@@ -208,12 +208,12 @@ async function redditStream(query,socket,streamEvent='reddit'){
     thisTime=new Date()
     options = {
         'method': 'GET',
-        'url': `http://172.31.43.159:5000/reddit/search/?q=${query}&sort=new&limit=${limit}`
+        'url': `http://172.31.36.236:5000/reddit/search/?q=${query}&sort=new&limit=${limit}`
     };
     request(options, function (error, response) {
         if (error){
-            console.log(error)
-            informAdmin(error,true)
+            console.log(111,error)
+            informAdmin(JSON.stringify(error),true)
         }else{
             stop=true
         }
@@ -221,12 +221,11 @@ async function redditStream(query,socket,streamEvent='reddit'){
 
     // New data
     var intervalCheck = setInterval(() => {
-        if(!stop){
+        if(!stop && socket.connected){
             reddit.find({tag: query, updatedAt : { $gte : thisTime}}, function (err, docs){
                 if(err){
                     throw new Error(err)
                 }else{
-                    console.log(docs);
                     if(docs[0]){
                         newDocs=[]
                         for(data of docs){
@@ -243,8 +242,8 @@ async function redditStream(query,socket,streamEvent='reddit'){
                 }
             })
         }else{
-            console.log("stream stop");
-            socket.emit(`${streamEvent}FeedEnd`, "true")
+            console.log("reddit stream stop for",socket.id);
+            socket.connected && socket.emit(`${streamEvent}FeedEnd`, "true")
             clearInterval(intervalCheck)
         }
     } , 500);
@@ -259,21 +258,21 @@ async function twitterStream(query,socket,streamEvent='twitter'){
     thisTime=new Date()
     options = {
         'method': 'GET',
-        'url': `http://172.31.43.159:5000/twitter/search/?q=${query}&limit=${limit}`
+        'url': `http://172.31.36.236:5000/twitter/search/?q=${query}&limit=${limit}`
     };
     request(options, function (error, response) {
         if (error){
-            console.log(error)
-            informAdmin(error,true)
+            console.log(111,error)
+            informAdmin(JSON.stringify(error),true)
         }else{
             stop=true
-            informAdmin(response,true)
+            informAdmin(JSON.stringify(response),true)
         }
     });
 
     // New data
     var intervalCheck = setInterval(() => {
-        if(!stop){
+        if(!stop && socket.connected){
             twitter.find({tag: query, updatedAt : { $gte : thisTime}}, function (err, docs){
                 if(err){
                     throw new Error(err)
@@ -294,8 +293,8 @@ async function twitterStream(query,socket,streamEvent='twitter'){
                 }
             })
         }else{
-            console.log("stream stop");
-            socket.emit(`${streamEvent}FeedEnd`, "true")
+            console.log(streamEvent," stream stop",socket.id);
+            socket.connected && socket.emit(`${streamEvent}FeedEnd`, "true")
             delete store
             clearInterval(intervalCheck)
         }
@@ -311,12 +310,12 @@ async function youtubeStream(query,socket,streamEvent='youtube'){
     thisTime=new Date()
     options = {
         'method': 'GET',
-        'url': `http://172.31.43.159:5000/youtube/search/?q=${query}&limit=${limit}`
+        'url': `http://172.31.36.236:5000/youtube/search/?q=${query}&limit=${limit}`
     };
     request(options, function (error, response) {
         if (error){
-            console.log(error)
-            informAdmin(error,true)
+            console.log(111,error)
+            informAdmin(JSON.stringify(error),true)
         }else{
             stop=true
         }
@@ -324,7 +323,7 @@ async function youtubeStream(query,socket,streamEvent='youtube'){
 
     // New data
     var intervalCheck = setInterval(() => {
-        if(!stop){
+        if(!stop && socket.connected){
             youtube.find({tag: query, updatedAt : { $gte : thisTime}}, function (err, docs){
                 if(err){
                     throw new Error(err)
@@ -345,8 +344,8 @@ async function youtubeStream(query,socket,streamEvent='youtube'){
                 }
             })
         }else{
-            console.log("stream stop");
-            socket.emit(`${streamEvent}FeedEnd`, "true")
+            console.log(streamEvent, " stream stop ",socket.id);
+            socket.connected && socket.emit(`${streamEvent}FeedEnd`, "true")
             delete store
             clearInterval(intervalCheck)
         }
@@ -362,12 +361,12 @@ async function tumblrStream(query,socket,streamEvent='tumblr'){
     thisTime=new Date()
     options = {
         'method': 'GET',
-        'url': `http://172.31.43.159:5000/tumblr/search/?q=${query}&limit=${limit}`
+        'url': `http://172.31.36.236:5000/tumblr/search/?q=${query}&limit=${limit}`
     };
     request(options, function (error, response) {
         if (error){
-            informAdmin(error,true)
-            throw new Error(error)
+            informAdmin(JSON.stringify(error),true)
+            console.log(111,error)
         }else{
             stop=true
         }
@@ -375,7 +374,7 @@ async function tumblrStream(query,socket,streamEvent='tumblr'){
 
     // New data
     var intervalCheck = setInterval(() => {
-        if(!stop){
+        if(!stop && socket.connected){
             tumblr.find({tag: query, updatedAt : { $gte : thisTime}}, function (err, docs){
                 if(err){
                     throw new Error(err)
@@ -396,8 +395,8 @@ async function tumblrStream(query,socket,streamEvent='tumblr'){
                 }
             })
         }else{
-            console.log("stream stop");
-            socket.emit(`${streamEvent}FeedEnd`, "true")
+            console.log(streamEvent,"stream stop",socket.id);
+            socket.connected && socket.emit(`${streamEvent}FeedEnd`, "true")
             delete store
             clearInterval(intervalCheck)
         }
@@ -409,7 +408,7 @@ router.get('/aggregate', validateProfile, (req, res) => {
     q=req.profile.brand
     var options = {
         'method': 'GET',
-        'url': `http://172.31.43.159:6000/mentions/?q=${q}`,
+        'url': `http://172.31.36.236:5000/mentions/?q=${q}`,
         'headers': {
     }
     };
@@ -424,12 +423,12 @@ router.post('/status',(req,res)=>{
     res.setHeader('Content-type', 'application/json')
     var options = {
         'method': 'GET',
-        'url': `http://172.31.43.159:5000/`,
+        'url': `http://172.31.36.236:5000/`,
         'headers': {
     }
     };
     request(options, function (error, response) {
-        if (error) informAdmin(error);
+        if (error) JSON.stringify(error)(error);
         res.json(response.body);
     });
 })
