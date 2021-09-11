@@ -6,13 +6,16 @@ const app = express()
 const port = 8080
 var multer = require('multer');
 var upload = multer();
+
+let webhookRouter = require('./routes/webhook');
+app.use('/webhook', webhookRouter);
+
 app.use(express.urlencoded({ extended: true })); 
 app.use(upload.array()); 
 app.use(express.json()); 
 var cors = require('cors')
 app.use(cors())
 app.use(require('express-status-monitor')());
-var request = require('request');
 const path = require('path')
 
 let alerts = require('./routes/mail');

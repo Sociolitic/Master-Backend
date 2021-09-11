@@ -20,28 +20,6 @@ function fullfillorder(session){
 	Users.findOneAndUpdate({email: session.customer_details.email},{plan: 'pro'})
 }
 
-router.post('/confirm',bodyParser.raw({ type: 'application/json' }), (request, response) =>{
-		const payload = request.body;
-	
-		const sig = request.headers['stripe-signature'];
-		let event;
-	
-		try {
-			event = stripe.webhooks.constructEvent(payload, sig, endpointSecret);
-		} catch (err) {
-			return response.status(400).send(`Webhook Error: ${err.message}`);
-		}
-	
-		// Handle the checkout.session.completed event
-		if (event.type === 'checkout.session.completed') {
-			const session = event.data.object;
-			fullfillorder(session)
-		}
-	
-		response.status(200);
-		response.end('Done')
-})
-
 router.post('/stripe/create-checkout-session', async (req, res) => {
 	data = JSON.parse(JSON.stringify(req.body))
 	console.log(data,data.plan);

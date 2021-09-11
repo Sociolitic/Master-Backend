@@ -208,7 +208,7 @@ async function redditStream(query,socket,streamEvent='reddit'){
     thisTime=new Date()
     options = {
         'method': 'GET',
-        'url': `http://172.31.36.236:5000/reddit/search/?q=${query}&sort=new&limit=${limit}`
+        'url': `http://127.0.0.1:5000/reddit/search/?q=${query}&sort=new&limit=${limit}`
     };
     request(options, function (error, response) {
         if (error){
@@ -258,7 +258,7 @@ async function twitterStream(query,socket,streamEvent='twitter'){
     thisTime=new Date()
     options = {
         'method': 'GET',
-        'url': `http://172.31.36.236:5000/twitter/search/?q=${query}&limit=${limit}`
+        'url': `http://127.0.0.1:5000/twitter/search/?q=${query}&limit=${limit}`
     };
     request(options, function (error, response) {
         if (error){
@@ -310,7 +310,7 @@ async function youtubeStream(query,socket,streamEvent='youtube'){
     thisTime=new Date()
     options = {
         'method': 'GET',
-        'url': `http://172.31.36.236:5000/youtube/search/?q=${query}&limit=${limit}`
+        'url': `http://127.0.0.1:5000/youtube/search/?q=${query}&limit=${limit}`
     };
     request(options, function (error, response) {
         if (error){
@@ -361,7 +361,7 @@ async function tumblrStream(query,socket,streamEvent='tumblr'){
     thisTime=new Date()
     options = {
         'method': 'GET',
-        'url': `http://172.31.36.236:5000/tumblr/search/?q=${query}&limit=${limit}`
+        'url': `http://127.0.0.1:5000/tumblr/search/?q=${query}&limit=${limit}`
     };
     request(options, function (error, response) {
         if (error){
@@ -408,7 +408,7 @@ router.get('/aggregate', validateProfile, (req, res) => {
     q=req.profile.brand
     var options = {
         'method': 'GET',
-        'url': `http://172.31.36.236:5000/mentions/?q=${q}`,
+        'url': `http://127.0.0.1:5000/mentions/?q=${q}`,
         'headers': {
     }
     };
@@ -423,7 +423,7 @@ router.post('/status',(req,res)=>{
     res.setHeader('Content-type', 'application/json')
     var options = {
         'method': 'GET',
-        'url': `http://172.31.36.236:5000/`,
+        'url': `http://127.0.0.1:5000/`,
         'headers': {
     }
     };
