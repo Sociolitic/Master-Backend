@@ -121,10 +121,10 @@ io.use(function(socket, next){
         })
         socket.on('combinedStream', (profileId)=>{
             if(socket.profiles.includes(profileId)){
-                redditStream(profileId,socket,'combined')
-                twitterStream(profileId,socket,'combined')
-                youtubeStream(profileId,socket,'combined')
-                tumblrStream(profileId,socket,'combined')
+                redditStream(profileId,socket)
+                twitterStream(profileId,socket)
+                youtubeStream(profileId,socket)
+                tumblrStream(profileId,socket)
             }else{
                 socket.emit('error','Not authorised to acccess this profile')
             }
@@ -208,11 +208,15 @@ async function redditStream(query,socket,streamEvent='reddit'){
     thisTime=new Date()
     options = {
         'method': 'GET',
-        'url': `http://127.0.0.1:5000/reddit/search/?q=${query}&sort=new&limit=${limit}`
+        'url': `http://data:5000/reddit/search/?q=${query}&sort=new&limit=${limit}`
     };
     request(options, function (error, response) {
         if (error){
             console.log(111,error)
+            stop=true
+            socket.emit('error',{
+                err: "Socket overload. Try again"
+            })
             informAdmin(JSON.stringify(error),true)
         }else{
             stop=true
@@ -256,17 +260,23 @@ async function twitterStream(query,socket,streamEvent='twitter'){
     limit=50
     var stop= false
     thisTime=new Date()
+    console.log(263);
     options = {
         'method': 'GET',
-        'url': `http://127.0.0.1:5000/twitter/search/?q=${query}&limit=${limit}`
+        'url': `http://data.com:5000/twitter/search/?q=${query}&limit=${limit}`
     };
     request(options, function (error, response) {
         if (error){
-            console.log(111,error)
-            informAdmin(JSON.stringify(error),true)
+            console.log(270,JSON.stringify(error))
+            stop=true
+            socket.emit('error',{
+                err: "Socket overload. Try again"
+            })
+            // informAdmin(JSON.stringify(error),true)
         }else{
             stop=true
-            informAdmin(JSON.stringify(response),true)
+            console.log(JSON.stringify(response));
+            // informAdmin(JSON.stringify(response),true)
         }
     });
 
@@ -310,11 +320,15 @@ async function youtubeStream(query,socket,streamEvent='youtube'){
     thisTime=new Date()
     options = {
         'method': 'GET',
-        'url': `http://127.0.0.1:5000/youtube/search/?q=${query}&limit=${limit}`
+        'url': `http://data:5000/youtube/search/?q=${query}&limit=${limit}`
     };
     request(options, function (error, response) {
         if (error){
             console.log(111,error)
+            stop=true
+            socket.emit('error',{
+                err: "Socket overload. Try again"
+            })
             informAdmin(JSON.stringify(error),true)
         }else{
             stop=true
@@ -361,11 +375,15 @@ async function tumblrStream(query,socket,streamEvent='tumblr'){
     thisTime=new Date()
     options = {
         'method': 'GET',
-        'url': `http://127.0.0.1:5000/tumblr/search/?q=${query}&limit=${limit}`
+        'url': `http://data:5000/tumblr/search/?q=${query}&limit=${limit}`
     };
     request(options, function (error, response) {
         if (error){
             informAdmin(JSON.stringify(error),true)
+            stop=true
+            socket.emit('error',{
+                err: "Socket overload. Try again"
+            })
             console.log(111,error)
         }else{
             stop=true
@@ -408,12 +426,12 @@ router.get('/aggregate', validateProfile, (req, res) => {
     q=req.profile.brand
     var options = {
         'method': 'GET',
-        'url': `http://127.0.0.1:5000/mentions/?q=${q}`,
+        'url': `http://data:5000/mentions/?q=${q}`,
         'headers': {
     }
     };
     request(options, function (error, response) {
-        if (error) throw new Error(error);
+        if (error) informAdmin(JSON.stringify(error));
         res.json(JSON.parse(response.body));
     });
 
@@ -423,14 +441,15 @@ router.post('/status',(req,res)=>{
     res.setHeader('Content-type', 'application/json')
     var options = {
         'method': 'GET',
-        'url': `http://127.0.0.1:5000/`,
+        'url': `http://data:5000`,
         'headers': {
     }
     };
     request(options, function (error, response) {
-        if (error) JSON.stringify(error)(error);
+        if (error) informAdmin(JSON.stringify(error));
         res.json(response.body);
     });
 })
+
 
 module.exports = router;
