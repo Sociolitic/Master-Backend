@@ -12,14 +12,6 @@ const { informAdmin } = require('./mail');
 var cors = require('cors')
 router.use(cors())
 
-
-
-function fullfillorder(session){
-	mailer.sendmail(session.customer_details.email,'Sociolitic Subscription','Transaction Id: '+session.id)
-	informAdmin(JSON.stringify(session))	
-	Users.findOneAndUpdate({email: session.customer_details.email},{plan: 'pro'})
-}
-
 router.post('/stripe/create-checkout-session', async (req, res) => {
 	data = JSON.parse(JSON.stringify(req.body))
 	console.log(data,data.plan);
@@ -52,7 +44,7 @@ router.post('/stripe/create-checkout-session', async (req, res) => {
 			},
 		],
 		mode: 'payment',
-		success_url: `https://nbot.live/pages/success.html`,
+		success_url: `http://localhost:4200/#/default/dashboard`,
 		cancel_url: `https://nbot.live/pages/failed.html`,
 	});
 

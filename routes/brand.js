@@ -61,7 +61,6 @@ router.post('/update', (req, res) => {
             docs.competitors = data.competitors.split(',')
             docs.stage = 2
             docs.save()
-            console.log(docs,data);
             res.end("Done")
         }
       })
@@ -148,7 +147,6 @@ router.post('/findProfiles', async (req, res) => {
         }else{
             responseData[id]=profile
         }
-        console.log(responseData);
     }
     res.setHeader('Content-Type', 'application/json');
     res.json(responseData)

@@ -13,11 +13,12 @@ var cors = require('cors')
 router.use(cors())
 
 
-
 function fullfillorder(session){
 	sendMail(session.customer_details.email,'Sociolitic Subscription','Transaction Id: '+session.id)
 	informAdmin(JSON.stringify(session))	
-	Users.findOneAndUpdate({email: session.customer_details.email},{plan: 'pro'})
+	Users.findOneAndUpdate({email: session.customer_details.email},{plan: 'pro'},(err,docs)=>{
+		console.log(1);
+	})	
 }
 
 router.post('/confirm',bodyParser.raw({ type: 'application/json' }), (request, response) =>{
