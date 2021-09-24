@@ -119,12 +119,40 @@ io.use(function(socket, next){
                 socket.emit('error','Not authorised to acccess this profile')
             }
         })
+        socket.on('redditCombined', (profileId)=>{
+            if(socket.profiles.includes(profileId)){
+                redditStream(profileId,socket,'combined')
+            }else{
+                socket.emit('error','Not authorised to acccess this profile')
+            }
+        })
+        socket.on('twitterCombined', (profileId)=>{
+            if(socket.profiles.includes(profileId)){
+                twitterStream(profileId,socket,'combined')
+            }else{
+                socket.emit('error','Not authorised to acccess this profile')
+            }
+        })
+        socket.on('youtubeCombined', (profileId)=>{
+            if(socket.profiles.includes(profileId)){
+                youtubeStream(profileId,socket,'combined')
+            }else{
+                socket.emit('error','Not authorised to acccess this profile')
+            }
+        })
+        socket.on('tumblrCombined', (profileId)=>{
+            if(socket.profiles.includes(profileId)){
+                tumblrStream(profileId,socket,'combined')
+            }else{
+                socket.emit('error','Not authorised to acccess this profile')
+            }
+        })
         socket.on('combinedStream', (profileId)=>{
             if(socket.profiles.includes(profileId)){
-                redditStream(profileId,socket)
-                twitterStream(profileId,socket)
-                youtubeStream(profileId,socket)
-                tumblrStream(profileId,socket)
+                redditStream(profileId,socket,'combined')
+                twitterStream(profileId,socket,'combined')
+                youtubeStream(profileId,socket,'combined')
+                tumblrStream(profileId,socket,'combined')
             }else{
                 socket.emit('error','Not authorised to acccess this profile')
             }
@@ -247,7 +275,7 @@ async function redditStream(query,socket,streamEvent='reddit'){
             })
         }else{
             console.log("reddit stream stop for",socket.id);
-            socket.connected && socket.emit(`${streamEvent}FeedEnd`, "true")
+            socket.connected && socket.emit(`redditFeedEnd`, "true")
             clearInterval(intervalCheck)
         }
     } , 500);
@@ -260,10 +288,9 @@ async function twitterStream(query,socket,streamEvent='twitter'){
     limit=50
     var stop= false
     thisTime=new Date()
-    console.log(263);
     options = {
         'method': 'GET',
-        'url': `http://data.com:5000/twitter/search/?q=${query}&limit=${limit}`
+        'url': `http://data:5000/twitter/search/?q=${query}&limit=${limit}`
     };
     request(options, function (error, response) {
         if (error){
@@ -304,7 +331,7 @@ async function twitterStream(query,socket,streamEvent='twitter'){
             })
         }else{
             console.log(streamEvent," stream stop",socket.id);
-            socket.connected && socket.emit(`${streamEvent}FeedEnd`, "true")
+            socket.connected && socket.emit(`twitterFeedEnd`, "true")
             delete store
             clearInterval(intervalCheck)
         }
@@ -359,7 +386,7 @@ async function youtubeStream(query,socket,streamEvent='youtube'){
             })
         }else{
             console.log(streamEvent, " stream stop ",socket.id);
-            socket.connected && socket.emit(`${streamEvent}FeedEnd`, "true")
+            socket.connected && socket.emit(`youtubeFeedEnd`, "true")
             delete store
             clearInterval(intervalCheck)
         }
@@ -414,7 +441,7 @@ async function tumblrStream(query,socket,streamEvent='tumblr'){
             })
         }else{
             console.log(streamEvent,"stream stop",socket.id);
-            socket.connected && socket.emit(`${streamEvent}FeedEnd`, "true")
+            socket.connected && socket.emit(`tumblrFeedEnd`, "true")
             delete store
             clearInterval(intervalCheck)
         }

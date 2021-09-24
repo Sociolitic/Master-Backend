@@ -1,0 +1,241 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The root schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "default": {},
+    "required": [
+        "_id",
+        "profiles",
+        "alerts",
+        "reports",
+        "newsletters",
+        "userId",
+        "name",
+        "email",
+        "photo",
+        "plan",
+        "stage",
+        "createdAt",
+        "updatedAt",
+        "__v"
+    ],
+    "properties": {
+        "_id": {
+            "$id": "#/properties/_id",
+            "type": "object",
+            "title": "The _id schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+                {
+                    "$oid": "6128750d6a2c9136a6c873e9"
+                }
+            ],
+            "required": [
+                "$oid"
+            ],
+            "properties": {
+                "$oid": {
+                    "$id": "#/properties/_id/properties/%24oid",
+                    "type": "string",
+                    "title": "The $oid schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "6128750d6a2c9136a6c873e9"
+                    ]
+                }
+            },
+            "additionalProperties": true
+        },
+        "profiles": {
+            "$id": "#/properties/profiles",
+            "type": "array",
+            "title": "The profiles schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": [],
+            "examples": [
+                [
+                    "6128753d6a2c91dc23c873ea",
+                    "612b82c0fca8cd3370d21884"
+                ]
+            ],
+            "additionalItems": true,
+            "items": {
+                "$id": "#/properties/profiles/items",
+                "anyOf": [
+                    {
+                        "$id": "#/properties/profiles/items/anyOf/0",
+                        "type": "string",
+                        "title": "The first anyOf schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": "",
+                        "examples": [
+                            "6128753d6a2c91dc23c873ea",
+                            "612b82c0fca8cd3370d21884"
+                        ]
+                    }
+                ]
+            }
+        },
+        "alerts": {
+            "$id": "#/properties/alerts",
+            "type": "boolean",
+            "title": "The alerts schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": false,
+            "examples": [
+                false
+            ]
+        },
+        "reports": {
+            "$id": "#/properties/reports",
+            "type": "boolean",
+            "title": "The reports schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": false,
+            "examples": [
+                false
+            ]
+        },
+        "newsletters": {
+            "$id": "#/properties/newsletters",
+            "type": "boolean",
+            "title": "The newsletters schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": false,
+            "examples": [
+                false
+            ]
+        },
+        "userId": {
+            "$id": "#/properties/userId",
+            "type": "string",
+            "title": "The userId schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "2gvaTS1mFbYUMOVG1bGHu3DT5E83"
+            ]
+        },
+        "name": {
+            "$id": "#/properties/name",
+            "type": "string",
+            "title": "The name schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "Nithin S"
+            ]
+        },
+        "email": {
+            "$id": "#/properties/email",
+            "type": "string",
+            "title": "The email schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "nithin.s491@gmail.com"
+            ]
+        },
+        "photo": {
+            "$id": "#/properties/photo",
+            "type": "string",
+            "title": "The photo schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "https://lh3.googleusercontent.com/a-/AOh14Gjb2x0gtpiLbperIfKL9X-QjWq-u0eQGgerV_f1=s96-c"
+            ]
+        },
+        "plan": {
+            "$id": "#/properties/plan",
+            "type": "string",
+            "title": "The plan schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "free"
+            ]
+        },
+        "stage": {
+            "$id": "#/properties/stage",
+            "type": "integer",
+            "title": "The stage schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": 0,
+            "examples": [
+                2
+            ]
+        },
+        "createdAt": {
+            "$id": "#/properties/createdAt",
+            "type": "object",
+            "title": "The createdAt schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+                {
+                    "$date": "2021-08-27T05:15:57.903Z"
+                }
+            ],
+            "required": [
+                "$date"
+            ],
+            "properties": {
+                "$date": {
+                    "$id": "#/properties/createdAt/properties/%24date",
+                    "type": "string",
+                    "title": "The $date schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "2021-08-27T05:15:57.903Z"
+                    ]
+                }
+            },
+            "additionalProperties": true
+        },
+        "updatedAt": {
+            "$id": "#/properties/updatedAt",
+            "type": "object",
+            "title": "The updatedAt schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+                {
+                    "$date": "2021-08-30T05:19:24.745Z"
+                }
+            ],
+            "required": [
+                "$date"
+            ],
+            "properties": {
+                "$date": {
+                    "$id": "#/properties/updatedAt/properties/%24date",
+                    "type": "string",
+                    "title": "The $date schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "2021-08-30T05:19:24.745Z"
+                    ]
+                }
+            },
+            "additionalProperties": true
+        },
+        "__v": {
+            "$id": "#/properties/__v",
+            "type": "integer",
+            "title": "The __v schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": 0,
+            "examples": [
+                4
+            ]
+        }
+    },
+    "additionalProperties": true
+}

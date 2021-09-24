@@ -1,0 +1,202 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The root schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "default": {},
+    "required": [
+        "_id",
+        "users",
+        "competitors",
+        "brand",
+        "plan",
+        "quota",
+        "createdAt",
+        "updatedAt",
+        "__v"
+    ],
+    "properties": {
+        "_id": {
+            "$id": "#/properties/_id",
+            "type": "object",
+            "title": "The _id schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+                {
+                    "$oid": "6128753d6a2c91dc23c873ea"
+                }
+            ],
+            "required": [
+                "$oid"
+            ],
+            "properties": {
+                "$oid": {
+                    "$id": "#/properties/_id/properties/%24oid",
+                    "type": "string",
+                    "title": "The $oid schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "6128753d6a2c91dc23c873ea"
+                    ]
+                }
+            },
+            "additionalProperties": true
+        },
+        "users": {
+            "$id": "#/properties/users",
+            "type": "array",
+            "title": "The users schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": [],
+            "examples": [
+                [
+                    "6128750d6a2c9136a6c873e9"
+                ]
+            ],
+            "additionalItems": true,
+            "items": {
+                "$id": "#/properties/users/items",
+                "anyOf": [
+                    {
+                        "$id": "#/properties/users/items/anyOf/0",
+                        "type": "string",
+                        "title": "The first anyOf schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": "",
+                        "examples": [
+                            "6128750d6a2c9136a6c873e9"
+                        ]
+                    }
+                ]
+            }
+        },
+        "competitors": {
+            "$id": "#/properties/competitors",
+            "type": "array",
+            "title": "The competitors schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": [],
+            "examples": [
+                [
+                    "warzone"
+                ]
+            ],
+            "additionalItems": true,
+            "items": {
+                "$id": "#/properties/competitors/items",
+                "anyOf": [
+                    {
+                        "$id": "#/properties/competitors/items/anyOf/0",
+                        "type": "string",
+                        "title": "The first anyOf schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": "",
+                        "examples": [
+                            "warzone"
+                        ]
+                    }
+                ]
+            }
+        },
+        "brand": {
+            "$id": "#/properties/brand",
+            "type": "string",
+            "title": "The brand schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "valorant"
+            ]
+        },
+        "plan": {
+            "$id": "#/properties/plan",
+            "type": "string",
+            "title": "The plan schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "free"
+            ]
+        },
+        "quota": {
+            "$id": "#/properties/quota",
+            "type": "integer",
+            "title": "The quota schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": 0,
+            "examples": [
+                99999
+            ]
+        },
+        "createdAt": {
+            "$id": "#/properties/createdAt",
+            "type": "object",
+            "title": "The createdAt schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+                {
+                    "$date": "2021-08-27T05:16:45.090Z"
+                }
+            ],
+            "required": [
+                "$date"
+            ],
+            "properties": {
+                "$date": {
+                    "$id": "#/properties/createdAt/properties/%24date",
+                    "type": "string",
+                    "title": "The $date schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "2021-08-27T05:16:45.090Z"
+                    ]
+                }
+            },
+            "additionalProperties": true
+        },
+        "updatedAt": {
+            "$id": "#/properties/updatedAt",
+            "type": "object",
+            "title": "The updatedAt schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+                {
+                    "$date": "2021-08-27T05:16:45.090Z"
+                }
+            ],
+            "required": [
+                "$date"
+            ],
+            "properties": {
+                "$date": {
+                    "$id": "#/properties/updatedAt/properties/%24date",
+                    "type": "string",
+                    "title": "The $date schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "2021-08-27T05:16:45.090Z"
+                    ]
+                }
+            },
+            "additionalProperties": true
+        },
+        "__v": {
+            "$id": "#/properties/__v",
+            "type": "integer",
+            "title": "The __v schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": 0,
+            "examples": [
+                0
+            ]
+        }
+    },
+    "additionalProperties": true
+}

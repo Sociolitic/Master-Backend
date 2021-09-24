@@ -1,0 +1,1629 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The root schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "default": {},
+    "required": [
+        "_id",
+        "source",
+        "text",
+        "id",
+        "tag",
+        "sentiment",
+        "created_time",
+        "ner",
+        "misc",
+        "createdAt",
+        "updatedAt"
+    ],
+    "properties": {
+        "_id": {
+            "$id": "#/properties/_id",
+            "type": "object",
+            "title": "The _id schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+                {
+                    "$oid": "613f5469d912a80de9cab82e"
+                }
+            ],
+            "required": [
+                "$oid"
+            ],
+            "properties": {
+                "$oid": {
+                    "$id": "#/properties/_id/properties/%24oid",
+                    "type": "string",
+                    "title": "The $oid schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "613f5469d912a80de9cab82e"
+                    ]
+                }
+            },
+            "additionalProperties": true
+        },
+        "source": {
+            "$id": "#/properties/source",
+            "type": "string",
+            "title": "The source schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "twitter"
+            ]
+        },
+        "text": {
+            "$id": "#/properties/text",
+            "type": "string",
+            "title": "The text schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "@BestNewCoin @elonmusk @cz_binance @BabyDogeCoin @BinanceChain @SpaceX @Tesla #BabyDogeCoin #BabyDoge https://t.co/eJtdjtTzNu"
+            ]
+        },
+        "id": {
+            "$id": "#/properties/id",
+            "type": "string",
+            "title": "The id schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "1437410419426140160"
+            ]
+        },
+        "tag": {
+            "$id": "#/properties/tag",
+            "type": "string",
+            "title": "The tag schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "Tesla"
+            ]
+        },
+        "sentiment": {
+            "$id": "#/properties/sentiment",
+            "type": "string",
+            "title": "The sentiment schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "Neutral"
+            ]
+        },
+        "created_time": {
+            "$id": "#/properties/created_time",
+            "type": "object",
+            "title": "The created_time schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+                {
+                    "$date": "2021-09-13T13:38:44.000Z"
+                }
+            ],
+            "required": [
+                "$date"
+            ],
+            "properties": {
+                "$date": {
+                    "$id": "#/properties/created_time/properties/%24date",
+                    "type": "string",
+                    "title": "The $date schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "2021-09-13T13:38:44.000Z"
+                    ]
+                }
+            },
+            "additionalProperties": true
+        },
+        "ner": {
+            "$id": "#/properties/ner",
+            "type": "object",
+            "title": "The ner schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+                {
+                    "CARDINAL": [],
+                    "DATE": [],
+                    "EVENT": [],
+                    "FAC": [],
+                    "GPE": [],
+                    "LANGUAGE": [],
+                    "LAW": [],
+                    "LOC": [],
+                    "MONEY": [],
+                    "NORP": [],
+                    "ORDINAL": [],
+                    "ORG": [],
+                    "PERCENT": [],
+                    "PERSON": [
+                        "Babydoge Https"
+                    ],
+                    "PRODUCT": [],
+                    "QUNATITY": [],
+                    "TIME": [],
+                    "WORK_OF_ART": []
+                }
+            ],
+            "required": [
+                "CARDINAL",
+                "DATE",
+                "EVENT",
+                "FAC",
+                "GPE",
+                "LANGUAGE",
+                "LAW",
+                "LOC",
+                "MONEY",
+                "NORP",
+                "ORDINAL",
+                "ORG",
+                "PERCENT",
+                "PERSON",
+                "PRODUCT",
+                "QUNATITY",
+                "TIME",
+                "WORK_OF_ART"
+            ],
+            "properties": {
+                "CARDINAL": {
+                    "$id": "#/properties/ner/properties/CARDINAL",
+                    "type": "array",
+                    "title": "The CARDINAL schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": [],
+                    "examples": [
+                        []
+                    ],
+                    "additionalItems": true,
+                    "items": {
+                        "$id": "#/properties/ner/properties/CARDINAL/items"
+                    }
+                },
+                "DATE": {
+                    "$id": "#/properties/ner/properties/DATE",
+                    "type": "array",
+                    "title": "The DATE schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": [],
+                    "examples": [
+                        []
+                    ],
+                    "additionalItems": true,
+                    "items": {
+                        "$id": "#/properties/ner/properties/DATE/items"
+                    }
+                },
+                "EVENT": {
+                    "$id": "#/properties/ner/properties/EVENT",
+                    "type": "array",
+                    "title": "The EVENT schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": [],
+                    "examples": [
+                        []
+                    ],
+                    "additionalItems": true,
+                    "items": {
+                        "$id": "#/properties/ner/properties/EVENT/items"
+                    }
+                },
+                "FAC": {
+                    "$id": "#/properties/ner/properties/FAC",
+                    "type": "array",
+                    "title": "The FAC schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": [],
+                    "examples": [
+                        []
+                    ],
+                    "additionalItems": true,
+                    "items": {
+                        "$id": "#/properties/ner/properties/FAC/items"
+                    }
+                },
+                "GPE": {
+                    "$id": "#/properties/ner/properties/GPE",
+                    "type": "array",
+                    "title": "The GPE schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": [],
+                    "examples": [
+                        []
+                    ],
+                    "additionalItems": true,
+                    "items": {
+                        "$id": "#/properties/ner/properties/GPE/items"
+                    }
+                },
+                "LANGUAGE": {
+                    "$id": "#/properties/ner/properties/LANGUAGE",
+                    "type": "array",
+                    "title": "The LANGUAGE schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": [],
+                    "examples": [
+                        []
+                    ],
+                    "additionalItems": true,
+                    "items": {
+                        "$id": "#/properties/ner/properties/LANGUAGE/items"
+                    }
+                },
+                "LAW": {
+                    "$id": "#/properties/ner/properties/LAW",
+                    "type": "array",
+                    "title": "The LAW schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": [],
+                    "examples": [
+                        []
+                    ],
+                    "additionalItems": true,
+                    "items": {
+                        "$id": "#/properties/ner/properties/LAW/items"
+                    }
+                },
+                "LOC": {
+                    "$id": "#/properties/ner/properties/LOC",
+                    "type": "array",
+                    "title": "The LOC schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": [],
+                    "examples": [
+                        []
+                    ],
+                    "additionalItems": true,
+                    "items": {
+                        "$id": "#/properties/ner/properties/LOC/items"
+                    }
+                },
+                "MONEY": {
+                    "$id": "#/properties/ner/properties/MONEY",
+                    "type": "array",
+                    "title": "The MONEY schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": [],
+                    "examples": [
+                        []
+                    ],
+                    "additionalItems": true,
+                    "items": {
+                        "$id": "#/properties/ner/properties/MONEY/items"
+                    }
+                },
+                "NORP": {
+                    "$id": "#/properties/ner/properties/NORP",
+                    "type": "array",
+                    "title": "The NORP schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": [],
+                    "examples": [
+                        []
+                    ],
+                    "additionalItems": true,
+                    "items": {
+                        "$id": "#/properties/ner/properties/NORP/items"
+                    }
+                },
+                "ORDINAL": {
+                    "$id": "#/properties/ner/properties/ORDINAL",
+                    "type": "array",
+                    "title": "The ORDINAL schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": [],
+                    "examples": [
+                        []
+                    ],
+                    "additionalItems": true,
+                    "items": {
+                        "$id": "#/properties/ner/properties/ORDINAL/items"
+                    }
+                },
+                "ORG": {
+                    "$id": "#/properties/ner/properties/ORG",
+                    "type": "array",
+                    "title": "The ORG schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": [],
+                    "examples": [
+                        []
+                    ],
+                    "additionalItems": true,
+                    "items": {
+                        "$id": "#/properties/ner/properties/ORG/items"
+                    }
+                },
+                "PERCENT": {
+                    "$id": "#/properties/ner/properties/PERCENT",
+                    "type": "array",
+                    "title": "The PERCENT schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": [],
+                    "examples": [
+                        []
+                    ],
+                    "additionalItems": true,
+                    "items": {
+                        "$id": "#/properties/ner/properties/PERCENT/items"
+                    }
+                },
+                "PERSON": {
+                    "$id": "#/properties/ner/properties/PERSON",
+                    "type": "array",
+                    "title": "The PERSON schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": [],
+                    "examples": [
+                        [
+                            "Babydoge Https"
+                        ]
+                    ],
+                    "additionalItems": true,
+                    "items": {
+                        "$id": "#/properties/ner/properties/PERSON/items",
+                        "anyOf": [
+                            {
+                                "$id": "#/properties/ner/properties/PERSON/items/anyOf/0",
+                                "type": "string",
+                                "title": "The first anyOf schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    "Babydoge Https"
+                                ]
+                            }
+                        ]
+                    }
+                },
+                "PRODUCT": {
+                    "$id": "#/properties/ner/properties/PRODUCT",
+                    "type": "array",
+                    "title": "The PRODUCT schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": [],
+                    "examples": [
+                        []
+                    ],
+                    "additionalItems": true,
+                    "items": {
+                        "$id": "#/properties/ner/properties/PRODUCT/items"
+                    }
+                },
+                "QUNATITY": {
+                    "$id": "#/properties/ner/properties/QUNATITY",
+                    "type": "array",
+                    "title": "The QUNATITY schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": [],
+                    "examples": [
+                        []
+                    ],
+                    "additionalItems": true,
+                    "items": {
+                        "$id": "#/properties/ner/properties/QUNATITY/items"
+                    }
+                },
+                "TIME": {
+                    "$id": "#/properties/ner/properties/TIME",
+                    "type": "array",
+                    "title": "The TIME schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": [],
+                    "examples": [
+                        []
+                    ],
+                    "additionalItems": true,
+                    "items": {
+                        "$id": "#/properties/ner/properties/TIME/items"
+                    }
+                },
+                "WORK_OF_ART": {
+                    "$id": "#/properties/ner/properties/WORK_OF_ART",
+                    "type": "array",
+                    "title": "The WORK_OF_ART schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": [],
+                    "examples": [
+                        []
+                    ],
+                    "additionalItems": true,
+                    "items": {
+                        "$id": "#/properties/ner/properties/WORK_OF_ART/items"
+                    }
+                }
+            },
+            "additionalProperties": true
+        },
+        "misc": {
+            "$id": "#/properties/misc",
+            "type": "object",
+            "title": "The misc schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+                {
+                    "user_name": "Ultra253",
+                    "user_id": "989110958122590208",
+                    "retweet_count": 0,
+                    "geo": null,
+                    "lang": "und",
+                    "entities": {
+                        "hashtags": [
+                            {
+                                "text": "BabyDogeCoin",
+                                "indices": [
+                                    78,
+                                    91
+                                ]
+                            },
+                            {
+                                "text": "BabyDoge",
+                                "indices": [
+                                    92,
+                                    101
+                                ]
+                            }
+                        ],
+                        "symbols": [],
+                        "user_mentions": [
+                            {
+                                "screen_name": "BestNewCoin",
+                                "name": "Best New Coin",
+                                "id": 18794521,
+                                "id_str": "18794521",
+                                "indices": [
+                                    0,
+                                    12
+                                ]
+                            },
+                            {
+                                "screen_name": "elonmusk",
+                                "name": "Name",
+                                "id": 44196397,
+                                "id_str": "44196397",
+                                "indices": [
+                                    13,
+                                    22
+                                ]
+                            },
+                            {
+                                "screen_name": "cz_binance",
+                                "name": "CZ 🔶 Binance",
+                                "id": {
+                                    "$numberLong": "902926941413453824"
+                                },
+                                "id_str": "902926941413453824",
+                                "indices": [
+                                    23,
+                                    34
+                                ]
+                            },
+                            {
+                                "screen_name": "BabyDogeCoin",
+                                "name": "Baby Doge Coin",
+                                "id": {
+                                    "$numberLong": "1354781680943431681"
+                                },
+                                "id_str": "1354781680943431681",
+                                "indices": [
+                                    35,
+                                    48
+                                ]
+                            },
+                            {
+                                "screen_name": "BinanceChain",
+                                "name": "Binance Smart Chain",
+                                "id": {
+                                    "$numberLong": "1052454006537314306"
+                                },
+                                "id_str": "1052454006537314306",
+                                "indices": [
+                                    49,
+                                    62
+                                ]
+                            },
+                            {
+                                "screen_name": "SpaceX",
+                                "name": "SpaceX",
+                                "id": 34743251,
+                                "id_str": "34743251",
+                                "indices": [
+                                    63,
+                                    70
+                                ]
+                            },
+                            {
+                                "screen_name": "Tesla",
+                                "name": "Tesla",
+                                "id": 13298072,
+                                "id_str": "13298072",
+                                "indices": [
+                                    71,
+                                    77
+                                ]
+                            }
+                        ],
+                        "urls": [],
+                        "media": [
+                            {
+                                "id": {
+                                    "$numberLong": "1437410416527908870"
+                                },
+                                "id_str": "1437410416527908870",
+                                "indices": [
+                                    102,
+                                    125
+                                ],
+                                "media_url": "http://pbs.twimg.com/media/E_K1KHmXoAYqw50.jpg",
+                                "media_url_https": "https://pbs.twimg.com/media/E_K1KHmXoAYqw50.jpg",
+                                "url": "https://t.co/eJtdjtTzNu",
+                                "display_url": "pic.twitter.com/eJtdjtTzNu",
+                                "expanded_url": "https://twitter.com/Ultra2534/status/1437410419426140160/photo/1",
+                                "type": "photo",
+                                "sizes": {
+                                    "small": {
+                                        "w": 680,
+                                        "h": 615,
+                                        "resize": "fit"
+                                    },
+                                    "thumb": {
+                                        "w": 150,
+                                        "h": 150,
+                                        "resize": "crop"
+                                    },
+                                    "medium": {
+                                        "w": 886,
+                                        "h": 801,
+                                        "resize": "fit"
+                                    },
+                                    "large": {
+                                        "w": 886,
+                                        "h": 801,
+                                        "resize": "fit"
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+            ],
+            "required": [
+                "user_name",
+                "user_id",
+                "retweet_count",
+                "geo",
+                "lang",
+                "entities"
+            ],
+            "properties": {
+                "user_name": {
+                    "$id": "#/properties/misc/properties/user_name",
+                    "type": "string",
+                    "title": "The user_name schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "Ultra253"
+                    ]
+                },
+                "user_id": {
+                    "$id": "#/properties/misc/properties/user_id",
+                    "type": "string",
+                    "title": "The user_id schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "989110958122590208"
+                    ]
+                },
+                "retweet_count": {
+                    "$id": "#/properties/misc/properties/retweet_count",
+                    "type": "integer",
+                    "title": "The retweet_count schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": 0,
+                    "examples": [
+                        0
+                    ]
+                },
+                "geo": {
+                    "$id": "#/properties/misc/properties/geo",
+                    "type": "null",
+                    "title": "The geo schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": null,
+                    "examples": [
+                        null
+                    ]
+                },
+                "lang": {
+                    "$id": "#/properties/misc/properties/lang",
+                    "type": "string",
+                    "title": "The lang schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "und"
+                    ]
+                },
+                "entities": {
+                    "$id": "#/properties/misc/properties/entities",
+                    "type": "object",
+                    "title": "The entities schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": {},
+                    "examples": [
+                        {
+                            "hashtags": [
+                                {
+                                    "text": "BabyDogeCoin",
+                                    "indices": [
+                                        78,
+                                        91
+                                    ]
+                                },
+                                {
+                                    "text": "BabyDoge",
+                                    "indices": [
+                                        92,
+                                        101
+                                    ]
+                                }
+                            ],
+                            "symbols": [],
+                            "user_mentions": [
+                                {
+                                    "screen_name": "BestNewCoin",
+                                    "name": "Best New Coin",
+                                    "id": 18794521,
+                                    "id_str": "18794521",
+                                    "indices": [
+                                        0,
+                                        12
+                                    ]
+                                },
+                                {
+                                    "screen_name": "elonmusk",
+                                    "name": "Name",
+                                    "id": 44196397,
+                                    "id_str": "44196397",
+                                    "indices": [
+                                        13,
+                                        22
+                                    ]
+                                },
+                                {
+                                    "screen_name": "cz_binance",
+                                    "name": "CZ 🔶 Binance",
+                                    "id": {
+                                        "$numberLong": "902926941413453824"
+                                    },
+                                    "id_str": "902926941413453824",
+                                    "indices": [
+                                        23,
+                                        34
+                                    ]
+                                },
+                                {
+                                    "screen_name": "BabyDogeCoin",
+                                    "name": "Baby Doge Coin",
+                                    "id": {
+                                        "$numberLong": "1354781680943431681"
+                                    },
+                                    "id_str": "1354781680943431681",
+                                    "indices": [
+                                        35,
+                                        48
+                                    ]
+                                },
+                                {
+                                    "screen_name": "BinanceChain",
+                                    "name": "Binance Smart Chain",
+                                    "id": {
+                                        "$numberLong": "1052454006537314306"
+                                    },
+                                    "id_str": "1052454006537314306",
+                                    "indices": [
+                                        49,
+                                        62
+                                    ]
+                                },
+                                {
+                                    "screen_name": "SpaceX",
+                                    "name": "SpaceX",
+                                    "id": 34743251,
+                                    "id_str": "34743251",
+                                    "indices": [
+                                        63,
+                                        70
+                                    ]
+                                },
+                                {
+                                    "screen_name": "Tesla",
+                                    "name": "Tesla",
+                                    "id": 13298072,
+                                    "id_str": "13298072",
+                                    "indices": [
+                                        71,
+                                        77
+                                    ]
+                                }
+                            ],
+                            "urls": [],
+                            "media": [
+                                {
+                                    "id": {
+                                        "$numberLong": "1437410416527908870"
+                                    },
+                                    "id_str": "1437410416527908870",
+                                    "indices": [
+                                        102,
+                                        125
+                                    ],
+                                    "media_url": "http://pbs.twimg.com/media/E_K1KHmXoAYqw50.jpg",
+                                    "media_url_https": "https://pbs.twimg.com/media/E_K1KHmXoAYqw50.jpg",
+                                    "url": "https://t.co/eJtdjtTzNu",
+                                    "display_url": "pic.twitter.com/eJtdjtTzNu",
+                                    "expanded_url": "https://twitter.com/Ultra2534/status/1437410419426140160/photo/1",
+                                    "type": "photo",
+                                    "sizes": {
+                                        "small": {
+                                            "w": 680,
+                                            "h": 615,
+                                            "resize": "fit"
+                                        },
+                                        "thumb": {
+                                            "w": 150,
+                                            "h": 150,
+                                            "resize": "crop"
+                                        },
+                                        "medium": {
+                                            "w": 886,
+                                            "h": 801,
+                                            "resize": "fit"
+                                        },
+                                        "large": {
+                                            "w": 886,
+                                            "h": 801,
+                                            "resize": "fit"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "required": [
+                        "hashtags",
+                        "symbols",
+                        "user_mentions",
+                        "urls",
+                        "media"
+                    ],
+                    "properties": {
+                        "hashtags": {
+                            "$id": "#/properties/misc/properties/entities/properties/hashtags",
+                            "type": "array",
+                            "title": "The hashtags schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": [],
+                            "examples": [
+                                [
+                                    {
+                                        "text": "BabyDogeCoin",
+                                        "indices": [
+                                            78,
+                                            91
+                                        ]
+                                    },
+                                    {
+                                        "text": "BabyDoge",
+                                        "indices": [
+                                            92,
+                                            101
+                                        ]
+                                    }
+                                ]
+                            ],
+                            "additionalItems": true,
+                            "items": {
+                                "$id": "#/properties/misc/properties/entities/properties/hashtags/items",
+                                "anyOf": [
+                                    {
+                                        "$id": "#/properties/misc/properties/entities/properties/hashtags/items/anyOf/0",
+                                        "type": "object",
+                                        "title": "The first anyOf schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": {},
+                                        "examples": [
+                                            {
+                                                "text": "BabyDogeCoin",
+                                                "indices": [
+                                                    78,
+                                                    91
+                                                ]
+                                            }
+                                        ],
+                                        "required": [
+                                            "text",
+                                            "indices"
+                                        ],
+                                        "properties": {
+                                            "text": {
+                                                "$id": "#/properties/misc/properties/entities/properties/hashtags/items/anyOf/0/properties/text",
+                                                "type": "string",
+                                                "title": "The text schema",
+                                                "description": "An explanation about the purpose of this instance.",
+                                                "default": "",
+                                                "examples": [
+                                                    "BabyDogeCoin"
+                                                ]
+                                            },
+                                            "indices": {
+                                                "$id": "#/properties/misc/properties/entities/properties/hashtags/items/anyOf/0/properties/indices",
+                                                "type": "array",
+                                                "title": "The indices schema",
+                                                "description": "An explanation about the purpose of this instance.",
+                                                "default": [],
+                                                "examples": [
+                                                    [
+                                                        78,
+                                                        91
+                                                    ]
+                                                ],
+                                                "additionalItems": true,
+                                                "items": {
+                                                    "$id": "#/properties/misc/properties/entities/properties/hashtags/items/anyOf/0/properties/indices/items",
+                                                    "anyOf": [
+                                                        {
+                                                            "$id": "#/properties/misc/properties/entities/properties/hashtags/items/anyOf/0/properties/indices/items/anyOf/0",
+                                                            "type": "integer",
+                                                            "title": "The first anyOf schema",
+                                                            "description": "An explanation about the purpose of this instance.",
+                                                            "default": 0,
+                                                            "examples": [
+                                                                78,
+                                                                91
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        "additionalProperties": true
+                                    }
+                                ]
+                            }
+                        },
+                        "symbols": {
+                            "$id": "#/properties/misc/properties/entities/properties/symbols",
+                            "type": "array",
+                            "title": "The symbols schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": [],
+                            "examples": [
+                                []
+                            ],
+                            "additionalItems": true,
+                            "items": {
+                                "$id": "#/properties/misc/properties/entities/properties/symbols/items"
+                            }
+                        },
+                        "user_mentions": {
+                            "$id": "#/properties/misc/properties/entities/properties/user_mentions",
+                            "type": "array",
+                            "title": "The user_mentions schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": [],
+                            "examples": [
+                                [
+                                    {
+                                        "screen_name": "BestNewCoin",
+                                        "name": "Best New Coin",
+                                        "id": 18794521,
+                                        "id_str": "18794521",
+                                        "indices": [
+                                            0,
+                                            12
+                                        ]
+                                    },
+                                    {
+                                        "screen_name": "elonmusk",
+                                        "name": "Name",
+                                        "id": 44196397,
+                                        "id_str": "44196397",
+                                        "indices": [
+                                            13,
+                                            22
+                                        ]
+                                    }
+                                ]
+                            ],
+                            "additionalItems": true,
+                            "items": {
+                                "$id": "#/properties/misc/properties/entities/properties/user_mentions/items",
+                                "anyOf": [
+                                    {
+                                        "$id": "#/properties/misc/properties/entities/properties/user_mentions/items/anyOf/0",
+                                        "type": "object",
+                                        "title": "The first anyOf schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": {},
+                                        "examples": [
+                                            {
+                                                "screen_name": "BestNewCoin",
+                                                "name": "Best New Coin",
+                                                "id": 18794521,
+                                                "id_str": "18794521",
+                                                "indices": [
+                                                    0,
+                                                    12
+                                                ]
+                                            }
+                                        ],
+                                        "required": [
+                                            "screen_name",
+                                            "name",
+                                            "id",
+                                            "id_str",
+                                            "indices"
+                                        ],
+                                        "properties": {
+                                            "screen_name": {
+                                                "$id": "#/properties/misc/properties/entities/properties/user_mentions/items/anyOf/0/properties/screen_name",
+                                                "type": "string",
+                                                "title": "The screen_name schema",
+                                                "description": "An explanation about the purpose of this instance.",
+                                                "default": "",
+                                                "examples": [
+                                                    "BestNewCoin"
+                                                ]
+                                            },
+                                            "name": {
+                                                "$id": "#/properties/misc/properties/entities/properties/user_mentions/items/anyOf/0/properties/name",
+                                                "type": "string",
+                                                "title": "The name schema",
+                                                "description": "An explanation about the purpose of this instance.",
+                                                "default": "",
+                                                "examples": [
+                                                    "Best New Coin"
+                                                ]
+                                            },
+                                            "id": {
+                                                "$id": "#/properties/misc/properties/entities/properties/user_mentions/items/anyOf/0/properties/id",
+                                                "type": "integer",
+                                                "title": "The id schema",
+                                                "description": "An explanation about the purpose of this instance.",
+                                                "default": 0,
+                                                "examples": [
+                                                    18794521
+                                                ]
+                                            },
+                                            "id_str": {
+                                                "$id": "#/properties/misc/properties/entities/properties/user_mentions/items/anyOf/0/properties/id_str",
+                                                "type": "string",
+                                                "title": "The id_str schema",
+                                                "description": "An explanation about the purpose of this instance.",
+                                                "default": "",
+                                                "examples": [
+                                                    "18794521"
+                                                ]
+                                            },
+                                            "indices": {
+                                                "$id": "#/properties/misc/properties/entities/properties/user_mentions/items/anyOf/0/properties/indices",
+                                                "type": "array",
+                                                "title": "The indices schema",
+                                                "description": "An explanation about the purpose of this instance.",
+                                                "default": [],
+                                                "examples": [
+                                                    [
+                                                        0,
+                                                        12
+                                                    ]
+                                                ],
+                                                "additionalItems": true,
+                                                "items": {
+                                                    "$id": "#/properties/misc/properties/entities/properties/user_mentions/items/anyOf/0/properties/indices/items",
+                                                    "anyOf": [
+                                                        {
+                                                            "$id": "#/properties/misc/properties/entities/properties/user_mentions/items/anyOf/0/properties/indices/items/anyOf/0",
+                                                            "type": "integer",
+                                                            "title": "The first anyOf schema",
+                                                            "description": "An explanation about the purpose of this instance.",
+                                                            "default": 0,
+                                                            "examples": [
+                                                                0,
+                                                                12
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        "additionalProperties": true
+                                    }
+                                ]
+                            }
+                        },
+                        "urls": {
+                            "$id": "#/properties/misc/properties/entities/properties/urls",
+                            "type": "array",
+                            "title": "The urls schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": [],
+                            "examples": [
+                                []
+                            ],
+                            "additionalItems": true,
+                            "items": {
+                                "$id": "#/properties/misc/properties/entities/properties/urls/items"
+                            }
+                        },
+                        "media": {
+                            "$id": "#/properties/misc/properties/entities/properties/media",
+                            "type": "array",
+                            "title": "The media schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": [],
+                            "examples": [
+                                [
+                                    {
+                                        "id": {
+                                            "$numberLong": "1437410416527908870"
+                                        },
+                                        "id_str": "1437410416527908870",
+                                        "indices": [
+                                            102,
+                                            125
+                                        ],
+                                        "media_url": "http://pbs.twimg.com/media/E_K1KHmXoAYqw50.jpg",
+                                        "media_url_https": "https://pbs.twimg.com/media/E_K1KHmXoAYqw50.jpg",
+                                        "url": "https://t.co/eJtdjtTzNu",
+                                        "display_url": "pic.twitter.com/eJtdjtTzNu",
+                                        "expanded_url": "https://twitter.com/Ultra2534/status/1437410419426140160/photo/1",
+                                        "type": "photo",
+                                        "sizes": {
+                                            "small": {
+                                                "w": 680,
+                                                "h": 615,
+                                                "resize": "fit"
+                                            },
+                                            "thumb": {
+                                                "w": 150,
+                                                "h": 150,
+                                                "resize": "crop"
+                                            },
+                                            "medium": {
+                                                "w": 886,
+                                                "h": 801,
+                                                "resize": "fit"
+                                            },
+                                            "large": {
+                                                "w": 886,
+                                                "h": 801,
+                                                "resize": "fit"
+                                            }
+                                        }
+                                    }
+                                ]
+                            ],
+                            "additionalItems": true,
+                            "items": {
+                                "$id": "#/properties/misc/properties/entities/properties/media/items",
+                                "anyOf": [
+                                    {
+                                        "$id": "#/properties/misc/properties/entities/properties/media/items/anyOf/0",
+                                        "type": "object",
+                                        "title": "The first anyOf schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": {},
+                                        "examples": [
+                                            {
+                                                "id": {
+                                                    "$numberLong": "1437410416527908870"
+                                                },
+                                                "id_str": "1437410416527908870",
+                                                "indices": [
+                                                    102,
+                                                    125
+                                                ],
+                                                "media_url": "http://pbs.twimg.com/media/E_K1KHmXoAYqw50.jpg",
+                                                "media_url_https": "https://pbs.twimg.com/media/E_K1KHmXoAYqw50.jpg",
+                                                "url": "https://t.co/eJtdjtTzNu",
+                                                "display_url": "pic.twitter.com/eJtdjtTzNu",
+                                                "expanded_url": "https://twitter.com/Ultra2534/status/1437410419426140160/photo/1",
+                                                "type": "photo",
+                                                "sizes": {
+                                                    "small": {
+                                                        "w": 680,
+                                                        "h": 615,
+                                                        "resize": "fit"
+                                                    },
+                                                    "thumb": {
+                                                        "w": 150,
+                                                        "h": 150,
+                                                        "resize": "crop"
+                                                    },
+                                                    "medium": {
+                                                        "w": 886,
+                                                        "h": 801,
+                                                        "resize": "fit"
+                                                    },
+                                                    "large": {
+                                                        "w": 886,
+                                                        "h": 801,
+                                                        "resize": "fit"
+                                                    }
+                                                }
+                                            }
+                                        ],
+                                        "required": [
+                                            "id",
+                                            "id_str",
+                                            "indices",
+                                            "media_url",
+                                            "media_url_https",
+                                            "url",
+                                            "display_url",
+                                            "expanded_url",
+                                            "type",
+                                            "sizes"
+                                        ],
+                                        "properties": {
+                                            "id": {
+                                                "$id": "#/properties/misc/properties/entities/properties/media/items/anyOf/0/properties/id",
+                                                "type": "object",
+                                                "title": "The id schema",
+                                                "description": "An explanation about the purpose of this instance.",
+                                                "default": {},
+                                                "examples": [
+                                                    {
+                                                        "$numberLong": "1437410416527908870"
+                                                    }
+                                                ],
+                                                "required": [
+                                                    "$numberLong"
+                                                ],
+                                                "properties": {
+                                                    "$numberLong": {
+                                                        "$id": "#/properties/misc/properties/entities/properties/media/items/anyOf/0/properties/id/properties/%24numberLong",
+                                                        "type": "string",
+                                                        "title": "The $numberLong schema",
+                                                        "description": "An explanation about the purpose of this instance.",
+                                                        "default": "",
+                                                        "examples": [
+                                                            "1437410416527908870"
+                                                        ]
+                                                    }
+                                                },
+                                                "additionalProperties": true
+                                            },
+                                            "id_str": {
+                                                "$id": "#/properties/misc/properties/entities/properties/media/items/anyOf/0/properties/id_str",
+                                                "type": "string",
+                                                "title": "The id_str schema",
+                                                "description": "An explanation about the purpose of this instance.",
+                                                "default": "",
+                                                "examples": [
+                                                    "1437410416527908870"
+                                                ]
+                                            },
+                                            "indices": {
+                                                "$id": "#/properties/misc/properties/entities/properties/media/items/anyOf/0/properties/indices",
+                                                "type": "array",
+                                                "title": "The indices schema",
+                                                "description": "An explanation about the purpose of this instance.",
+                                                "default": [],
+                                                "examples": [
+                                                    [
+                                                        102,
+                                                        125
+                                                    ]
+                                                ],
+                                                "additionalItems": true,
+                                                "items": {
+                                                    "$id": "#/properties/misc/properties/entities/properties/media/items/anyOf/0/properties/indices/items",
+                                                    "anyOf": [
+                                                        {
+                                                            "$id": "#/properties/misc/properties/entities/properties/media/items/anyOf/0/properties/indices/items/anyOf/0",
+                                                            "type": "integer",
+                                                            "title": "The first anyOf schema",
+                                                            "description": "An explanation about the purpose of this instance.",
+                                                            "default": 0,
+                                                            "examples": [
+                                                                102,
+                                                                125
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            "media_url": {
+                                                "$id": "#/properties/misc/properties/entities/properties/media/items/anyOf/0/properties/media_url",
+                                                "type": "string",
+                                                "title": "The media_url schema",
+                                                "description": "An explanation about the purpose of this instance.",
+                                                "default": "",
+                                                "examples": [
+                                                    "http://pbs.twimg.com/media/E_K1KHmXoAYqw50.jpg"
+                                                ]
+                                            },
+                                            "media_url_https": {
+                                                "$id": "#/properties/misc/properties/entities/properties/media/items/anyOf/0/properties/media_url_https",
+                                                "type": "string",
+                                                "title": "The media_url_https schema",
+                                                "description": "An explanation about the purpose of this instance.",
+                                                "default": "",
+                                                "examples": [
+                                                    "https://pbs.twimg.com/media/E_K1KHmXoAYqw50.jpg"
+                                                ]
+                                            },
+                                            "url": {
+                                                "$id": "#/properties/misc/properties/entities/properties/media/items/anyOf/0/properties/url",
+                                                "type": "string",
+                                                "title": "The url schema",
+                                                "description": "An explanation about the purpose of this instance.",
+                                                "default": "",
+                                                "examples": [
+                                                    "https://t.co/eJtdjtTzNu"
+                                                ]
+                                            },
+                                            "display_url": {
+                                                "$id": "#/properties/misc/properties/entities/properties/media/items/anyOf/0/properties/display_url",
+                                                "type": "string",
+                                                "title": "The display_url schema",
+                                                "description": "An explanation about the purpose of this instance.",
+                                                "default": "",
+                                                "examples": [
+                                                    "pic.twitter.com/eJtdjtTzNu"
+                                                ]
+                                            },
+                                            "expanded_url": {
+                                                "$id": "#/properties/misc/properties/entities/properties/media/items/anyOf/0/properties/expanded_url",
+                                                "type": "string",
+                                                "title": "The expanded_url schema",
+                                                "description": "An explanation about the purpose of this instance.",
+                                                "default": "",
+                                                "examples": [
+                                                    "https://twitter.com/Ultra2534/status/1437410419426140160/photo/1"
+                                                ]
+                                            },
+                                            "type": {
+                                                "$id": "#/properties/misc/properties/entities/properties/media/items/anyOf/0/properties/type",
+                                                "type": "string",
+                                                "title": "The type schema",
+                                                "description": "An explanation about the purpose of this instance.",
+                                                "default": "",
+                                                "examples": [
+                                                    "photo"
+                                                ]
+                                            },
+                                            "sizes": {
+                                                "$id": "#/properties/misc/properties/entities/properties/media/items/anyOf/0/properties/sizes",
+                                                "type": "object",
+                                                "title": "The sizes schema",
+                                                "description": "An explanation about the purpose of this instance.",
+                                                "default": {},
+                                                "examples": [
+                                                    {
+                                                        "small": {
+                                                            "w": 680,
+                                                            "h": 615,
+                                                            "resize": "fit"
+                                                        },
+                                                        "thumb": {
+                                                            "w": 150,
+                                                            "h": 150,
+                                                            "resize": "crop"
+                                                        },
+                                                        "medium": {
+                                                            "w": 886,
+                                                            "h": 801,
+                                                            "resize": "fit"
+                                                        },
+                                                        "large": {
+                                                            "w": 886,
+                                                            "h": 801,
+                                                            "resize": "fit"
+                                                        }
+                                                    }
+                                                ],
+                                                "required": [
+                                                    "small",
+                                                    "thumb",
+                                                    "medium",
+                                                    "large"
+                                                ],
+                                                "properties": {
+                                                    "small": {
+                                                        "$id": "#/properties/misc/properties/entities/properties/media/items/anyOf/0/properties/sizes/properties/small",
+                                                        "type": "object",
+                                                        "title": "The small schema",
+                                                        "description": "An explanation about the purpose of this instance.",
+                                                        "default": {},
+                                                        "examples": [
+                                                            {
+                                                                "w": 680,
+                                                                "h": 615,
+                                                                "resize": "fit"
+                                                            }
+                                                        ],
+                                                        "required": [
+                                                            "w",
+                                                            "h",
+                                                            "resize"
+                                                        ],
+                                                        "properties": {
+                                                            "w": {
+                                                                "$id": "#/properties/misc/properties/entities/properties/media/items/anyOf/0/properties/sizes/properties/small/properties/w",
+                                                                "type": "integer",
+                                                                "title": "The w schema",
+                                                                "description": "An explanation about the purpose of this instance.",
+                                                                "default": 0,
+                                                                "examples": [
+                                                                    680
+                                                                ]
+                                                            },
+                                                            "h": {
+                                                                "$id": "#/properties/misc/properties/entities/properties/media/items/anyOf/0/properties/sizes/properties/small/properties/h",
+                                                                "type": "integer",
+                                                                "title": "The h schema",
+                                                                "description": "An explanation about the purpose of this instance.",
+                                                                "default": 0,
+                                                                "examples": [
+                                                                    615
+                                                                ]
+                                                            },
+                                                            "resize": {
+                                                                "$id": "#/properties/misc/properties/entities/properties/media/items/anyOf/0/properties/sizes/properties/small/properties/resize",
+                                                                "type": "string",
+                                                                "title": "The resize schema",
+                                                                "description": "An explanation about the purpose of this instance.",
+                                                                "default": "",
+                                                                "examples": [
+                                                                    "fit"
+                                                                ]
+                                                            }
+                                                        },
+                                                        "additionalProperties": true
+                                                    },
+                                                    "thumb": {
+                                                        "$id": "#/properties/misc/properties/entities/properties/media/items/anyOf/0/properties/sizes/properties/thumb",
+                                                        "type": "object",
+                                                        "title": "The thumb schema",
+                                                        "description": "An explanation about the purpose of this instance.",
+                                                        "default": {},
+                                                        "examples": [
+                                                            {
+                                                                "w": 150,
+                                                                "h": 150,
+                                                                "resize": "crop"
+                                                            }
+                                                        ],
+                                                        "required": [
+                                                            "w",
+                                                            "h",
+                                                            "resize"
+                                                        ],
+                                                        "properties": {
+                                                            "w": {
+                                                                "$id": "#/properties/misc/properties/entities/properties/media/items/anyOf/0/properties/sizes/properties/thumb/properties/w",
+                                                                "type": "integer",
+                                                                "title": "The w schema",
+                                                                "description": "An explanation about the purpose of this instance.",
+                                                                "default": 0,
+                                                                "examples": [
+                                                                    150
+                                                                ]
+                                                            },
+                                                            "h": {
+                                                                "$id": "#/properties/misc/properties/entities/properties/media/items/anyOf/0/properties/sizes/properties/thumb/properties/h",
+                                                                "type": "integer",
+                                                                "title": "The h schema",
+                                                                "description": "An explanation about the purpose of this instance.",
+                                                                "default": 0,
+                                                                "examples": [
+                                                                    150
+                                                                ]
+                                                            },
+                                                            "resize": {
+                                                                "$id": "#/properties/misc/properties/entities/properties/media/items/anyOf/0/properties/sizes/properties/thumb/properties/resize",
+                                                                "type": "string",
+                                                                "title": "The resize schema",
+                                                                "description": "An explanation about the purpose of this instance.",
+                                                                "default": "",
+                                                                "examples": [
+                                                                    "crop"
+                                                                ]
+                                                            }
+                                                        },
+                                                        "additionalProperties": true
+                                                    },
+                                                    "medium": {
+                                                        "$id": "#/properties/misc/properties/entities/properties/media/items/anyOf/0/properties/sizes/properties/medium",
+                                                        "type": "object",
+                                                        "title": "The medium schema",
+                                                        "description": "An explanation about the purpose of this instance.",
+                                                        "default": {},
+                                                        "examples": [
+                                                            {
+                                                                "w": 886,
+                                                                "h": 801,
+                                                                "resize": "fit"
+                                                            }
+                                                        ],
+                                                        "required": [
+                                                            "w",
+                                                            "h",
+                                                            "resize"
+                                                        ],
+                                                        "properties": {
+                                                            "w": {
+                                                                "$id": "#/properties/misc/properties/entities/properties/media/items/anyOf/0/properties/sizes/properties/medium/properties/w",
+                                                                "type": "integer",
+                                                                "title": "The w schema",
+                                                                "description": "An explanation about the purpose of this instance.",
+                                                                "default": 0,
+                                                                "examples": [
+                                                                    886
+                                                                ]
+                                                            },
+                                                            "h": {
+                                                                "$id": "#/properties/misc/properties/entities/properties/media/items/anyOf/0/properties/sizes/properties/medium/properties/h",
+                                                                "type": "integer",
+                                                                "title": "The h schema",
+                                                                "description": "An explanation about the purpose of this instance.",
+                                                                "default": 0,
+                                                                "examples": [
+                                                                    801
+                                                                ]
+                                                            },
+                                                            "resize": {
+                                                                "$id": "#/properties/misc/properties/entities/properties/media/items/anyOf/0/properties/sizes/properties/medium/properties/resize",
+                                                                "type": "string",
+                                                                "title": "The resize schema",
+                                                                "description": "An explanation about the purpose of this instance.",
+                                                                "default": "",
+                                                                "examples": [
+                                                                    "fit"
+                                                                ]
+                                                            }
+                                                        },
+                                                        "additionalProperties": true
+                                                    },
+                                                    "large": {
+                                                        "$id": "#/properties/misc/properties/entities/properties/media/items/anyOf/0/properties/sizes/properties/large",
+                                                        "type": "object",
+                                                        "title": "The large schema",
+                                                        "description": "An explanation about the purpose of this instance.",
+                                                        "default": {},
+                                                        "examples": [
+                                                            {
+                                                                "w": 886,
+                                                                "h": 801,
+                                                                "resize": "fit"
+                                                            }
+                                                        ],
+                                                        "required": [
+                                                            "w",
+                                                            "h",
+                                                            "resize"
+                                                        ],
+                                                        "properties": {
+                                                            "w": {
+                                                                "$id": "#/properties/misc/properties/entities/properties/media/items/anyOf/0/properties/sizes/properties/large/properties/w",
+                                                                "type": "integer",
+                                                                "title": "The w schema",
+                                                                "description": "An explanation about the purpose of this instance.",
+                                                                "default": 0,
+                                                                "examples": [
+                                                                    886
+                                                                ]
+                                                            },
+                                                            "h": {
+                                                                "$id": "#/properties/misc/properties/entities/properties/media/items/anyOf/0/properties/sizes/properties/large/properties/h",
+                                                                "type": "integer",
+                                                                "title": "The h schema",
+                                                                "description": "An explanation about the purpose of this instance.",
+                                                                "default": 0,
+                                                                "examples": [
+                                                                    801
+                                                                ]
+                                                            },
+                                                            "resize": {
+                                                                "$id": "#/properties/misc/properties/entities/properties/media/items/anyOf/0/properties/sizes/properties/large/properties/resize",
+                                                                "type": "string",
+                                                                "title": "The resize schema",
+                                                                "description": "An explanation about the purpose of this instance.",
+                                                                "default": "",
+                                                                "examples": [
+                                                                    "fit"
+                                                                ]
+                                                            }
+                                                        },
+                                                        "additionalProperties": true
+                                                    }
+                                                },
+                                                "additionalProperties": true
+                                            }
+                                        },
+                                        "additionalProperties": true
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true
+        },
+        "createdAt": {
+            "$id": "#/properties/createdAt",
+            "type": "object",
+            "title": "The createdAt schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+                {
+                    "$date": "2021-09-13T19:08:49.079Z"
+                }
+            ],
+            "required": [
+                "$date"
+            ],
+            "properties": {
+                "$date": {
+                    "$id": "#/properties/createdAt/properties/%24date",
+                    "type": "string",
+                    "title": "The $date schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "2021-09-13T19:08:49.079Z"
+                    ]
+                }
+            },
+            "additionalProperties": true
+        },
+        "updatedAt": {
+            "$id": "#/properties/updatedAt",
+            "type": "object",
+            "title": "The updatedAt schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+                {
+                    "$date": "2021-09-13T19:08:49.079Z"
+                }
+            ],
+            "required": [
+                "$date"
+            ],
+            "properties": {
+                "$date": {
+                    "$id": "#/properties/updatedAt/properties/%24date",
+                    "type": "string",
+                    "title": "The $date schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "2021-09-13T19:08:49.079Z"
+                    ]
+                }
+            },
+            "additionalProperties": true
+        }
+    },
+    "additionalProperties": true
+}
