@@ -275,7 +275,7 @@ async function redditStream(query,socket,streamEvent='reddit'){
             })
         }else{
             console.log("reddit stream stop for",socket.id);
-            socket.connected && socket.emit(`redditFeedEnd`, "true")
+            socket.connected && socket.emit(`combinedStreamEnd`, "reddit")
             clearInterval(intervalCheck)
         }
     } , 500);
@@ -331,7 +331,7 @@ async function twitterStream(query,socket,streamEvent='twitter'){
             })
         }else{
             console.log(streamEvent," stream stop",socket.id);
-            socket.connected && socket.emit(`twitterFeedEnd`, "true")
+            socket.connected && socket.emit(`combinedStreamEnd`, "twitter")
             delete store
             clearInterval(intervalCheck)
         }
@@ -386,7 +386,7 @@ async function youtubeStream(query,socket,streamEvent='youtube'){
             })
         }else{
             console.log(streamEvent, " stream stop ",socket.id);
-            socket.connected && socket.emit(`youtubeFeedEnd`, "true")
+            socket.connected && socket.emit(`combinedStreamEnd`, "youtube")
             delete store
             clearInterval(intervalCheck)
         }
@@ -441,7 +441,7 @@ async function tumblrStream(query,socket,streamEvent='tumblr'){
             })
         }else{
             console.log(streamEvent,"stream stop",socket.id);
-            socket.connected && socket.emit(`tumblrFeedEnd`, "true")
+            socket.connected && socket.emit(`combinedStreamEnd`, "tumblr")
             delete store
             clearInterval(intervalCheck)
         }
