@@ -73,15 +73,33 @@ router.post('/createProfile', (req, res) => {
             console.log(err);
         }
         else{
+            if(userDocs.plan=='pro' && userDocs.createdProfiles.length>=10){
+                return res.status(402).send({
+                    err: 'Not authorised',
+                    message: 'Cannot create more than 10 profiles. Purchase Enterprise version'
+                });
+            }else if(userDocs.plan=='free' && userDocs.createdProfiles.length>=1){
+                return res.status(402).send({
+                    err: 'Not authorised',
+                    message: 'Cannot create more than 1 profile. Purchase Pro version'
+                });
+            }else if(userDocs.plan=='enterprise' && userDocs.createdProfiles.length>=50){
+                return res.status(402).send({
+                    err: 'Not authorised',
+                    message: 'Cannot create more than 50 profiles. Please contact us for quota increase'
+                });
+            }
             let profileData = {
                 brand: data.brand, 
                 users: [userDocs._id], 
-                plan: userDocs.plan, 
+                creator: userDocs._id, 
                 competitors: data.competitors.split(','),
-                quota: 99999
+                analysis: data.analysis,
+                quota: userDocs.plan=='enterprise' ? 1000000 : (userDocs.plan=='pro' ? 10000 : 1000)
             }
             createProfile(profileData, (docs)=>{
                 userDocs.profiles.push(docs._id)
+                userDocs.createdProfiles.push(docs._id)
                 userDocs.stage = userDocs.stage>2 ? userDocs.stage : 2
                 userDocs.save()
                 console.log(userDocs,docs);
@@ -100,6 +118,7 @@ router.post('/deleteProfile', (req, res) => {
         }
         else{
             userDocs.profiles = userDocs.profiles.filter(profile => profile != data.id)
+            userDocs.createdProfiles = userDocs.createdProfiles.filter(profile => profile != data.id)
             userDocs.save()
             res.setHeader('Content-Type', 'application/json');
 

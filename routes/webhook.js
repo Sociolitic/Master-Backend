@@ -8,6 +8,7 @@ var multer = require('multer');
 var upload = multer();
 let mailer = require('./mail');
 const Users=require('../models/users');
+const Profiles=require('../models/profiles');
 const { informAdmin,sendMail } = require('./mail');
 var cors = require('cors')
 router.use(cors())
@@ -16,8 +17,18 @@ router.use(cors())
 function fullfillorder(session){
 	sendMail(session.customer_details.email,'Sociolitic Subscription','Transaction Id: '+session.id)
 	informAdmin(JSON.stringify(session))	
-	Users.findOneAndUpdate({email: session.customer_details.email},{plan: 'pro'},(err,docs)=>{
-		console.log(1);
+	Users.findOneAndUpdate({email: session.customer_details.email},{plan: 'pro'},(err,userDocs)=>{
+		if(err){
+			informAdmin(session,err)
+		}else{
+			console.log(21,userDocs);
+			let newQuota = userDocs.plan=='enterprise' ? 1000000 : (userDocs.plan=='pro' ? 10000 : 1000)
+			Profiles.updateMany({creator: userDocs._id}, {"$inc":{"quota": newQuota}},(err,docs)=>{
+				if(err){
+					informAdmin(session,err)
+				}
+			})
+		}
 	})	
 }
 
@@ -41,6 +52,18 @@ router.post('/confirm',bodyParser.raw({ type: 'application/json' }), (request, r
 	
 		response.status(200);
 		response.end('Done')
+})
+
+router.get('/testConfirm/:email',(req,res)=>{
+	var session = {
+		"id": "testTransactionId",
+		"customer_details":{
+			"email": req.params.email
+		}
+	}
+	fullfillorder(session);
+	res.status(200);
+	res.end('Done')
 })
 
 router.use(express.urlencoded({ extended: true })); 

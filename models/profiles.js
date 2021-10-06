@@ -6,7 +6,7 @@ const customSchema = new Schema(
 		users: [{
 			type: "String",
 		}],
-		plan: {
+		creator: {
 			type: "String"
 		},
 		brand: {
@@ -17,7 +17,11 @@ const customSchema = new Schema(
 		}],
         quota: {
             type: "Number"
-        }
+        },
+		analysis: {
+			type: "Boolean",
+			default: false
+		}
 	},
 	{
 		usePushEach: true,

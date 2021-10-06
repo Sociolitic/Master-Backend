@@ -18,7 +18,6 @@ router.post('/verify', (req, res) => {
         console.log(uid);
         data.user.userId=uid
         data.user.plan="free"
-        data.user.competitors=[]
         data.user.stage=1
         console.log(data);
         Users.findOne({ email: data.user.email}, function (err, docs) {

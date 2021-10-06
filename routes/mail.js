@@ -56,7 +56,6 @@ function informAdmin(msg, issue=false){
     };
     request(options, function (error, response) {
       if (error) throw new Error(error);
-      console.log(1,response.body);
     });  
   }else{
     var options = {
@@ -72,7 +71,6 @@ function informAdmin(msg, issue=false){
     };
     request(options, function (error, response) {
       if (error) throw new Error(error);
-      console.log(1,response.body);
     });  
   }
 }

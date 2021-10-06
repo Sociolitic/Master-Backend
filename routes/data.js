@@ -4,7 +4,9 @@ var request = require('request');
 var jwt = require('jsonwebtoken');
 const profiles = require('../models/profiles');
 const Users = require('../models/users');
-const { informAdmin } = require('./mail')
+const { informAdmin, sendMail } = require('./mail')
+const schedule = require('node-schedule');
+const socketMock = require('socket.io-mock')
 
 // const Users = require('../models/users');
 const youtube = require('../models/youtube');
@@ -78,6 +80,7 @@ io.use(function(socket, next){
                 if(err){
                     return next(new Error('Authentication error'));
                 }else{
+                    console.log(83,decoded._id,user);
                     socket.profiles = user.profiles
                     next()
                 }
@@ -227,11 +230,11 @@ router.get('/tumblr', validateProfile, (req, res) => {
     })
 })
 
-async function redditStream(query,socket,streamEvent='reddit'){
-    query = await getProfileDetails(query)
+async function redditStream(profile,socket,streamEvent='reddit',limit=50){
+    query = await getProfileDetails(profile)
     query = query.brand;
+    console.log('Crawling reddit for ',query);
     var store={}
-    limit=50
     var stop= false
     thisTime=new Date()
     options = {
@@ -276,21 +279,28 @@ async function redditStream(query,socket,streamEvent='reddit'){
         }else{
             console.log("reddit stream stop for",socket.id);
             socket.connected && socket.emit(`combinedStreamEnd`, "reddit")
+            let mentionsCount = Object.keys(store).length
+            profiles.findOneAndUpdate({_id: profile},{"$inc": {"quota": -mentionsCount}},(err,docs)=>{
+                console.log(err,docs.quota);
+            })
+            delete store
             clearInterval(intervalCheck)
         }
     } , 500);
 }
 
-async function twitterStream(query,socket,streamEvent='twitter'){
-    query = await getProfileDetails(query)
+async function twitterStream(profile,socket,streamEvent='twitter'){
+    query = await getProfileDetails(profile)
     query = query.brand;
+    console.log('Crawling twitter for ',query);
+
     var store={}
-    limit=50
+    time=1
     var stop= false
     thisTime=new Date()
     options = {
         'method': 'GET',
-        'url': `http://data:5000/twitter/search/?q=${query}&limit=${limit}`
+        'url': `http://data:5000/twitter/stream/?q=${query}&time=${time}`
     };
     request(options, function (error, response) {
         if (error){
@@ -299,11 +309,10 @@ async function twitterStream(query,socket,streamEvent='twitter'){
             socket.emit('error',{
                 err: "Socket overload. Try again"
             })
-            // informAdmin(JSON.stringify(error),true)
+            informAdmin(JSON.stringify(error),true)
         }else{
             stop=true
             console.log(JSON.stringify(response));
-            // informAdmin(JSON.stringify(response),true)
         }
     });
 
@@ -332,17 +341,23 @@ async function twitterStream(query,socket,streamEvent='twitter'){
         }else{
             console.log(streamEvent," stream stop",socket.id);
             socket.connected && socket.emit(`combinedStreamEnd`, "twitter")
+            let mentionsCount = Object.keys(store).length
+            profiles.findOneAndUpdate({_id: profile},{"$inc": {"quota": -mentionsCount}},(err,docs)=>{
+                console.log(err,docs.quota);
+            })
             delete store
             clearInterval(intervalCheck)
+
         }
     } , 1000);
 }
 
-async function youtubeStream(query,socket,streamEvent='youtube'){
-    query = await getProfileDetails(query)
+async function youtubeStream(profile,socket,streamEvent='youtube',limit=30){
+    query = await getProfileDetails(profile)
     query = query.brand;
+    console.log('Crawling youtube for ',query);
+
     var store={}
-    limit=30
     var stop= false
     thisTime=new Date()
     options = {
@@ -387,17 +402,22 @@ async function youtubeStream(query,socket,streamEvent='youtube'){
         }else{
             console.log(streamEvent, " stream stop ",socket.id);
             socket.connected && socket.emit(`combinedStreamEnd`, "youtube")
+            let mentionsCount = Object.keys(store).length
+            profiles.findOneAndUpdate({_id: profile},{"$inc": {"quota": -mentionsCount}},(err,docs)=>{
+                console.log(err,docs.quota);
+            })
             delete store
             clearInterval(intervalCheck)
         }
     } , 1000);
 }
 
-async function tumblrStream(query,socket,streamEvent='tumblr'){
-    query = await getProfileDetails(query)
+async function tumblrStream(profile,socket,streamEvent='tumblr',limit=30){
+    query = await getProfileDetails(profile)
     query = query.brand;
+    console.log('Crawling tumblr for ',query);
+
     var store={}
-    limit=30
     var stop= false
     thisTime=new Date()
     options = {
@@ -442,6 +462,10 @@ async function tumblrStream(query,socket,streamEvent='tumblr'){
         }else{
             console.log(streamEvent,"stream stop",socket.id);
             socket.connected && socket.emit(`combinedStreamEnd`, "tumblr")
+            let mentionsCount = Object.keys(store).length
+            profiles.findOneAndUpdate({_id: profile},{"$inc": {"quota": -mentionsCount}},(err,docs)=>{
+                console.log(err,docs.quota);
+            })
             delete store
             clearInterval(intervalCheck)
         }
@@ -478,5 +502,37 @@ router.post('/status',(req,res)=>{
     });
 })
 
+router.get('/cron',(req,res)=>{
+    cron()
+    res.end('Started')
+})
+
+const cronJob = schedule.scheduleJob('30 02 * * *', cron);
+
+function cron(){
+    let socket = new socketMock()
+    profiles.find({analysis: true},(err,profilesToCrawl)=>{
+        let backOff=1000
+        for(profile of profilesToCrawl){
+            console.log(514,profile.brand);
+            doSetTimeout(profile,backOff,socket)
+            backOff+=5000
+        }
+    })
+}
+
+function crawl(profileId,socket){
+    redditStream(profileId,socket,'auto',100)
+    twitterStream(profileId,socket,'auto')
+    youtubeStream(profileId,socket,'auto',100)
+    tumblrStream(profileId,socket,'auto',100)
+}
 
 module.exports = router;
+
+function doSetTimeout(profile,backOff,socket) {
+    setTimeout(function() { 
+        informAdmin(`Crawling ${profile.brand}`)
+        crawl(profile._id,socket)
+    }, backOff);
+}
