@@ -49,9 +49,15 @@ function validateProfile(req,res,next){
                 message: 'Error in server'
             })
         }else if(docs){
-            if(docs.users.includes(req.decoded._id) && docs.quota>0){
-                req.profile = docs
-                next()
+            if(docs.users.includes(req.decoded._id)){
+                if(docs.quota>0){
+                    req.profile = docs
+                    next()
+                }else{
+                    res.status(402).json({
+                        message: 'Insufficient balance. Quota exhausted. Upgrade to a higher tier.'
+                    })
+                }
             }else{
                 res.status(401).json({
                     message: 'You are not authorized to access this profile'
@@ -80,7 +86,6 @@ io.use(function(socket, next){
                 if(err){
                     return next(new Error('Authentication error'));
                 }else{
-                    console.log(83,decoded._id,user);
                     socket.profiles = user.profiles
                     next()
                 }
@@ -232,6 +237,12 @@ router.get('/tumblr', validateProfile, (req, res) => {
 
 async function redditStream(profile,socket,streamEvent='reddit',limit=50){
     query = await getProfileDetails(profile)
+    if(query.quota<=0){
+        socket.emit('error',{
+            err: "Insufficient balance. Quota exhausted. Upgrade to a higher tier."
+        })
+        return ;
+    }
     query = query.brand;
     console.log('Crawling reddit for ',query);
     var store={}
@@ -291,6 +302,12 @@ async function redditStream(profile,socket,streamEvent='reddit',limit=50){
 
 async function twitterStream(profile,socket,streamEvent='twitter'){
     query = await getProfileDetails(profile)
+    if(query.quota<=0){
+        socket.emit('error',{
+            err: "Insufficient balance. Quota exhausted. Upgrade to a higher tier."
+        })
+        return ;
+    }
     query = query.brand;
     console.log('Crawling twitter for ',query);
 
@@ -354,6 +371,12 @@ async function twitterStream(profile,socket,streamEvent='twitter'){
 
 async function youtubeStream(profile,socket,streamEvent='youtube',limit=30){
     query = await getProfileDetails(profile)
+    if(query.quota<=0){
+        socket.emit('error',{
+            err: "Insufficient balance. Quota exhausted. Upgrade to a higher tier."
+        })
+        return ;
+    }
     query = query.brand;
     console.log('Crawling youtube for ',query);
 
@@ -414,6 +437,12 @@ async function youtubeStream(profile,socket,streamEvent='youtube',limit=30){
 
 async function tumblrStream(profile,socket,streamEvent='tumblr',limit=30){
     query = await getProfileDetails(profile)
+    if(query.quota<=0){
+        socket.emit('error',{
+            err: "Insufficient balance. Quota exhausted. Upgrade to a higher tier."
+        })
+        return ;
+    }
     query = query.brand;
     console.log('Crawling tumblr for ',query);
 

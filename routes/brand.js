@@ -129,8 +129,19 @@ router.post('/deleteProfile', (req, res) => {
                     })
                 }else if(docs){
                     docs.users = docs.users.filter(user => user != userDocs._id)
-                    docs.save()
-                    res.json(userDocs)
+                    if(docs.users.length==0){
+                        profiles.findOneAndDelete({_id: data.id},(err,docs)=>{
+                            if(err){
+                                console.log(err);
+                            }
+                            res.json({
+                                "message": `Profile ${data.id} deleted`
+                            })
+                        })
+                    }else{
+                        docs.save()
+                        res.json(userDocs)
+                    }
                 }
             })
         }
