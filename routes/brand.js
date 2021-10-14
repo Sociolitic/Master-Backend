@@ -3,6 +3,7 @@ var router = express.Router();
 const Users = require('../models/users');
 var jwt = require('jsonwebtoken');
 const profiles = require('../models/profiles');
+var request = require('request');
 
 function authMiddleware(req,res,next){
     if(req.headers.authorization){
@@ -105,6 +106,16 @@ router.post('/createProfile', (req, res) => {
                 console.log(userDocs,docs);
                 res.setHeader('Content-Type', 'application/json');
                 res.json(docs)
+                var options = {
+                    'method': 'GET',
+                    'url': `http://data:5000/insertion?id=${docs._id}`,
+                    'headers': {
+                }
+                };
+                request(options, function (error, response) {
+                    if (error) throw new Error(error);
+                    console.log(response.body);
+                });
             })
         }
       })
@@ -137,6 +148,16 @@ router.post('/deleteProfile', (req, res) => {
                             res.json({
                                 "message": `Profile ${data.id} deleted`
                             })
+                            var options = {
+                                'method': 'GET',
+                                'url': `http://data:5000/deletion?id=${data.id}`,
+                                'headers': {
+                            }
+                            };
+                            request(options, function (error, response) {
+                                if (error) throw new Error(error);
+                                console.log(response.body);
+                            });
                         })
                     }else{
                         docs.save()
