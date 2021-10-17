@@ -116,6 +116,18 @@ router.post('/createProfile', (req, res) => {
                     if (error) throw new Error(error);
                     console.log(response.body);
                 });
+                setTimeout((brand=data.brand) => {
+                    var options = {
+                        'method': 'GET',
+                        'url': `http://data:5000/aggregate/?q=${brand}`,
+                        'headers': {
+                    }
+                    };
+                    request(options, function (error, response) {
+                        if (error) throw new Error(error);
+                        console.log(response.body);
+                    });
+                }, 600000,data.brand);
             })
         }
       })

@@ -13,6 +13,7 @@ const youtube = require('../models/youtube');
 const twitter = require('../models/twitter');
 const reddit = require('../models/reddit');
 const tumblr = require('../models/tumblr');
+const aggregate = require('../models/aggregate');
 const io = require('socket.io')(7000, {
     cors: {
         origin: '*'
@@ -506,7 +507,7 @@ router.get('/aggregate', validateProfile, (req, res) => {
     q=req.profile.brand
     var options = {
         'method': 'GET',
-        'url': `http://data:5000/mentions/?q=${q}`,
+        'url': `http://data:5000/aggregate/?q=${q}`,
         'headers': {
     }
     };
@@ -515,6 +516,67 @@ router.get('/aggregate', validateProfile, (req, res) => {
         res.json(JSON.parse(response.body));
     });
 
+})
+
+router.get('/ner-count', validateProfile, (req, res) => {
+    res.setHeader('Content-type', 'application/json')
+    q=req.profile.brand
+    var options = {
+        'method': 'GET',
+        'url': `http://data:5000/ner_mentions?q=${q}`,
+      };
+    request(options, function (error, response) {
+        if (error) informAdmin(JSON.stringify(error));
+        res.json(JSON.parse(response.body));
+        profiles.findOneAndUpdate({_id: req.profile.id},{"$inc": {"quota": -10}},(err,docs)=>{
+            console.log(err,docs.quota);
+        })
+    });
+})
+
+router.get('/ner', (req, res) => {
+    res.setHeader('Content-type', 'application/json')
+    q=req.query.q
+    var options = {
+        'method': 'GET',
+        'url': `http://data:5000/ner?q=${q}`,
+      };
+    request(options, function (error, response) {
+        if (error) informAdmin(JSON.stringify(error));
+        res.json(JSON.parse(response.body));
+    });
+})
+
+router.get('/mentions-count', validateProfile, (req, res) => {
+    res.setHeader('Content-type', 'application/json')
+    q=req.profile.brand
+    var options = {
+        'method': 'GET',
+        'url': `http://data:5000/mentions?q=${q}`,
+      };
+    request(options, function (error, response) {
+        if (error) informAdmin(JSON.stringify(error));
+        res.json(JSON.parse(response.body));
+        profiles.findOneAndUpdate({_id: req.profile.id},{"$inc": {"quota": -10}},(err,docs)=>{
+            console.log(err,docs.quota);
+        })
+    });
+})
+
+router.get('/aggregate-count', validateProfile, (req,res)=>{
+    res.setHeader('Content-type', 'application/json')
+    q=req.profile.brand
+    aggregate.findOne({tag: { $regex : new RegExp(q, "i") }},(err,docs)=>{
+        if(err){
+            informAdmin(err)
+        }else{
+            delete docs['profiles']
+            res.json(docs)
+            profiles.findOneAndUpdate({_id: req.profile.id},{"$inc": {"quota": -10}},(err,docs)=>{
+                console.log(err,docs.quota);
+            })
+        }
+    }).select('-profiles')
 })
 
 router.post('/status',(req,res)=>{
