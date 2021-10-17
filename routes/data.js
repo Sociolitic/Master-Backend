@@ -570,11 +570,17 @@ router.get('/aggregate-count', validateProfile, (req,res)=>{
         if(err){
             informAdmin(err)
         }else{
-            delete docs['profiles']
-            res.json(docs)
-            profiles.findOneAndUpdate({_id: req.profile.id},{"$inc": {"quota": -10}},(err,docs)=>{
-                console.log(err,docs.quota);
-            })
+            if(docs){
+                delete docs['profiles']
+                res.json(docs)
+                profiles.findOneAndUpdate({_id: req.profile.id},{"$inc": {"quota": -10}},(err,docs)=>{
+                    console.log(err,docs.quota);
+                })
+            }else{
+                res.status(404).send({
+                    message: `Aggregate data not found for ${q}`
+                });
+            }
         }
     }).select('-profiles')
 })
