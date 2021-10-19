@@ -22,6 +22,10 @@ const userSchema = new Schema(
 			type: "String",
 			default: "null"
 		}],
+		createdProfiles: [{
+			type: "String",
+			default: "null"
+		}],
 		stage: {
 			type: "Number"
 		},

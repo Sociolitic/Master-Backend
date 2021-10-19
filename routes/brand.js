@@ -3,6 +3,7 @@ var router = express.Router();
 const Users = require('../models/users');
 var jwt = require('jsonwebtoken');
 const profiles = require('../models/profiles');
+var request = require('request');
 
 function authMiddleware(req,res,next){
     if(req.headers.authorization){
@@ -73,20 +74,60 @@ router.post('/createProfile', (req, res) => {
             console.log(err);
         }
         else{
+            if(userDocs.plan=='pro' && userDocs.createdProfiles.length>=10){
+                return res.status(402).send({
+                    err: 'Not authorised',
+                    message: 'Cannot create more than 10 profiles. Purchase Enterprise version'
+                });
+            }else if(userDocs.plan=='free' && userDocs.createdProfiles.length>=1){
+                return res.status(402).send({
+                    err: 'Not authorised',
+                    message: 'Cannot create more than 1 profile. Purchase Pro version'
+                });
+            }else if(userDocs.plan=='enterprise' && userDocs.createdProfiles.length>=50){
+                return res.status(402).send({
+                    err: 'Not authorised',
+                    message: 'Cannot create more than 50 profiles. Please contact us for quota increase'
+                });
+            }
             let profileData = {
                 brand: data.brand, 
                 users: [userDocs._id], 
-                plan: userDocs.plan, 
+                creator: userDocs._id, 
                 competitors: data.competitors.split(','),
-                quota: 99999
+                analysis: data.analysis,
+                quota: userDocs.plan=='enterprise' ? 1000000 : (userDocs.plan=='pro' ? 10000 : 1000)
             }
             createProfile(profileData, (docs)=>{
                 userDocs.profiles.push(docs._id)
+                userDocs.createdProfiles.push(docs._id)
                 userDocs.stage = userDocs.stage>2 ? userDocs.stage : 2
                 userDocs.save()
                 console.log(userDocs,docs);
                 res.setHeader('Content-Type', 'application/json');
                 res.json(docs)
+                var options = {
+                    'method': 'GET',
+                    'url': `http://data:5000/insertion?id=${docs._id}`,
+                    'headers': {
+                }
+                };
+                request(options, function (error, response) {
+                    if (error) throw new Error(error);
+                    console.log(response.body);
+                });
+                setTimeout((brand=data.brand) => {
+                    var options = {
+                        'method': 'GET',
+                        'url': `http://data:5000/aggregate/?q=${brand}`,
+                        'headers': {
+                    }
+                    };
+                    request(options, function (error, response) {
+                        if (error) throw new Error(error);
+                        console.log(response.body);
+                    });
+                }, 600000,data.brand);
             })
         }
       })
@@ -100,6 +141,7 @@ router.post('/deleteProfile', (req, res) => {
         }
         else{
             userDocs.profiles = userDocs.profiles.filter(profile => profile != data.id)
+            userDocs.createdProfiles = userDocs.createdProfiles.filter(profile => profile != data.id)
             userDocs.save()
             res.setHeader('Content-Type', 'application/json');
 
@@ -110,8 +152,29 @@ router.post('/deleteProfile', (req, res) => {
                     })
                 }else if(docs){
                     docs.users = docs.users.filter(user => user != userDocs._id)
-                    docs.save()
-                    res.json(userDocs)
+                    if(docs.users.length==0){
+                        profiles.findOneAndDelete({_id: data.id},(err,docs)=>{
+                            if(err){
+                                console.log(err);
+                            }
+                            res.json({
+                                "message": `Profile ${data.id} deleted`
+                            })
+                            var options = {
+                                'method': 'GET',
+                                'url': `http://data:5000/deletion?id=${data.id}`,
+                                'headers': {
+                            }
+                            };
+                            request(options, function (error, response) {
+                                if (error) throw new Error(error);
+                                console.log(response.body);
+                            });
+                        })
+                    }else{
+                        docs.save()
+                        res.json(userDocs)
+                    }
                 }
             })
         }

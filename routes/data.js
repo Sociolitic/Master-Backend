@@ -4,13 +4,15 @@ var request = require('request');
 var jwt = require('jsonwebtoken');
 const profiles = require('../models/profiles');
 const Users = require('../models/users');
-const { informAdmin } = require('./mail')
+const { informAdmin, sendMail } = require('./mail')
+const schedule = require('node-schedule');
+const socketMock = require('socket.io-mock')
 
-// const Users = require('../models/users');
 const youtube = require('../models/youtube');
 const twitter = require('../models/twitter');
 const reddit = require('../models/reddit');
 const tumblr = require('../models/tumblr');
+const aggregate = require('../models/aggregate');
 const io = require('socket.io')(7000, {
     cors: {
         origin: '*'
@@ -47,9 +49,15 @@ function validateProfile(req,res,next){
                 message: 'Error in server'
             })
         }else if(docs){
-            if(docs.users.includes(req.decoded._id) && docs.quota>0){
-                req.profile = docs
-                next()
+            if(docs.users.includes(req.decoded._id)){
+                if(docs.quota>0){
+                    req.profile = docs
+                    next()
+                }else{
+                    res.status(402).json({
+                        message: 'Insufficient balance. Quota exhausted. Upgrade to a higher tier.'
+                    })
+                }
             }else{
                 res.status(401).json({
                     message: 'You are not authorized to access this profile'
@@ -119,12 +127,40 @@ io.use(function(socket, next){
                 socket.emit('error','Not authorised to acccess this profile')
             }
         })
+        socket.on('redditCombined', (profileId)=>{
+            if(socket.profiles.includes(profileId)){
+                redditStream(profileId,socket,'combined')
+            }else{
+                socket.emit('error','Not authorised to acccess this profile')
+            }
+        })
+        socket.on('twitterCombined', (profileId)=>{
+            if(socket.profiles.includes(profileId)){
+                twitterStream(profileId,socket,'combined')
+            }else{
+                socket.emit('error','Not authorised to acccess this profile')
+            }
+        })
+        socket.on('youtubeCombined', (profileId)=>{
+            if(socket.profiles.includes(profileId)){
+                youtubeStream(profileId,socket,'combined')
+            }else{
+                socket.emit('error','Not authorised to acccess this profile')
+            }
+        })
+        socket.on('tumblrCombined', (profileId)=>{
+            if(socket.profiles.includes(profileId)){
+                tumblrStream(profileId,socket,'combined')
+            }else{
+                socket.emit('error','Not authorised to acccess this profile')
+            }
+        })
         socket.on('combinedStream', (profileId)=>{
             if(socket.profiles.includes(profileId)){
-                redditStream(profileId,socket)
-                twitterStream(profileId,socket)
-                youtubeStream(profileId,socket)
-                tumblrStream(profileId,socket)
+                redditStream(profileId,socket,'combined')
+                twitterStream(profileId,socket,'combined')
+                youtubeStream(profileId,socket,'combined')
+                tumblrStream(profileId,socket,'combined')
             }else{
                 socket.emit('error','Not authorised to acccess this profile')
             }
@@ -199,11 +235,17 @@ router.get('/tumblr', validateProfile, (req, res) => {
     })
 })
 
-async function redditStream(query,socket,streamEvent='reddit'){
-    query = await getProfileDetails(query)
+async function redditStream(profile,socket,streamEvent='reddit',limit=50){
+    query = await getProfileDetails(profile)
+    if(query.quota<=0){
+        socket.emit('error',{
+            err: "Insufficient balance. Quota exhausted. Upgrade to a higher tier."
+        })
+        return ;
+    }
     query = query.brand;
+    console.log('Crawling reddit for ',query);
     var store={}
-    limit=50
     var stop= false
     thisTime=new Date()
     options = {
@@ -247,23 +289,35 @@ async function redditStream(query,socket,streamEvent='reddit'){
             })
         }else{
             console.log("reddit stream stop for",socket.id);
-            socket.connected && socket.emit(`${streamEvent}FeedEnd`, "true")
+            socket.connected && socket.emit(`combinedStreamEnd`, "reddit")
+            let mentionsCount = Object.keys(store).length
+            profiles.findOneAndUpdate({_id: profile},{"$inc": {"quota": -mentionsCount}},(err,docs)=>{
+                console.log(err,docs.quota);
+            })
+            delete store
             clearInterval(intervalCheck)
         }
     } , 500);
 }
 
-async function twitterStream(query,socket,streamEvent='twitter'){
-    query = await getProfileDetails(query)
+async function twitterStream(profile,socket,streamEvent='twitter'){
+    query = await getProfileDetails(profile)
+    if(query.quota<=0){
+        socket.emit('error',{
+            err: "Insufficient balance. Quota exhausted. Upgrade to a higher tier."
+        })
+        return ;
+    }
     query = query.brand;
+    console.log('Crawling twitter for ',query);
+
     var store={}
-    limit=50
+    time=1
     var stop= false
     thisTime=new Date()
-    console.log(263);
     options = {
         'method': 'GET',
-        'url': `http://data.com:5000/twitter/search/?q=${query}&limit=${limit}`
+        'url': `http://data:5000/twitter/stream/?q=${query}&time=${time}`
     };
     request(options, function (error, response) {
         if (error){
@@ -272,11 +326,10 @@ async function twitterStream(query,socket,streamEvent='twitter'){
             socket.emit('error',{
                 err: "Socket overload. Try again"
             })
-            // informAdmin(JSON.stringify(error),true)
+            informAdmin(JSON.stringify(error),true)
         }else{
             stop=true
             console.log(JSON.stringify(response));
-            // informAdmin(JSON.stringify(response),true)
         }
     });
 
@@ -304,18 +357,30 @@ async function twitterStream(query,socket,streamEvent='twitter'){
             })
         }else{
             console.log(streamEvent," stream stop",socket.id);
-            socket.connected && socket.emit(`${streamEvent}FeedEnd`, "true")
+            socket.connected && socket.emit(`combinedStreamEnd`, "twitter")
+            let mentionsCount = Object.keys(store).length
+            profiles.findOneAndUpdate({_id: profile},{"$inc": {"quota": -mentionsCount}},(err,docs)=>{
+                console.log(err,docs.quota);
+            })
             delete store
             clearInterval(intervalCheck)
+
         }
     } , 1000);
 }
 
-async function youtubeStream(query,socket,streamEvent='youtube'){
-    query = await getProfileDetails(query)
+async function youtubeStream(profile,socket,streamEvent='youtube',limit=30){
+    query = await getProfileDetails(profile)
+    if(query.quota<=0){
+        socket.emit('error',{
+            err: "Insufficient balance. Quota exhausted. Upgrade to a higher tier."
+        })
+        return ;
+    }
     query = query.brand;
+    console.log('Crawling youtube for ',query);
+
     var store={}
-    limit=30
     var stop= false
     thisTime=new Date()
     options = {
@@ -359,18 +424,29 @@ async function youtubeStream(query,socket,streamEvent='youtube'){
             })
         }else{
             console.log(streamEvent, " stream stop ",socket.id);
-            socket.connected && socket.emit(`${streamEvent}FeedEnd`, "true")
+            socket.connected && socket.emit(`combinedStreamEnd`, "youtube")
+            let mentionsCount = Object.keys(store).length
+            profiles.findOneAndUpdate({_id: profile},{"$inc": {"quota": -mentionsCount}},(err,docs)=>{
+                console.log(err,docs.quota);
+            })
             delete store
             clearInterval(intervalCheck)
         }
     } , 1000);
 }
 
-async function tumblrStream(query,socket,streamEvent='tumblr'){
-    query = await getProfileDetails(query)
+async function tumblrStream(profile,socket,streamEvent='tumblr',limit=30){
+    query = await getProfileDetails(profile)
+    if(query.quota<=0){
+        socket.emit('error',{
+            err: "Insufficient balance. Quota exhausted. Upgrade to a higher tier."
+        })
+        return ;
+    }
     query = query.brand;
+    console.log('Crawling tumblr for ',query);
+
     var store={}
-    limit=30
     var stop= false
     thisTime=new Date()
     options = {
@@ -414,7 +490,11 @@ async function tumblrStream(query,socket,streamEvent='tumblr'){
             })
         }else{
             console.log(streamEvent,"stream stop",socket.id);
-            socket.connected && socket.emit(`${streamEvent}FeedEnd`, "true")
+            socket.connected && socket.emit(`combinedStreamEnd`, "tumblr")
+            let mentionsCount = Object.keys(store).length
+            profiles.findOneAndUpdate({_id: profile},{"$inc": {"quota": -mentionsCount}},(err,docs)=>{
+                console.log(err,docs.quota);
+            })
             delete store
             clearInterval(intervalCheck)
         }
@@ -426,7 +506,7 @@ router.get('/aggregate', validateProfile, (req, res) => {
     q=req.profile.brand
     var options = {
         'method': 'GET',
-        'url': `http://data:5000/mentions/?q=${q}`,
+        'url': `http://data:5000/aggregate/?q=${q}`,
         'headers': {
     }
     };
@@ -435,6 +515,73 @@ router.get('/aggregate', validateProfile, (req, res) => {
         res.json(JSON.parse(response.body));
     });
 
+})
+
+router.get('/ner-count', validateProfile, (req, res) => {
+    res.setHeader('Content-type', 'application/json')
+    q=req.profile.brand
+    var options = {
+        'method': 'GET',
+        'url': `http://data:5000/ner_mentions?q=${q}`,
+      };
+    request(options, function (error, response) {
+        if (error) informAdmin(JSON.stringify(error));
+        res.json(JSON.parse(response.body));
+        profiles.findOneAndUpdate({_id: req.profile.id},{"$inc": {"quota": -10}},(err,docs)=>{
+            console.log(err,docs.quota);
+        })
+    });
+})
+
+router.get('/ner', (req, res) => {
+    res.setHeader('Content-type', 'application/json')
+    q=req.query.q
+    var options = {
+        'method': 'GET',
+        'url': `http://data:5000/ner?q=${q}`,
+      };
+    request(options, function (error, response) {
+        if (error) informAdmin(JSON.stringify(error));
+        res.json(JSON.parse(response.body));
+    });
+})
+
+router.get('/mentions-count', validateProfile, (req, res) => {
+    res.setHeader('Content-type', 'application/json')
+    q=req.profile.brand
+    var options = {
+        'method': 'GET',
+        'url': `http://data:5000/mentions?q=${q}`,
+      };
+    request(options, function (error, response) {
+        if (error) informAdmin(JSON.stringify(error));
+        res.json(JSON.parse(response.body));
+        profiles.findOneAndUpdate({_id: req.profile.id},{"$inc": {"quota": -10}},(err,docs)=>{
+            console.log(err,docs.quota);
+        })
+    });
+})
+
+router.get('/aggregate-count', validateProfile, (req,res)=>{
+    res.setHeader('Content-type', 'application/json')
+    q=req.profile.brand
+    aggregate.findOne({tag: { $regex : new RegExp(q, "i") }},(err,docs)=>{
+        if(err){
+            informAdmin(err)
+        }else{
+            if(docs){
+                delete docs['profiles']
+                res.json(docs)
+                profiles.findOneAndUpdate({_id: req.profile.id},{"$inc": {"quota": -10}},(err,docs)=>{
+                    console.log(err,docs.quota);
+                })
+            }else{
+                res.status(404).send({
+                    message: `Aggregate data not found for ${q}`
+                });
+            }
+        }
+    }).select('-profiles')
 })
 
 router.post('/status',(req,res)=>{
@@ -451,5 +598,37 @@ router.post('/status',(req,res)=>{
     });
 })
 
+router.get('/cron',(req,res)=>{
+    cron()
+    res.end('Started')
+})
+
+const cronJob = schedule.scheduleJob('30 02 * * *', cron);
+
+function cron(){
+    let socket = new socketMock()
+    profiles.find({analysis: true},(err,profilesToCrawl)=>{
+        let backOff=1000
+        for(profile of profilesToCrawl){
+            console.log(514,profile.brand);
+            doSetTimeout(profile,backOff,socket)
+            backOff+=5000
+        }
+    })
+}
+
+function crawl(profileId,socket){
+    redditStream(profileId,socket,'auto',100)
+    twitterStream(profileId,socket,'auto')
+    youtubeStream(profileId,socket,'auto',100)
+    tumblrStream(profileId,socket,'auto',100)
+}
 
 module.exports = router;
+
+function doSetTimeout(profile,backOff,socket) {
+    setTimeout(function() { 
+        informAdmin(`Crawling ${profile.brand}`)
+        crawl(profile._id,socket)
+    }, backOff);
+}
