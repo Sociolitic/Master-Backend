@@ -8,7 +8,6 @@ const { informAdmin, sendMail } = require('./mail')
 const schedule = require('node-schedule');
 const socketMock = require('socket.io-mock')
 
-// const Users = require('../models/users');
 const youtube = require('../models/youtube');
 const twitter = require('../models/twitter');
 const reddit = require('../models/reddit');

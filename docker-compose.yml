@@ -5,6 +5,10 @@ services:
         image: sociolitic/data-crawlers
         ports:
             - 5000:5000
+    analytics:
+        image: rajeshmanchikanti10/analytics-v1
+        ports:
+            - 6000:5000
     master:
         image: nithinsgowda/sociolitic
         ports: 
@@ -12,3 +16,4 @@ services:
             - 7000:7000
         links:
             - "data:data"
+            - "analytics:analytics"
