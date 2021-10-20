@@ -511,8 +511,16 @@ router.get('/aggregate', validateProfile, (req, res) => {
     }
     };
     request(options, function (error, response) {
-        if (error) informAdmin(JSON.stringify(error));
-        res.json(JSON.parse(response.body));
+        if (error) {
+            res.send(error);
+            return ;
+        }
+        try {
+            let response = JSON.parse(response.body)
+            res.json(response);
+        } catch (e) {
+            res.send(response)
+        }
     });
 
 })
@@ -525,8 +533,16 @@ router.get('/ner-count', validateProfile, (req, res) => {
         'url': `http://data:5000/ner_mentions?q=${q}`,
       };
     request(options, function (error, response) {
-        if (error) informAdmin(JSON.stringify(error));
-        res.json(JSON.parse(response.body));
+        if (error) {
+            res.send(error);
+            return ;
+        }
+        try {
+            let response = JSON.parse(response.body)
+            res.json(response);
+        } catch (e) {
+            res.send(response)
+        }
         profiles.findOneAndUpdate({_id: req.profile.id},{"$inc": {"quota": -10}},(err,docs)=>{
             console.log(err,docs.quota);
         })
@@ -541,8 +557,16 @@ router.get('/ner', (req, res) => {
         'url': `http://data:5000/ner?q=${q}`,
       };
     request(options, function (error, response) {
-        if (error) informAdmin(JSON.stringify(error));
-        res.json(JSON.parse(response.body));
+        if (error) {
+            res.send(error);
+            return ;
+        }
+        try {
+            let response = JSON.parse(response.body)
+            res.json(response);
+        } catch (e) {
+            res.send(response)
+        }
     });
 })
 
@@ -554,8 +578,16 @@ router.get('/mentions-count', validateProfile, (req, res) => {
         'url': `http://data:5000/mentions?q=${q}`,
       };
     request(options, function (error, response) {
-        if (error) informAdmin(JSON.stringify(error));
-        res.json(JSON.parse(response.body));
+        if (error) {
+            res.send(error);
+            return ;
+        }
+        try {
+            let response = JSON.parse(response.body)
+            res.json(response);
+        } catch (e) {
+            res.send(response)
+        }
         profiles.findOneAndUpdate({_id: req.profile.id},{"$inc": {"quota": -10}},(err,docs)=>{
             console.log(err,docs.quota);
         })
@@ -565,13 +597,26 @@ router.get('/mentions-count', validateProfile, (req, res) => {
 router.get('/aggregate-count', validateProfile, (req,res)=>{
     res.setHeader('Content-type', 'application/json')
     q=req.profile.brand
-    aggregate.findOne({tag: { $regex : new RegExp(q, "i") }},(err,docs)=>{
+    // aggregate.findOne({tag: { $regex : new RegExp(q, "i") }},(err,docs)=>{
+    aggregate.findOne({tag: 'valorant' },(err,docs)=>{
         if(err){
+            res.send(err);
             informAdmin(err)
+            return ;
         }else{
             if(docs){
-                delete docs['profiles']
-                res.json(docs)
+                var resDocs={}
+                resDocs.tag = docs.tag
+                resDocs.id = docs.id
+                console.log(docs.createdAt);
+                resDocs.createdAt = docs.createdAt.toString()
+                resDocs.updatedAt = docs.updatedAt.toString()
+                resDocs.years = docs.years[0]
+                resDocs.months = docs.months[0]
+                resDocs.days = docs.days[0]
+                resDocs.hours = docs.hours[0]
+                resDocs.mins = docs.mins[0]
+                res.json(resDocs)
                 profiles.findOneAndUpdate({_id: req.profile.id},{"$inc": {"quota": -10}},(err,docs)=>{
                     console.log(err,docs.quota);
                 })
@@ -593,7 +638,10 @@ router.post('/status',(req,res)=>{
     }
     };
     request(options, function (error, response) {
-        if (error) informAdmin(JSON.stringify(error));
+        if (error) {
+            res.send(error);
+            return ;
+        }
         res.json(response.body);
     });
 })
