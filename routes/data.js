@@ -519,7 +519,7 @@ router.get('/aggregate', validateProfile, (req, res) => {
             let response = JSON.parse(response.body)
             res.json(response);
         } catch (e) {
-            res.send(response)
+            res.send(response.body)
         }
     });
 
@@ -541,7 +541,7 @@ router.get('/ner-count', validateProfile, (req, res) => {
             let response = JSON.parse(response.body)
             res.json(response);
         } catch (e) {
-            res.send(response)
+            res.send(response.body)
         }
         profiles.findOneAndUpdate({_id: req.profile.id},{"$inc": {"quota": -10}},(err,docs)=>{
             console.log(err,docs.quota);
@@ -565,7 +565,7 @@ router.get('/ner', (req, res) => {
             let response = JSON.parse(response.body)
             res.json(response);
         } catch (e) {
-            res.send(response)
+            res.send(response.body)
         }
     });
 })
@@ -586,7 +586,7 @@ router.get('/mentions-count', validateProfile, (req, res) => {
             let response = JSON.parse(response.body)
             res.json(response);
         } catch (e) {
-            res.send(response)
+            res.send(response.body)
         }
         profiles.findOneAndUpdate({_id: req.profile.id},{"$inc": {"quota": -10}},(err,docs)=>{
             console.log(err,docs.quota);
@@ -597,36 +597,63 @@ router.get('/mentions-count', validateProfile, (req, res) => {
 router.get('/aggregate-count', validateProfile, (req,res)=>{
     res.setHeader('Content-type', 'application/json')
     q=req.profile.brand
-    // aggregate.findOne({tag: { $regex : new RegExp(q, "i") }},(err,docs)=>{
-    aggregate.findOne({tag: 'valorant' },(err,docs)=>{
-        if(err){
-            res.send(err);
-            informAdmin(err)
-            return ;
-        }else{
-            if(docs){
-                var resDocs={}
-                resDocs.tag = docs.tag
-                resDocs.id = docs.id
-                console.log(docs.createdAt);
-                resDocs.createdAt = docs.createdAt.toString()
-                resDocs.updatedAt = docs.updatedAt.toString()
-                resDocs.years = docs.years[0]
-                resDocs.months = docs.months[0]
-                resDocs.days = docs.days[0]
-                resDocs.hours = docs.hours[0]
-                resDocs.mins = docs.mins[0]
-                res.json(resDocs)
+    var options = {
+        'method': 'GET',
+        'url': `http://data:5000/aggregate_data/?q=${q}`,
+      };
+    aggregate.findOne({tag: { $regex : new RegExp(q, "i") }},(err,docs)=>{
+        if(docs){
+            request(options, function (error, response) {
+                if (error) {
+                    res.send(error);
+                    return ;
+                }
+                try {
+                    let response = JSON.parse(response.body)
+                    res.json(response);
+                } catch (e) {
+                    res.send(response.body)
+                }
                 profiles.findOneAndUpdate({_id: req.profile.id},{"$inc": {"quota": -10}},(err,docs)=>{
                     console.log(err,docs.quota);
                 })
-            }else{
-                res.status(404).send({
-                    message: `Aggregate data not found for ${q}`
-                });
-            }
+            });
+        }else{
+            res.status(404).send({
+                message: `Aggregate data not found for ${q}`
+            });
         }
-    }).select('-profiles')
+    })
+    // aggregate.findOne({tag: { $regex : new RegExp(q, "i") }},(err,docs)=>{
+    // aggregate.findOne({tag: 'valorant' },(err,docs)=>{
+    //     if(err){
+    //         res.send(err);
+    //         informAdmin(err)
+    //         return ;
+    //     }else{
+    //         if(docs){
+    //             var resDocs={}
+    //             resDocs.tag = docs.tag
+    //             resDocs.id = docs.id
+    //             console.log(docs.createdAt);
+    //             resDocs.createdAt = docs.createdAt.toString()
+    //             resDocs.updatedAt = docs.updatedAt.toString()
+    //             resDocs.years = docs.years[0]
+    //             resDocs.months = docs.months[0]
+    //             resDocs.days = docs.days[0]
+    //             resDocs.hours = docs.hours[0]
+    //             resDocs.mins = docs.mins[0]
+    //             res.json(resDocs)
+    //             profiles.findOneAndUpdate({_id: req.profile.id},{"$inc": {"quota": -10}},(err,docs)=>{
+    //                 console.log(err,docs.quota);
+    //             })
+    //         }else{
+    //             res.status(404).send({
+    //                 message: `Aggregate data not found for ${q}`
+    //             });
+    //         }
+    //     }
+    // }).select('-profiles')
 })
 
 router.post('/status',(req,res)=>{
