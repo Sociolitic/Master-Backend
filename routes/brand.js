@@ -39,7 +39,7 @@ function authMiddleware(req,res,next){
 
 function validateProfile(req,res,next){
     data = JSON.parse(JSON.stringify(req.body))
-    profiles.findById(data.id,(err,docs)=>{
+    Profiles.findById(data.id,(err,docs)=>{
         if(err){
             res.status(500).send({
                 message: 'Error in server'
@@ -68,7 +68,7 @@ function validateProfile(req,res,next){
 }
 
 function findProfile(id,callback){
-    profiles.findById(id, (err,docs)=>{
+    Profiles.findById(id, (err,docs)=>{
         if(err){
             return res.status(500).send({
                 message: 'Error in server'
@@ -80,7 +80,7 @@ function findProfile(id,callback){
 }
 
 function createProfile(profile,callback){
-    profiles.create(profile, (err,docs)=>{
+    Profiles.create(profile, (err,docs)=>{
         if(err){
             return res.status(500).send({
                 message: 'Error in server'
@@ -94,6 +94,7 @@ function createProfile(profile,callback){
 router.post('/alert',(req,res)=>{
 	var data = req.body
 	var content=alertEmail
+    let whitelistMailIds=['nithin.s491@gmail.com','rajeshmanchikanti10@gmail.com','kokilakn13@gmail.com','reddyharshith90@gmail.com']    
     content = content.replace(/lMentions/g, data.previous_hour);
     content = content.replace(/{yMentions}/g, data.previous_day_hour);
     content = content.replace(/{nMentions}/g, data.this_hour);
@@ -106,7 +107,11 @@ router.post('/alert',(req,res)=>{
 			let users=docs.users
 			for(user of users){
 				Users.findById(user,(err,docs)=>{
-					sendMail(docs.email,`${data.tag} - Sociolitic Alert`,content)
+                    if(whitelistMailIds.indexOf(docs.email)!=-1){
+					    sendMail(docs.email,`${data.tag} - Sociolitic Alert`,content)
+                    }else{
+                        console.log('Assuming mail sent to ',docs.email);
+                    }
 				})
 			}
 		})
@@ -190,7 +195,7 @@ router.post('/deleteProfile', validateProfile, (req, res) => {
             userDocs.save()
             res.setHeader('Content-Type', 'application/json');
 
-            profiles.findById(data.id,(err,docs)=>{
+            Profiles.findById(data.id,(err,docs)=>{
                 if(err){
                     res.status(500).send({
                         message: 'Error in server'
@@ -198,7 +203,7 @@ router.post('/deleteProfile', validateProfile, (req, res) => {
                 }else if(docs){
                     docs.users = docs.users.filter(user => user != userDocs._id)
                     if(docs.users.length==0){
-                        profiles.findOneAndDelete({_id: data.id},(err,docs)=>{
+                        Profiles.findOneAndDelete({_id: data.id},(err,docs)=>{
                             if(err){
                                 console.log(err);
                             }
