@@ -13,6 +13,7 @@ const twitter = require('../models/twitter');
 const reddit = require('../models/reddit');
 const tumblr = require('../models/tumblr');
 const aggregate = require('../models/aggregate');
+const nerAggregate = require('../models/nerAggregate');
 const io = require('socket.io')(7000, {
     cors: {
         origin: '*'
@@ -654,6 +655,38 @@ router.get('/aggregate-count', validateProfile, (req,res)=>{
     //         }
     //     }
     // }).select('-profiles')
+})
+
+router.get('/aggregate-ner-count', validateProfile, (req,res)=>{
+    res.setHeader('Content-type', 'application/json')
+    q=req.profile.brand
+    var options = {
+        'method': 'GET',
+        'url': `http://data:5000/aggregate_ner_data/?q=${q}`,
+    };
+    nerAggregate.findOne({tag: { $regex : new RegExp(q, "i") }},(err,docs)=>{
+        if(docs){
+            request(options, function (error, response) {
+                if (error) {
+                    res.send(error);
+                    return ;
+                }
+                try {
+                    let response = JSON.parse(response.body)
+                    res.json(response);
+                } catch (e) {
+                    res.send(response.body)
+                }
+                profiles.findOneAndUpdate({_id: req.profile.id},{"$inc": {"quota": -10}},(err,docs)=>{
+                    console.log(err,docs.quota);
+                })
+            });
+        }else{
+            res.status(404).send({
+                message: `Aggregate data not found for ${q}`
+            });
+        }
+    })
 })
 
 router.post('/status',(req,res)=>{

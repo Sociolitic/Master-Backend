@@ -10,9 +10,11 @@ let mailer = require('./mail');
 const Users=require('../models/users');
 const Profiles=require('../models/profiles');
 const { informAdmin,sendMail } = require('./mail');
-var cors = require('cors')
+var cors = require('cors');
+const user = require('../models/users');
 router.use(cors())
-
+const fs = require("fs");
+const alertEmail = fs.readFileSync("alert.html");
 
 function fullfillorder(session){
 	sendMail(session.customer_details.email,'Sociolitic Subscription','Transaction Id: '+session.id)
