@@ -293,7 +293,7 @@ async function redditStream(profile,socket,streamEvent='reddit',limit=50){
             socket.connected && socket.emit(`combinedStreamEnd`, "reddit")
             let mentionsCount = Object.keys(store).length
             profiles.findOneAndUpdate({_id: profile},{"$inc": {"quota": -mentionsCount}},(err,docs)=>{
-                console.log(err,docs.quota);
+                console.log(err,'Done');
             })
             delete store
             clearInterval(intervalCheck)
@@ -361,7 +361,7 @@ async function twitterStream(profile,socket,streamEvent='twitter'){
             socket.connected && socket.emit(`combinedStreamEnd`, "twitter")
             let mentionsCount = Object.keys(store).length
             profiles.findOneAndUpdate({_id: profile},{"$inc": {"quota": -mentionsCount}},(err,docs)=>{
-                console.log(err,docs.quota);
+                console.log(err,'Done');
             })
             delete store
             clearInterval(intervalCheck)
@@ -428,7 +428,7 @@ async function youtubeStream(profile,socket,streamEvent='youtube',limit=30){
             socket.connected && socket.emit(`combinedStreamEnd`, "youtube")
             let mentionsCount = Object.keys(store).length
             profiles.findOneAndUpdate({_id: profile},{"$inc": {"quota": -mentionsCount}},(err,docs)=>{
-                console.log(err,docs.quota);
+                console.log(err,'Done');
             })
             delete store
             clearInterval(intervalCheck)
@@ -494,7 +494,7 @@ async function tumblrStream(profile,socket,streamEvent='tumblr',limit=30){
             socket.connected && socket.emit(`combinedStreamEnd`, "tumblr")
             let mentionsCount = Object.keys(store).length
             profiles.findOneAndUpdate({_id: profile},{"$inc": {"quota": -mentionsCount}},(err,docs)=>{
-                console.log(err,docs.quota);
+                console.log(err,'Done');
             })
             delete store
             clearInterval(intervalCheck)
@@ -545,7 +545,7 @@ router.get('/ner-count', validateProfile, (req, res) => {
             res.send(response.body)
         }
         profiles.findOneAndUpdate({_id: req.profile.id},{"$inc": {"quota": -10}},(err,docs)=>{
-            console.log(err,docs.quota);
+            console.log(err,'Done');
         })
     });
 })
@@ -590,7 +590,7 @@ router.get('/mentions-count', validateProfile, (req, res) => {
             res.send(response.body)
         }
         profiles.findOneAndUpdate({_id: req.profile.id},{"$inc": {"quota": -10}},(err,docs)=>{
-            console.log(err,docs.quota);
+            console.log(err,'Done');
         })
     });
 })
@@ -616,7 +616,7 @@ router.get('/aggregate-count', validateProfile, (req,res)=>{
                     res.send(response.body)
                 }
                 profiles.findOneAndUpdate({_id: req.profile.id},{"$inc": {"quota": -10}},(err,docs)=>{
-                    console.log(err,docs.quota);
+                    console.log(err,'Done');
                 })
             });
         }else{
@@ -678,7 +678,7 @@ router.get('/aggregate-ner-count', validateProfile, (req,res)=>{
                     res.send(response.body)
                 }
                 profiles.findOneAndUpdate({_id: req.profile.id},{"$inc": {"quota": -10}},(err,docs)=>{
-                    console.log(err,docs.quota);
+                    console.log(err,'done');
                 })
             });
         }else{
@@ -711,7 +711,7 @@ router.get('/cron',(req,res)=>{
     res.end('Started')
 })
 
-const cronJob = schedule.scheduleJob('30 02 * * *', cron);
+// const cronJob = schedule.scheduleJob('30 02 * * *', cron);
 
 function cron(){
     let socket = new socketMock()

@@ -251,7 +251,7 @@ router.post('/findProfiles', async (req, res) => {
     data = JSON.parse(JSON.stringify(req.body))
     responseData={}
     for(id of data.profiles){
-        let err, profile = await profiles.findById(id)
+        let err, profile = await Profiles.findById(id)
         if(err){
             console.log(err);
         }else{

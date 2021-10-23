@@ -81,15 +81,14 @@ router.get('/desc-analytics', validateProfile, (req,res)=>{
             return ;
         }
         try {
-            let response = JSON.parse(response.body)
-            console.log(85,response);
-            res.json(response);
+            let response2 = JSON.parse(response.body)
+            res.json(response2);
         } catch (e) {
             console.log(88,e);
             res.send(response.body)
         }
         profiles.findOneAndUpdate({_id: req.profile.id},{"$inc": {"quota": -10}},(err,docs)=>{
-            console.log(err,docs.quota);
+            console.log(err,docs);
         })
     });
 })
@@ -113,7 +112,7 @@ router.get('/text-analytics', validateProfile, (req,res)=>{
             res.send(response.body)
         }
         profiles.findOneAndUpdate({_id: req.profile.id},{"$inc": {"quota": -10}},(err,docs)=>{
-            console.log(err,docs.quota);
+            console.log(err,docs);
         })
     });
 })
