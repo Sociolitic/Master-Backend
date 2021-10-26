@@ -47,7 +47,7 @@ app.use('/analytics', analyticsRouter);
 let proxyRouter = require('pass-cors');
 app.use('/proxy', proxyRouter);
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'dist')));
 
 app.listen(process.env.PORT||port, () => {
     console.log(`Example app listening on ${process.env.PORT||port}`)

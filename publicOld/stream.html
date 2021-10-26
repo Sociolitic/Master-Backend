@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="res">
+
+    </div>
+    <button class="load" type="button">Load</button>
+    <button class="more" type="button">Load More</button>
+</body>
+<script src="https://cdn.socket.io/3.1.3/socket.io.min.js" integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh" crossorigin="anonymous"></script>
+
+<script>
+    const socket = io('http://localhost:7000');
+    socket.on('connect',()=>{
+        console.log('connected');
+        socket.on('twitterFeed',(data)=>{
+            for(d of data){
+                document.querySelector('.res').innerHTML+=d.text + '<br><hr>'
+            }
+            console.log(data);
+        })
+        socket.on('twitterFeedEnd',(data)=>{
+            // socket.emit('twitterMore',"Tesla")
+            console.log(data);
+        })
+        
+    })
+
+    document.querySelector('.load').addEventListener('click',()=>{
+        socket.emit('twitter',"Tesla")
+    })
+
+    
+</script>
+</html>
