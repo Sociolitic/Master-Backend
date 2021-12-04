@@ -50,6 +50,6 @@ app.use('/proxy', proxyRouter);
 app.use(express.static(path.join(__dirname, 'dist')));
 
 app.listen(process.env.PORT||port, () => {
-    console.log(`Example app listening on ${process.env.PORT||port}`)
+    console.log(`Master Backend serving on ${process.env.PORT||port}`)
     // alerts.informAdmin("Sociolitic Server up", true)
 })

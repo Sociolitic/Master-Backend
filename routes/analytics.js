@@ -167,7 +167,7 @@ router.get('/recommend-brand', (req,res)=>{
     });
 })
 
-router.get('/text-analytics-new', (req,res)=>{
+router.get('/text-analytics-new', validateProfile, (req,res)=>{
     res.setHeader('Content-type', 'application/json')
     brand=req.profile.brand
     var options = {
