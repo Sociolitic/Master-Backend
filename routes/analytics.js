@@ -167,4 +167,30 @@ router.get('/recommend-brand', (req,res)=>{
     });
 })
 
+router.get('/text-analytics-new', (req,res)=>{
+    res.setHeader('Content-type', 'application/json')
+    brand=req.profile.brand
+    var options = {
+        'method': 'GET',
+        'url': `http://analytics:5000/Text_analytics_New/?brand=${brand}`,
+    };
+    request(options, function (error, response) {
+        if (error) {
+            res.send(error);
+            return ;
+        }
+        else{
+            try {
+                let response = JSON.parse(response.body)
+                res.json(response);
+            } catch (e) {
+                res.send(response.body)
+            }
+        }
+        // profiles.findOneAndUpdate({_id: req.profile.id},{"$inc": {"quota": -10}},(err,docs)=>{
+        //     console.log(err,docs.quota);
+        // })
+    });
+})
+
 module.exports = router;
