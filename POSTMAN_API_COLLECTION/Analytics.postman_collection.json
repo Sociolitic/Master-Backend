@@ -1,0 +1,218 @@
+{
+	"info": {
+		"_postman_id": "df660fb5-e69b-4d9b-8c1f-f10954f8f0b6",
+		"name": "Analytics",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "New Folder",
+			"item": []
+		},
+		{
+			"name": "descriptive_analytics",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/analytics/?brand=tesla&duration=200",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"analytics",
+						""
+					],
+					"query": [
+						{
+							"key": "brand",
+							"value": "tesla"
+						},
+						{
+							"key": "duration",
+							"value": "200"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Recommend_user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/recommenderUser/?user=user2",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"recommenderUser",
+						""
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "user2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recommend_competitor",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/recommenderCompetitor/?brand=tesla",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"recommenderCompetitor",
+						""
+					],
+					"query": [
+						{
+							"key": "brand",
+							"value": "tesla"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TextualAnalytics",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/Text_analytics/?brand=tesla&duration=200",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"Text_analytics",
+						""
+					],
+					"query": [
+						{
+							"key": "brand",
+							"value": "tesla"
+						},
+						{
+							"key": "duration",
+							"value": "200"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "profile_insertion_trigger",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/insertionTrigger/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"insertionTrigger",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "profile_deletion_trigger",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/deletionTrigger/?profile=615d489933252d31ce6856c1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"deletionTrigger",
+						""
+					],
+					"query": [
+						{
+							"key": "profile",
+							"value": "615d489933252d31ce6856c1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Text_Anlaytics_New",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/Text_analytics_New/?brand=Amazon",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"Text_analytics_New",
+						""
+					],
+					"query": [
+						{
+							"key": "brand",
+							"value": "Amazon"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
