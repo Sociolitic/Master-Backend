@@ -21,21 +21,34 @@ const io = require('socket.io')(7000, {
 });
 var cors = require('cors')
 router.use(cors())
+const Sentry = require("@sentry/node");
+const Tracing = require("@sentry/tracing");
+Sentry.init({
+    dsn: "https://e501ffa693fe443a92a61571a1f15732@o1099774.ingest.sentry.io/6124574",
+    tracesSampleRate: 1.0,
+});
 
 function authMiddleware(req,res,next){
+    const transaction = Sentry.startTransaction({
+        op: "auth",
+        name: "Auth requests",
+    });
     if(req.headers.authorization){
         var token = req.headers.authorization.split(' ')[1];
         jwt.verify(token, 'socioliticSecret', function(err,decoded){
             if(err){
+                Sentry.captureException(err);
                 return res.status(401).send({
                     message: 'Failed to authenticate token.'
                 });
             }else{
                 req.decoded=decoded
+                transaction.finish();
                 next()
             }
         })
     }else{
+        Sentry.captureException(new Error('No token provided'));
         res.status(401).send({
             message: 'No token provided.'
         });
@@ -43,9 +56,14 @@ function authMiddleware(req,res,next){
 }
 
 function validateProfile(req,res,next){
+    const transaction = Sentry.startTransaction({
+        op: "profileValidation",
+        name: "Profile validation requests",
+    });
     profiles.findById(req.query.q,(err,docs)=>{
         if(err){
             console.log(111,err);
+            Sentry.captureException(err);
             res.status(500).send({
                 message: 'Error in server'
             })
@@ -53,18 +71,22 @@ function validateProfile(req,res,next){
             if(docs.users.includes(req.decoded._id)){
                 if(docs.quota>0){
                     req.profile = docs
+                    transaction.finish();
                     next()
                 }else{
+                    Sentry.captureException(new Error('Insufficient balance. Quota exhausted. Upgrade to a higher tier.'));
                     res.status(402).json({
                         message: 'Insufficient balance. Quota exhausted. Upgrade to a higher tier.'
                     })
                 }
             }else{
+                Sentry.captureException(new Error('You are not authorized to access this profile.'));
                 res.status(401).json({
                     message: 'You are not authorized to access this profile'
                 })
             }
         }else{
+            Sentry.captureException(new Error('Profile not found.'));
             res.status(404).json({
                 message: 'Profile doesn\'t exists'
             })
@@ -237,6 +259,10 @@ router.get('/tumblr', validateProfile, (req, res) => {
 })
 
 async function redditStream(profile,socket,streamEvent='reddit',limit=50){
+    const transaction = Sentry.startTransaction({
+        op: "dataStream",
+        name: "Reddit Stream",
+    });
     query = await getProfileDetails(profile)
     if(query.quota<=0){
         socket.emit('error',{
@@ -261,6 +287,7 @@ async function redditStream(profile,socket,streamEvent='reddit',limit=50){
                 err: "Socket overload. Try again"
             })
             informAdmin(JSON.stringify(error),true)
+            Sentry.captureException(error);
         }else{
             stop=true
         }
@@ -297,11 +324,16 @@ async function redditStream(profile,socket,streamEvent='reddit',limit=50){
             })
             delete store
             clearInterval(intervalCheck)
+            transaction.finish();
         }
     } , 500);
 }
 
 async function twitterStream(profile,socket,streamEvent='twitter'){
+    const transaction = Sentry.startTransaction({
+        op: "dataStream",
+        name: "Reddit Stream",
+    });
     query = await getProfileDetails(profile)
     if(query.quota<=0){
         socket.emit('error',{
@@ -328,6 +360,7 @@ async function twitterStream(profile,socket,streamEvent='twitter'){
                 err: "Socket overload. Try again"
             })
             informAdmin(JSON.stringify(error),true)
+            Sentry.captureException(error);
         }else{
             stop=true
             console.log(JSON.stringify(response));
@@ -365,12 +398,16 @@ async function twitterStream(profile,socket,streamEvent='twitter'){
             })
             delete store
             clearInterval(intervalCheck)
-
+            transaction.finish();
         }
     } , 1000);
 }
 
 async function youtubeStream(profile,socket,streamEvent='youtube',limit=30){
+    const transaction = Sentry.startTransaction({
+        op: "dataStream",
+        name: "Reddit Stream",
+    });
     query = await getProfileDetails(profile)
     if(query.quota<=0){
         socket.emit('error',{
@@ -396,6 +433,7 @@ async function youtubeStream(profile,socket,streamEvent='youtube',limit=30){
                 err: "Socket overload. Try again"
             })
             informAdmin(JSON.stringify(error),true)
+            Sentry.captureException(error);
         }else{
             stop=true
         }
@@ -432,11 +470,16 @@ async function youtubeStream(profile,socket,streamEvent='youtube',limit=30){
             })
             delete store
             clearInterval(intervalCheck)
+            transaction.finish();
         }
     } , 1000);
 }
 
 async function tumblrStream(profile,socket,streamEvent='tumblr',limit=30){
+    const transaction = Sentry.startTransaction({
+        op: "dataStream",
+        name: "Reddit Stream",
+    });
     query = await getProfileDetails(profile)
     if(query.quota<=0){
         socket.emit('error',{
@@ -462,6 +505,7 @@ async function tumblrStream(profile,socket,streamEvent='tumblr',limit=30){
                 err: "Socket overload. Try again"
             })
             console.log(111,error)
+            Sentry.captureException(error);
         }else{
             stop=true
         }
@@ -498,6 +542,7 @@ async function tumblrStream(profile,socket,streamEvent='tumblr',limit=30){
             })
             delete store
             clearInterval(intervalCheck)
+            transaction.finish();
         }
     } , 1000);
 }
@@ -514,6 +559,7 @@ router.get('/aggregate', validateProfile, (req, res) => {
     request(options, function (error, response) {
         if (error) {
             res.send(error);
+            Sentry.captureException(error);
             return ;
         }
         try {
@@ -536,6 +582,7 @@ router.get('/ner-count', validateProfile, (req, res) => {
     request(options, function (error, response) {
         if (error) {
             res.send(error);
+            Sentry.captureException(error);
             return ;
         }
         try {
@@ -560,6 +607,7 @@ router.get('/ner', (req, res) => {
     request(options, function (error, response) {
         if (error) {
             res.send(error);
+            Sentry.captureException(error);
             return ;
         }
         try {
@@ -581,6 +629,7 @@ router.get('/mentions-count', validateProfile, (req, res) => {
     request(options, function (error, response) {
         if (error) {
             res.send(error);
+            Sentry.captureException(error);
             return ;
         }
         try {
@@ -607,6 +656,7 @@ router.get('/aggregate-count', validateProfile, (req,res)=>{
             request(options, function (error, response) {
                 if (error) {
                     res.send(error);
+                    Sentry.captureException(error);
                     return ;
                 }
                 try {
@@ -620,6 +670,7 @@ router.get('/aggregate-count', validateProfile, (req,res)=>{
                 })
             });
         }else{
+            Sentry.captureException(new Error("No data found"));
             res.status(404).send({
                 message: `Aggregate data not found for ${q}`
             });
@@ -682,6 +733,7 @@ router.get('/aggregate-ner-count', validateProfile, (req,res)=>{
                 })
             });
         }else{
+            Sentry.captureException(`Aggregate data not found for ${q}`);
             res.status(404).send({
                 message: `Aggregate data not found for ${q}`
             });
