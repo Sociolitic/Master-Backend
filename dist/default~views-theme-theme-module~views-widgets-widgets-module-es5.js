@@ -1,7 +1,15 @@
 (function () {
   (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["default~views-theme-theme-module~views-widgets-widgets-module"], {
     /***/
-    "NuRj": function NuRj(module, exports, __webpack_require__) {
+    "NuRj":
+    /*!*****************************************************************!*\
+      !*** ./node_modules/@coreui/coreui/dist/js/coreui-utilities.js ***!
+      \*****************************************************************/
+
+    /*! no static exports found */
+
+    /***/
+    function NuRj(module, exports, __webpack_require__) {
       /*!
         * CoreUI v2.1.16 (https://coreui.io)
         * Copyright 2019 Łukasz Holeczek
