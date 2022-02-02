@@ -1,0 +1,660 @@
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["views-widgets-widgets-module"],{
+
+/***/ "DXaZ":
+/*!*********************************************************!*\
+  !*** ./src/app/views/widgets/widgets-routing.module.ts ***!
+  \*********************************************************/
+/*! exports provided: WidgetsRoutingModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WidgetsRoutingModule", function() { return WidgetsRoutingModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "8Y7J");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "iInd");
+/* harmony import */ var _widgets_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./widgets.component */ "Q2d6");
+
+
+
+
+const routes = [
+    {
+        path: '',
+        component: _widgets_component__WEBPACK_IMPORTED_MODULE_3__["WidgetsComponent"],
+        data: {
+            title: 'Widgets'
+        }
+    }
+];
+let WidgetsRoutingModule = class WidgetsRoutingModule {
+};
+WidgetsRoutingModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+        imports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forChild(routes)],
+        exports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]]
+    })
+], WidgetsRoutingModule);
+
+
+
+/***/ }),
+
+/***/ "H++W":
+/*!************************************************************************************************!*\
+  !*** ./node_modules/@coreui/coreui-plugin-chartjs-custom-tooltips/dist/umd/custom-tooltips.js ***!
+  \************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+(function (global, factory) {
+   true ? factory(exports) :
+  undefined;
+}(this, function (exports) { 'use strict';
+
+  /**
+   * --------------------------------------------------------------------------
+   * CoreUI Plugins - Custom Tooltips for Chart.js (v1.3.1): custom-tooltips.js
+   * Licensed under MIT (https://coreui.io/license)
+   * --------------------------------------------------------------------------
+   */
+  function CustomTooltips(tooltipModel) {
+    var _this = this;
+
+    // Add unique id if not exist
+    var _setCanvasId = function _setCanvasId() {
+      var _idMaker = function _idMaker() {
+        var _hex = 16;
+        var _multiplier = 0x10000;
+        return ((1 + Math.random()) * _multiplier | 0).toString(_hex);
+      };
+
+      var _canvasId = "_canvas-" + (_idMaker() + _idMaker());
+
+      _this._chart.canvas.id = _canvasId;
+      return _canvasId;
+    };
+
+    var ClassName = {
+      ABOVE: 'above',
+      BELOW: 'below',
+      CHARTJS_TOOLTIP: 'chartjs-tooltip',
+      NO_TRANSFORM: 'no-transform',
+      TOOLTIP_BODY: 'tooltip-body',
+      TOOLTIP_BODY_ITEM: 'tooltip-body-item',
+      TOOLTIP_BODY_ITEM_COLOR: 'tooltip-body-item-color',
+      TOOLTIP_BODY_ITEM_LABEL: 'tooltip-body-item-label',
+      TOOLTIP_BODY_ITEM_VALUE: 'tooltip-body-item-value',
+      TOOLTIP_HEADER: 'tooltip-header',
+      TOOLTIP_HEADER_ITEM: 'tooltip-header-item'
+    };
+    var Selector = {
+      DIV: 'div',
+      SPAN: 'span',
+      TOOLTIP: (this._chart.canvas.id || _setCanvasId()) + "-tooltip"
+    };
+    var tooltip = document.getElementById(Selector.TOOLTIP);
+
+    if (!tooltip) {
+      tooltip = document.createElement('div');
+      tooltip.id = Selector.TOOLTIP;
+      tooltip.className = ClassName.CHARTJS_TOOLTIP;
+
+      this._chart.canvas.parentNode.appendChild(tooltip);
+    } // Hide if no tooltip
+
+
+    if (tooltipModel.opacity === 0) {
+      tooltip.style.opacity = 0;
+      return;
+    } // Set caret Position
+
+
+    tooltip.classList.remove(ClassName.ABOVE, ClassName.BELOW, ClassName.NO_TRANSFORM);
+
+    if (tooltipModel.yAlign) {
+      tooltip.classList.add(tooltipModel.yAlign);
+    } else {
+      tooltip.classList.add(ClassName.NO_TRANSFORM);
+    } // Set Text
+
+
+    if (tooltipModel.body) {
+      var titleLines = tooltipModel.title || [];
+      var tooltipHeader = document.createElement(Selector.DIV);
+      tooltipHeader.className = ClassName.TOOLTIP_HEADER;
+      titleLines.forEach(function (title) {
+        var tooltipHeaderTitle = document.createElement(Selector.DIV);
+        tooltipHeaderTitle.className = ClassName.TOOLTIP_HEADER_ITEM;
+        tooltipHeaderTitle.innerHTML = title;
+        tooltipHeader.appendChild(tooltipHeaderTitle);
+      });
+      var tooltipBody = document.createElement(Selector.DIV);
+      tooltipBody.className = ClassName.TOOLTIP_BODY;
+      var tooltipBodyItems = tooltipModel.body.map(function (item) {
+        return item.lines;
+      });
+      tooltipBodyItems.forEach(function (item, i) {
+        var tooltipBodyItem = document.createElement(Selector.DIV);
+        tooltipBodyItem.className = ClassName.TOOLTIP_BODY_ITEM;
+        var colors = tooltipModel.labelColors[i];
+        var tooltipBodyItemColor = document.createElement(Selector.SPAN);
+        tooltipBodyItemColor.className = ClassName.TOOLTIP_BODY_ITEM_COLOR;
+        tooltipBodyItemColor.style.backgroundColor = colors.backgroundColor;
+        tooltipBodyItem.appendChild(tooltipBodyItemColor);
+
+        if (item[0].split(':').length > 1) {
+          var tooltipBodyItemLabel = document.createElement(Selector.SPAN);
+          tooltipBodyItemLabel.className = ClassName.TOOLTIP_BODY_ITEM_LABEL;
+          tooltipBodyItemLabel.innerHTML = item[0].split(': ')[0];
+          tooltipBodyItem.appendChild(tooltipBodyItemLabel);
+          var tooltipBodyItemValue = document.createElement(Selector.SPAN);
+          tooltipBodyItemValue.className = ClassName.TOOLTIP_BODY_ITEM_VALUE;
+          tooltipBodyItemValue.innerHTML = item[0].split(': ').pop();
+          tooltipBodyItem.appendChild(tooltipBodyItemValue);
+        } else {
+          var _tooltipBodyItemValue = document.createElement(Selector.SPAN);
+
+          _tooltipBodyItemValue.className = ClassName.TOOLTIP_BODY_ITEM_VALUE;
+          _tooltipBodyItemValue.innerHTML = item[0];
+          tooltipBodyItem.appendChild(_tooltipBodyItemValue);
+        }
+
+        tooltipBody.appendChild(tooltipBodyItem);
+      });
+      tooltip.innerHTML = '';
+      tooltip.appendChild(tooltipHeader);
+      tooltip.appendChild(tooltipBody);
+    }
+
+    var position = this._chart.canvas.getBoundingClientRect();
+
+    var positionY = this._chart.canvas.offsetTop;
+    var positionX = this._chart.canvas.offsetLeft;
+    var positionLeft = positionX + tooltipModel.caretX;
+    var positionTop = positionY + tooltipModel.caretY; // eslint-disable-next-line
+
+    var halfWidth = tooltipModel.width / 2;
+
+    if (positionLeft + halfWidth > position.width) {
+      positionLeft -= halfWidth;
+    } else if (positionLeft < halfWidth) {
+      positionLeft += halfWidth;
+    } // Display, position, and set styles for font
+
+
+    tooltip.style.opacity = 1;
+    tooltip.style.left = positionLeft + "px";
+    tooltip.style.top = positionTop + "px";
+  }
+
+  var customTooltips = CustomTooltips; // TODO: camel-case
+
+  exports.CustomTooltips = CustomTooltips;
+  exports.customTooltips = customTooltips;
+
+  Object.defineProperty(exports, '__esModule', { value: true });
+
+}));
+//# sourceMappingURL=custom-tooltips.js.map
+
+
+/***/ }),
+
+/***/ "O5IU":
+/*!********************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/views/widgets/widgets.component.html ***!
+  \********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"animated fadeIn\">\r\n  <div class=\"row\">\r\n    <div class=\"col-sm-6 col-lg-3\">\r\n      <div class=\"card text-white bg-primary\">\r\n        <div class=\"card-body pb-0\">\r\n          <div class=\"btn-group float-right\" dropdown>\r\n            <button type=\"button\" class=\"btn btn-transparent dropdown-toggle p-0\" dropdownToggle>\r\n              <i class=\"icon-settings\"></i>\r\n            </button>\r\n            <div class=\"dropdown-menu dropdown-menu-right\" *dropdownMenu>\r\n              <a class=\"dropdown-item\" href=\"#\">Action</a>\r\n              <a class=\"dropdown-item\" href=\"#\">Another action</a>\r\n              <a class=\"dropdown-item\" href=\"#\">Something else here</a>\r\n              <a class=\"dropdown-item\" href=\"#\">Something else here</a>\r\n            </div>\r\n          </div>\r\n          <div class=\"text-value\">9.823</div>\r\n          <div>Members online</div>\r\n        </div>\r\n        <div class=\"chart-wrapper mt-3 mx-3\" style=\"height:70px;\">\r\n          <canvas baseChart class=\"chart\"\r\n          [datasets]=\"lineChart1Data\"\r\n          [labels]=\"lineChart1Labels\"\r\n          [options]=\"lineChart1Options\"\r\n          [colors]=\"lineChart1Colours\"\r\n          [legend]=\"lineChart1Legend\"\r\n          [chartType]=\"lineChart1Type\"></canvas>\r\n        </div>\r\n      </div>\r\n    </div><!--/.col-->\r\n    <div class=\"col-sm-6 col-lg-3\">\r\n      <div class=\"card text-white bg-info\">\r\n        <div class=\"card-body pb-0\">\r\n          <button type=\"button\" class=\"btn btn-transparent p-0 float-right\">\r\n            <i class=\"icon-location-pin\"></i>\r\n          </button>\r\n          <div class=\"text-value\">9.823</div>\r\n          <div>Members online</div>\r\n        </div>\r\n        <div class=\"chart-wrapper mt-3 mx-3\" style=\"height:70px;\">\r\n          <canvas baseChart class=\"chart\"\r\n          [datasets]=\"lineChart2Data\"\r\n          [labels]=\"lineChart2Labels\"\r\n          [options]=\"lineChart2Options\"\r\n          [colors]=\"lineChart2Colours\"\r\n          [legend]=\"lineChart2Legend\"\r\n          [chartType]=\"lineChart2Type\"></canvas>\r\n        </div>\r\n      </div>\r\n    </div><!--/.col-->\r\n    <div class=\"col-sm-6 col-lg-3\">\r\n      <div class=\"card text-white bg-warning\">\r\n        <div class=\"card-body pb-0\">\r\n          <div class=\"btn-group float-right\" dropdown>\r\n            <button type=\"button\" class=\"btn btn-transparent dropdown-toggle p-0\" dropdownToggle>\r\n              <i class=\"icon-settings\"></i>\r\n            </button>\r\n            <div class=\"dropdown-menu dropdown-menu-right\" *dropdownMenu>\r\n              <a class=\"dropdown-item\" href=\"#\">Action</a>\r\n              <a class=\"dropdown-item\" href=\"#\">Another action</a>\r\n              <a class=\"dropdown-item\" href=\"#\">Something else here</a>\r\n            </div>\r\n          </div>\r\n          <div class=\"text-value\">9.823</div>\r\n          <div>Members online</div>\r\n        </div>\r\n        <div class=\"chart-wrapper mt-3\" style=\"height:70px;\">\r\n          <canvas baseChart class=\"chart\"\r\n          [datasets]=\"lineChart3Data\"\r\n          [labels]=\"lineChart3Labels\"\r\n          [options]=\"lineChart3Options\"\r\n          [colors]=\"lineChart3Colours\"\r\n          [legend]=\"lineChart3Legend\"\r\n          [chartType]=\"lineChart3Type\"></canvas>\r\n        </div>\r\n      </div>\r\n    </div><!--/.col-->\r\n    <div class=\"col-sm-6 col-lg-3\">\r\n      <div class=\"card text-white bg-danger\">\r\n        <div class=\"card-body pb-0\">\r\n          <div class=\"btn-group float-right\" dropdown>\r\n            <button type=\"button\" class=\"btn btn-transparent dropdown-toggle p-0\" dropdownToggle>\r\n              <i class=\"icon-settings\"></i>\r\n            </button>\r\n            <div class=\"dropdown-menu dropdown-menu-right\" *dropdownMenu>\r\n              <a class=\"dropdown-item\" href=\"#\">Action</a>\r\n              <a class=\"dropdown-item\" href=\"#\">Another action</a>\r\n              <a class=\"dropdown-item\" href=\"#\">Something else here</a>\r\n            </div>\r\n          </div>\r\n          <div class=\"text-value\">9.823</div>\r\n          <div>Members online</div>\r\n        </div>\r\n        <div class=\"chart-wrapper mt-3 mx-3\" style=\"height:70px;\">\r\n          <canvas baseChart class=\"chart\"\r\n          [datasets]=\"barChart1Data\"\r\n          [labels]=\"barChart1Labels\"\r\n          [options]=\"barChart1Options\"\r\n          [colors]=\"barChart1Colours\"\r\n          [legend]=\"barChart1Legend\"\r\n          [chartType]=\"barChart1Type\"></canvas>\r\n        </div>\r\n      </div>\r\n    </div><!--/.col-->\r\n  </div><!--/.row-->\r\n  <div class=\"row\">\r\n    <div class=\"col-sm-6 col-lg-3\">\r\n      <div class=\"card\">\r\n        <div class=\"card-header bg-primary\">\r\n          <div class=\"font-weight-bold\">\r\n            <span>SALE</span>\r\n            <span class=\"float-right\">$1.890,65</span>\r\n          </div>\r\n          <div>\r\n            <span>\r\n              <small>Today 6:43 AM</small>\r\n            </span>\r\n            <span class=\"float-right\">\r\n              <small>+432,50 (15,78%)</small>\r\n            </span>\r\n          </div>\r\n          <div class=\"chart-wrapper\" style=\"height:38px;\">\r\n            <canvas baseChart class=\"chart\"\r\n            [datasets]=\"lineChart4Data\"\r\n            [labels]=\"lineChart4Labels\"\r\n            [options]=\"lineChart4Options\"\r\n            [colors]=\"lineChart4Colours\"\r\n            [legend]=\"lineChart4Legend\"\r\n            [chartType]=\"lineChart4Type\"></canvas>\r\n          </div>\r\n          <div class=\"chart-wrapper\" style=\"height:38px;\">\r\n            <canvas baseChart class=\"chart\"\r\n            [datasets]=\"barChart2Data\"\r\n            [labels]=\"barChart2Labels\"\r\n            [options]=\"barChart2Options\"\r\n            [colors]=\"barChart2Colours\"\r\n            [legend]=\"barChart2Legend\"\r\n            [chartType]=\"barChart2Type\"></canvas>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div class=\"col-sm-6 col-lg-3\">\r\n      <div class=\"card\">\r\n        <div class=\"card-header bg-danger\">\r\n          <div class=\"font-weight-bold\">\r\n            <span>SALE</span>\r\n            <span class=\"float-right\">$1.890,65</span>\r\n          </div>\r\n          <div>\r\n            <span>\r\n              <small>Today 6:43 AM</small>\r\n            </span>\r\n            <span class=\"float-right\">\r\n              <small>+432,50 (15,78%)</small>\r\n            </span>\r\n          </div>\r\n          <div class=\"chart-wrapper\" style=\"height:38px;\">\r\n            <canvas baseChart class=\"chart\"\r\n            [datasets]=\"lineChart4Data\"\r\n            [labels]=\"lineChart4Labels\"\r\n            [options]=\"lineChart4Options\"\r\n            [colors]=\"lineChart4Colours\"\r\n            [legend]=\"lineChart4Legend\"\r\n            [chartType]=\"lineChart4Type\"></canvas>\r\n          </div>\r\n          <div class=\"chart-wrapper\" style=\"height:38px;\">\r\n            <canvas baseChart class=\"chart\"\r\n            [datasets]=\"barChart2Data\"\r\n            [labels]=\"barChart2Labels\"\r\n            [options]=\"barChart2Options\"\r\n            [colors]=\"barChart2Colours\"\r\n            [legend]=\"barChart2Legend\"\r\n            [chartType]=\"barChart2Type\"></canvas>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div class=\"col-sm-6 col-lg-3\">\r\n      <div class=\"card\">\r\n        <div class=\"card-header bg-success\">\r\n          <div class=\"font-weight-bold\">\r\n            <span>SALE</span>\r\n            <span class=\"float-right\">$1.890,65</span>\r\n          </div>\r\n          <div>\r\n            <span>\r\n              <small>Today 6:43 AM</small>\r\n            </span>\r\n            <span class=\"float-right\">\r\n              <small>+432,50 (15,78%)</small>\r\n            </span>\r\n          </div>\r\n          <div class=\"chart-wrapper\" style=\"height:38px;\">\r\n            <canvas baseChart class=\"chart\"\r\n            [datasets]=\"lineChart4Data\"\r\n            [labels]=\"lineChart4Labels\"\r\n            [options]=\"lineChart4Options\"\r\n            [colors]=\"lineChart4Colours\"\r\n            [legend]=\"lineChart4Legend\"\r\n            [chartType]=\"lineChart4Type\"></canvas>\r\n          </div>\r\n          <div class=\"chart-wrapper\" style=\"height:38px;\">\r\n            <canvas baseChart class=\"chart\"\r\n            [datasets]=\"barChart2Data\"\r\n            [labels]=\"barChart2Labels\"\r\n            [options]=\"barChart2Options\"\r\n            [colors]=\"barChart2Colours\"\r\n            [legend]=\"barChart2Legend\"\r\n            [chartType]=\"barChart2Type\"></canvas>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div class=\"col-sm-6 col-lg-3\">\r\n      <div class=\"card\">\r\n        <div class=\"card-header bg-warning\">\r\n          <div class=\"font-weight-bold\">\r\n            <span>SALE</span>\r\n            <span class=\"float-right\">$1.890,65</span>\r\n          </div>\r\n          <div>\r\n            <span>\r\n              <small>Today 6:43 AM</small>\r\n            </span>\r\n            <span class=\"float-right\">\r\n              <small>+432,50 (15,78%)</small>\r\n            </span>\r\n          </div>\r\n          <div class=\"chart-wrapper\" style=\"height:38px;\">\r\n            <canvas baseChart class=\"chart\"\r\n            [datasets]=\"lineChart4Data\"\r\n            [labels]=\"lineChart4Labels\"\r\n            [options]=\"lineChart4Options\"\r\n            [colors]=\"lineChart4Colours\"\r\n            [legend]=\"lineChart4Legend\"\r\n            [chartType]=\"lineChart4Type\"></canvas>\r\n          </div>\r\n          <div class=\"chart-wrapper\" style=\"height:38px;\">\r\n            <canvas baseChart class=\"chart\"\r\n            [datasets]=\"barChart2Data\"\r\n            [labels]=\"barChart2Labels\"\r\n            [options]=\"barChart2Options\"\r\n            [colors]=\"barChart2Colours\"\r\n            [legend]=\"barChart2Legend\"\r\n            [chartType]=\"barChart2Type\"></canvas>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"row\">\r\n    <div class=\"col-sm-6 col-lg-3\">\r\n      <div class=\"card\">\r\n        <div class=\"card-body\">\r\n          <div class=\"h4 m-0\">89.9%</div>\r\n          <div>Lorem ipsum...</div>\r\n          <div class=\"progress progress-xs my-3\">\r\n            <div class=\"progress-bar bg-success\" role=\"progressbar\" style=\"width: 25%\" aria-valuenow=\"25\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\r\n          </div>\r\n          <small class=\"text-muted\">Lorem ipsum dolor sit amet enim.</small>\r\n        </div>\r\n      </div>\r\n    </div><!--/.col-->\r\n    <div class=\"col-sm-6 col-lg-3\">\r\n      <div class=\"card\">\r\n        <div class=\"card-body\">\r\n          <div class=\"h4 m-0\">12.124</div>\r\n          <div>Lorem ipsum...</div>\r\n          <div class=\"progress progress-xs my-3\">\r\n            <div class=\"progress-bar bg-info\" role=\"progressbar\" style=\"width: 25%\" aria-valuenow=\"25\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\r\n          </div>\r\n          <small class=\"text-muted\">Lorem ipsum dolor sit amet enim.</small>\r\n        </div>\r\n      </div>\r\n    </div><!--/.col-->\r\n    <div class=\"col-sm-6 col-lg-3\">\r\n      <div class=\"card\">\r\n        <div class=\"card-body\">\r\n          <div class=\"h4 m-0\">$98.111,00</div>\r\n          <div>Lorem ipsum...</div>\r\n          <div class=\"progress progress-xs my-3\">\r\n            <div class=\"progress-bar bg-warning\" role=\"progressbar\" style=\"width: 25%\" aria-valuenow=\"25\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\r\n          </div>\r\n          <small class=\"text-muted\">Lorem ipsum dolor sit amet enim.</small>\r\n        </div>\r\n      </div>\r\n    </div><!--/.col-->\r\n    <div class=\"col-sm-6 col-lg-3\">\r\n      <div class=\"card\">\r\n        <div class=\"card-body\">\r\n          <div class=\"h4 m-0\">2 TB</div>\r\n          <div>Lorem ipsum...</div>\r\n          <div class=\"progress progress-xs my-3\">\r\n            <div class=\"progress-bar bg-danger\" role=\"progressbar\" style=\"width: 25%\" aria-valuenow=\"25\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\r\n          </div>\r\n          <small class=\"text-muted\">Lorem ipsum dolor sit amet enim.</small>\r\n        </div>\r\n      </div>\r\n    </div><!--/.col-->\r\n  </div><!--/.row-->\r\n\r\n  <div class=\"row\">\r\n    <div class=\"col-sm-6 col-lg-3\">\r\n      <div class=\"card text-white bg-primary\">\r\n        <div class=\"card-body\">\r\n          <div class=\"h4 m-0\">89.9%</div>\r\n          <div>Lorem ipsum...</div>\r\n          <div class=\"progress progress-white progress-xs my-3\">\r\n            <div class=\"progress-bar\" role=\"progressbar\" style=\"width: 25%\" aria-valuenow=\"25\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\r\n          </div>\r\n          <small class=\"text-muted\">Lorem ipsum dolor sit amet enim.</small>\r\n        </div>\r\n      </div>\r\n    </div><!--/.col-->\r\n    <div class=\"col-sm-6 col-lg-3\">\r\n      <div class=\"card text-white bg-warning\">\r\n        <div class=\"card-body\">\r\n          <div class=\"h4 m-0\">12.124</div>\r\n          <div>Lorem ipsum...</div>\r\n          <div class=\"progress progress-white progress-xs my-3\">\r\n            <div class=\"progress-bar\" role=\"progressbar\" style=\"width: 25%\" aria-valuenow=\"25\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\r\n          </div>\r\n          <small class=\"text-muted\">Lorem ipsum dolor sit amet enim.</small>\r\n        </div>\r\n      </div>\r\n    </div><!--/.col-->\r\n    <div class=\"col-sm-6 col-lg-3\">\r\n      <div class=\"card text-white bg-danger\">\r\n        <div class=\"card-body\">\r\n          <div class=\"h4 m-0\">$98.111,00</div>\r\n          <div>Lorem ipsum...</div>\r\n          <div class=\"progress progress-white progress-xs my-3\">\r\n            <div class=\"progress-bar\" role=\"progressbar\" style=\"width: 25%\" aria-valuenow=\"25\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\r\n          </div>\r\n          <small class=\"text-muted\">Lorem ipsum dolor sit amet enim.</small>\r\n        </div>\r\n      </div>\r\n    </div><!--/.col-->\r\n    <div class=\"col-sm-6 col-lg-3\">\r\n      <div class=\"card text-white bg-info\">\r\n        <div class=\"card-body\">\r\n          <div class=\"h4 m-0\">2 TB</div>\r\n          <div>Lorem ipsum...</div>\r\n          <div class=\"progress progress-white progress-xs my-3\">\r\n            <div class=\"progress-bar\" role=\"progressbar\" style=\"width: 25%\" aria-valuenow=\"25\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\r\n          </div>\r\n          <small class=\"text-muted\">Lorem ipsum dolor sit amet enim.</small>\r\n        </div>\r\n      </div>\r\n    </div><!--/.col-->\r\n  </div><!--/.row-->\r\n\r\n  <div class=\"row\">\r\n    <div class=\"col-md-2 col-sm-4\">\r\n      <div class=\"card\">\r\n        <div class=\"card-body text-center\">\r\n          <div class=\"text-muted small text-uppercase font-weight-bold\">Title</div>\r\n          <div class=\"h2 py-3\">1,123</div>\r\n          <div class=\"chart-wrapper mx-auto\" style=\"height:40px;width:80px;\">\r\n            <canvas baseChart class=\"chart\"\r\n            [datasets]=\"barChart3Data\"\r\n            [labels]=\"barChart3Labels\"\r\n            [options]=\"barChart3Options\"\r\n            [colors]=\"barChart3Primary\"\r\n            [legend]=\"barChart3Legend\"\r\n            [chartType]=\"barChart3Type\"></canvas>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div><!--/.col-->\r\n    <div class=\"col-md-2 col-sm-4\">\r\n      <div class=\"card\">\r\n        <div class=\"card-body text-center\">\r\n          <div class=\"text-muted small text-uppercase font-weight-bold\">Title</div>\r\n          <div class=\"h2 py-3\">1,123</div>\r\n          <div class=\"chart-wrapper mx-auto\" style=\"height:40px;width:80px;\">\r\n            <canvas baseChart class=\"chart\"\r\n            [datasets]=\"barChart3Data\"\r\n            [labels]=\"barChart3Labels\"\r\n            [options]=\"barChart3Options\"\r\n            [colors]=\"barChart3Danger\"\r\n            [legend]=\"barChart3Legend\"\r\n            [chartType]=\"barChart3Type\"></canvas>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div><!--/.col-->\r\n    <div class=\"col-md-2 col-sm-4\">\r\n      <div class=\"card\">\r\n        <div class=\"card-body text-center\">\r\n          <div class=\"text-muted small text-uppercase font-weight-bold\">Title</div>\r\n          <div class=\"h2 py-3\">1,123</div>\r\n          <div class=\"chart-wrapper mx-auto\" style=\"height:40px;width:80px;\">\r\n            <canvas baseChart class=\"chart\"\r\n            [datasets]=\"barChart3Data\"\r\n            [labels]=\"barChart3Labels\"\r\n            [options]=\"barChart3Options\"\r\n            [colors]=\"barChart3Success\"\r\n            [legend]=\"barChart3Legend\"\r\n            [chartType]=\"barChart3Type\"></canvas>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div><!--/.col-->\r\n    <div class=\"col-md-2 col-sm-4\">\r\n      <div class=\"card\">\r\n        <div class=\"card-body text-center\">\r\n          <div class=\"text-muted small text-uppercase font-weight-bold\">Title</div>\r\n          <div class=\"h2 py-3\">1,123</div>\r\n          <div class=\"chart-wrapper mx-auto\" style=\"height:40px;width:80px;\">\r\n            <canvas baseChart class=\"chart\"\r\n            [datasets]=\"lineChart5Data\"\r\n            [labels]=\"lineChart5Labels\"\r\n            [options]=\"lineChart5Options\"\r\n            [colors]=\"lineChart5Info\"\r\n            [legend]=\"lineChart5Legend\"\r\n            [chartType]=\"lineChart5Type\"></canvas>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div><!--/.col-->\r\n    <div class=\"col-md-2 col-sm-4\">\r\n      <div class=\"card\">\r\n        <div class=\"card-body text-center\">\r\n          <div class=\"text-muted small text-uppercase font-weight-bold\">Title</div>\r\n          <div class=\"h2 py-3\">1,123</div>\r\n          <div class=\"chart-wrapper mx-auto\" style=\"height:40px;width:80px;\">\r\n            <canvas baseChart class=\"chart\"\r\n            [datasets]=\"lineChart5Data\"\r\n            [labels]=\"lineChart5Labels\"\r\n            [options]=\"lineChart5Options\"\r\n            [colors]=\"lineChart5Success\"\r\n            [legend]=\"lineChart5Legend\"\r\n            [chartType]=\"lineChart5Type\"></canvas>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div><!--/.col-->\r\n    <div class=\"col-md-2 col-sm-4\">\r\n      <div class=\"card\">\r\n        <div class=\"card-body text-center\">\r\n          <div class=\"text-muted small text-uppercase font-weight-bold\">Title</div>\r\n          <div class=\"h2 py-3\">1,123</div>\r\n          <div class=\"chart-wrapper mx-auto\" style=\"height:40px;width:80px;\">\r\n            <canvas baseChart class=\"chart\"\r\n            [datasets]=\"lineChart5Data\"\r\n            [labels]=\"lineChart5Labels\"\r\n            [options]=\"lineChart5Options\"\r\n            [colors]=\"lineChart5Warning\"\r\n            [legend]=\"lineChart5Legend\"\r\n            [chartType]=\"lineChart5Type\"></canvas>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div><!--/.col-->\r\n  </div><!--/.row-->\r\n  <div class=\"row\">\r\n    <div class=\"col-6 col-lg-3\">\r\n      <div class=\"card\">\r\n        <div class=\"card-body p-3 clearfix\">\r\n          <i class=\"fa fa-cogs bg-primary p-3 font-2xl mr-3 float-left\"></i>\r\n          <div class=\"h5 text-primary mb-0 mt-2\">$1.999,50</div>\r\n          <div class=\"text-muted text-uppercase font-weight-bold font-xs\">Income</div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <!--/.col-->\r\n    <div class=\"col-6 col-lg-3\">\r\n      <div class=\"card\">\r\n        <div class=\"card-body p-3 clearfix\">\r\n          <i class=\"fa fa-laptop bg-info p-3 font-2xl mr-3 float-left\"></i>\r\n          <div class=\"h5 text-info mb-0 mt-2\">$1.999,50</div>\r\n          <div class=\"text-muted text-uppercase font-weight-bold font-xs\">Income</div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <!--/.col-->\r\n    <div class=\"col-6 col-lg-3\">\r\n      <div class=\"card\">\r\n        <div class=\"card-body p-3 clearfix\">\r\n          <i class=\"fa fa-moon-o bg-warning p-3 font-2xl mr-3 float-left\"></i>\r\n          <div class=\"h5 text-warning mb-0 mt-2\">$1.999,50</div>\r\n          <div class=\"text-muted text-uppercase font-weight-bold font-xs\">Income</div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <!--/.col-->\r\n    <div class=\"col-6 col-lg-3\">\r\n      <div class=\"card\">\r\n        <div class=\"card-body p-3 clearfix\">\r\n          <i class=\"fa fa-bell bg-danger p-3 font-2xl mr-3 float-left\"></i>\r\n          <div class=\"h5 text-danger mb-0 mt-2\">$1.999,50</div>\r\n          <div class=\"text-muted text-uppercase font-weight-bold font-xs\">Income</div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <!--/.col-->\r\n    <div class=\"col-6 col-lg-3\">\r\n      <div class=\"card\">\r\n        <div class=\"card-body p-3 clearfix\">\r\n          <i class=\"fa fa-cogs bg-primary p-3 font-2xl mr-3 float-left\"></i>\r\n          <div class=\"h5 text-primary mb-0 mt-2\">$1.999,50</div>\r\n          <div class=\"text-muted text-uppercase font-weight-bold font-xs\">Income</div>\r\n        </div>\r\n        <div class=\"card-footer px-3 py-2\">\r\n          <a class=\"font-weight-bold font-xs btn-block text-muted\" href=\"#\">View More <i class=\"fa fa-angle-right float-right font-lg\"></i></a>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <!--/.col-->\r\n    <div class=\"col-6 col-lg-3\">\r\n      <div class=\"card\">\r\n        <div class=\"card-body p-3 clearfix\">\r\n          <i class=\"fa fa-laptop bg-info p-3 font-2xl mr-3 float-left\"></i>\r\n          <div class=\"h5 text-info mb-0 mt-2\">$1.999,50</div>\r\n          <div class=\"text-muted text-uppercase font-weight-bold font-xs\">Income</div>\r\n        </div>\r\n        <div class=\"card-footer px-3 py-2\">\r\n          <a class=\"font-weight-bold font-xs btn-block text-muted\" href=\"#\">View More <i class=\"fa fa-angle-right float-right font-lg\"></i></a>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <!--/.col-->\r\n    <div class=\"col-6 col-lg-3\">\r\n      <div class=\"card\">\r\n        <div class=\"card-body p-3 clearfix\">\r\n          <i class=\"fa fa-moon-o bg-warning p-3 font-2xl mr-3 float-left\"></i>\r\n          <div class=\"h5 text-warning mb-0 mt-2\">$1.999,50</div>\r\n          <div class=\"text-muted text-uppercase font-weight-bold font-xs\">Income</div>\r\n        </div>\r\n        <div class=\"card-footer px-3 py-2\">\r\n          <a class=\"font-weight-bold font-xs btn-block text-muted\" href=\"#\">View More <i class=\"fa fa-angle-right float-right font-lg\"></i></a>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <!--/.col-->\r\n    <div class=\"col-6 col-lg-3\">\r\n      <div class=\"card\">\r\n        <div class=\"card-body p-3 clearfix\">\r\n          <i class=\"fa fa-bell bg-danger p-3 font-2xl mr-3 float-left\"></i>\r\n          <div class=\"h5 text-danger mb-0 mt-2\">$1.999,50</div>\r\n          <div class=\"text-muted text-uppercase font-weight-bold font-xs\">Income</div>\r\n        </div>\r\n        <div class=\"card-footer px-3 py-2\">\r\n          <a class=\"font-weight-bold font-xs btn-block text-muted\" href=\"#\">View More <i class=\"fa fa-angle-right float-right font-lg\"></i></a>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <!--/.col-->\r\n  </div>\r\n  <!--/.row-->\r\n  <div class=\"row\">\r\n    <div class=\"col-6 col-lg-3\">\r\n      <div class=\"card\">\r\n        <div class=\"card-body p-0 clearfix\">\r\n          <i class=\"fa fa-cogs bg-primary p-4 font-2xl mr-3 float-left\"></i>\r\n          <div class=\"h5 text-primary mb-0 pt-3\">$1.999,50</div>\r\n          <div class=\"text-muted text-uppercase font-weight-bold font-xs\">Income</div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <!--/.col-->\r\n    <div class=\"col-6 col-lg-3\">\r\n      <div class=\"card\">\r\n        <div class=\"card-body p-0 clearfix\">\r\n          <i class=\"fa fa-laptop bg-info p-4 font-2xl mr-3 float-left\"></i>\r\n          <div class=\"h5 text-info mb-0 pt-3\">$1.999,50</div>\r\n          <div class=\"text-muted text-uppercase font-weight-bold font-xs\">Income</div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <!--/.col-->\r\n    <div class=\"col-6 col-lg-3\">\r\n      <div class=\"card\">\r\n        <div class=\"card-body p-0 clearfix\">\r\n          <i class=\"fa fa-moon-o bg-warning p-4 font-2xl mr-3 float-left\"></i>\r\n          <div class=\"h5 text-warning mb-0 pt-3\">$1.999,50</div>\r\n          <div class=\"text-muted text-uppercase font-weight-bold font-xs\">Income</div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <!--/.col-->\r\n    <div class=\"col-6 col-lg-3\">\r\n      <div class=\"card\">\r\n        <div class=\"card-body p-0 clearfix\">\r\n          <i class=\"fa fa-bell bg-danger p-4 font-2xl mr-3 float-left\"></i>\r\n          <div class=\"h5 text-danger mb-0 pt-3\">$1.999,50</div>\r\n          <div class=\"text-muted text-uppercase font-weight-bold font-xs\">Income</div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <!--/.col-->\r\n    <div class=\"col-6 col-lg-3\">\r\n      <div class=\"card\">\r\n        <div class=\"card-body p-0 clearfix\">\r\n          <i class=\"fa fa-cogs bg-primary p-4 px-5 font-2xl mr-3 float-left\"></i>\r\n          <div class=\"h5 text-primary mb-0 pt-3\">$1.999,50</div>\r\n          <div class=\"text-muted text-uppercase font-weight-bold font-xs\">Income</div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <!--/.col-->\r\n    <div class=\"col-6 col-lg-3\">\r\n      <div class=\"card\">\r\n        <div class=\"card-body p-0 clearfix\">\r\n          <i class=\"fa fa-laptop bg-info p-4 px-5 font-2xl mr-3 float-left\"></i>\r\n          <div class=\"h5 text-info mb-0 pt-3\">$1.999,50</div>\r\n          <div class=\"text-muted text-uppercase font-weight-bold font-xs\">Income</div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <!--/.col-->\r\n    <div class=\"col-6 col-lg-3\">\r\n      <div class=\"card\">\r\n        <div class=\"card-body p-0 clearfix\">\r\n          <i class=\"fa fa-moon-o bg-warning p-4 px-5 font-2xl mr-3 float-left\"></i>\r\n          <div class=\"h5 text-warning mb-0 pt-3\">$1.999,50</div>\r\n          <div class=\"text-muted text-uppercase font-weight-bold font-xs\">Income</div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <!--/.col-->\r\n    <div class=\"col-6 col-lg-3\">\r\n      <div class=\"card\">\r\n        <div class=\"card-body p-0 clearfix\">\r\n          <i class=\"fa fa-bell bg-danger p-4 px-5 font-2xl mr-3 float-left\"></i>\r\n          <div class=\"h5 text-danger mb-0 pt-3\">$1.999,50</div>\r\n          <div class=\"text-muted text-uppercase font-weight-bold font-xs\">Income</div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <!--/.col-->\r\n  </div>\r\n  <!--/.row-->\r\n  <div class=\"row\">\r\n    <div class=\"col-sm-6 col-lg-3\">\r\n      <div class=\"brand-card\">\r\n        <div class=\"brand-card-header bg-facebook\">\r\n          <i class=\"fa fa-facebook\"></i>\r\n        </div>\r\n        <div class=\"brand-card-body\">\r\n          <div>\r\n            <div class=\"text-value\">89k</div>\r\n            <div class=\"text-uppercase text-muted small\">friends</div>\r\n          </div>\r\n          <div>\r\n            <div class=\"text-value\">459</div>\r\n            <div class=\"text-uppercase text-muted small\">feeds</div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div><!--/.col-->\r\n    <div class=\"col-sm-6 col-lg-3\">\r\n      <div class=\"brand-card\">\r\n        <div class=\"brand-card-header bg-twitter\">\r\n          <i class=\"fa fa-twitter\"></i>\r\n        </div>\r\n        <div class=\"brand-card-body\">\r\n          <div>\r\n            <div class=\"text-value\">973k</div>\r\n            <div class=\"text-uppercase text-muted small\">followers</div>\r\n          </div>\r\n          <div>\r\n            <div class=\"text-value\">1.792</div>\r\n            <div class=\"text-uppercase text-muted small\">tweets</div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div><!--/.col-->\r\n    <div class=\"col-sm-6 col-lg-3\">\r\n      <div class=\"brand-card\">\r\n        <div class=\"brand-card-header bg-linkedin\">\r\n          <i class=\"fa fa-linkedin\"></i>\r\n        </div>\r\n        <div class=\"brand-card-body\">\r\n          <div>\r\n            <div class=\"text-value\">500+</div>\r\n            <div class=\"text-uppercase text-muted small\">contacts</div>\r\n          </div>\r\n          <div>\r\n            <div class=\"text-value\">292</div>\r\n            <div class=\"text-uppercase text-muted small\">feeds</div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div><!--/.col-->\r\n    <div class=\"col-sm-6 col-lg-3\">\r\n      <div class=\"brand-card\">\r\n        <div class=\"brand-card-header bg-google-plus\">\r\n          <i class=\"fa fa-google-plus\"></i>\r\n        </div>\r\n        <div class=\"brand-card-body\">\r\n          <div>\r\n            <div class=\"text-value\">894</div>\r\n            <div class=\"text-uppercase text-muted small\">followers</div>\r\n          </div>\r\n          <div>\r\n            <div class=\"text-value\">92</div>\r\n            <div class=\"text-uppercase text-muted small\">circles</div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div><!--/.col-->\r\n  </div><!--/.row-->\r\n\r\n  <div class=\"card-group mb-4\">\r\n    <div class=\"card\">\r\n      <div class=\"card-body\">\r\n        <div class=\"h1 text-muted text-right mb-4\">\r\n          <i class=\"icon-people\"></i>\r\n        </div>\r\n        <div class=\"h4 mb-0\">87.500</div>\r\n        <small class=\"text-muted text-uppercase font-weight-bold\">Visitors</small>\r\n        <div class=\"progress progress-xs mt-3 mb-0\">\r\n          <div class=\"progress-bar bg-info\" role=\"progressbar\" style=\"width: 25%\" aria-valuenow=\"25\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div class=\"card\">\r\n      <div class=\"card-body\">\r\n        <div class=\"h1 text-muted text-right mb-4\">\r\n          <i class=\"icon-user-follow\"></i>\r\n        </div>\r\n        <div class=\"h4 mb-0\">385</div>\r\n        <small class=\"text-muted text-uppercase font-weight-bold\">New Clients</small>\r\n        <div class=\"progress progress-xs mt-3 mb-0\">\r\n          <div class=\"progress-bar bg-success\" role=\"progressbar\" style=\"width: 25%\" aria-valuenow=\"25\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div class=\"card\">\r\n      <div class=\"card-body\">\r\n        <div class=\"h1 text-muted text-right mb-4\">\r\n          <i class=\"icon-basket-loaded\"></i>\r\n        </div>\r\n        <div class=\"h4 mb-0\">1238</div>\r\n        <small class=\"text-muted text-uppercase font-weight-bold\">Products sold</small>\r\n        <div class=\"progress progress-xs mt-3 mb-0\">\r\n          <div class=\"progress-bar bg-warning\" role=\"progressbar\" style=\"width: 25%\" aria-valuenow=\"25\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div class=\"card\">\r\n      <div class=\"card-body\">\r\n        <div class=\"h1 text-muted text-right mb-4\">\r\n          <i class=\"icon-pie-chart\"></i>\r\n        </div>\r\n        <div class=\"h4 mb-0\">28%</div>\r\n        <small class=\"text-muted text-uppercase font-weight-bold\">Returning Visitors</small>\r\n        <div class=\"progress progress-xs mt-3 mb-0\">\r\n          <div class=\"progress-bar\" role=\"progressbar\" style=\"width: 25%\" aria-valuenow=\"25\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div class=\"card\">\r\n      <div class=\"card-body\">\r\n        <div class=\"h1 text-muted text-right mb-4\">\r\n          <i class=\"icon-speedometer\"></i>\r\n        </div>\r\n        <div class=\"h4 mb-0\">5:34:11</div>\r\n        <small class=\"text-muted text-uppercase font-weight-bold\">Avg. Time</small>\r\n        <div class=\"progress progress-xs mt-3 mb-0\">\r\n          <div class=\"progress-bar bg-danger\" role=\"progressbar\" style=\"width: 25%\" aria-valuenow=\"25\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"row\">\r\n    <div class=\"col-sm-6 col-md-2\">\r\n      <div class=\"card\">\r\n        <div class=\"card-body\">\r\n          <div class=\"h1 text-muted text-right mb-4\">\r\n            <i class=\"icon-people\"></i>\r\n          </div>\r\n          <div class=\"h4 mb-0\">87.500</div>\r\n          <small class=\"text-muted text-uppercase font-weight-bold\">Visitors</small>\r\n          <div class=\"progress progress-xs mt-3 mb-0\">\r\n            <div class=\"progress-bar bg-info\" role=\"progressbar\" style=\"width: 25%\" aria-valuenow=\"25\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div><!--/.col-->\r\n    <div class=\"col-sm-6 col-md-2\">\r\n      <div class=\"card\">\r\n        <div class=\"card-body\">\r\n          <div class=\"h1 text-muted text-right mb-4\">\r\n            <i class=\"icon-user-follow\"></i>\r\n          </div>\r\n          <div class=\"h4 mb-0\">385</div>\r\n          <small class=\"text-muted text-uppercase font-weight-bold\">New Clients</small>\r\n          <div class=\"progress progress-xs mt-3 mb-0\">\r\n            <div class=\"progress-bar bg-success\" role=\"progressbar\" style=\"width: 25%\" aria-valuenow=\"25\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div><!--/.col-->\r\n    <div class=\"col-sm-6 col-md-2\">\r\n      <div class=\"card\">\r\n        <div class=\"card-body\">\r\n          <div class=\"h1 text-muted text-right mb-4\">\r\n            <i class=\"icon-basket-loaded\"></i>\r\n          </div>\r\n          <div class=\"h4 mb-0\">1238</div>\r\n          <small class=\"text-muted text-uppercase font-weight-bold\">Products sold</small>\r\n          <div class=\"progress progress-xs mt-3 mb-0\">\r\n            <div class=\"progress-bar bg-warning\" role=\"progressbar\" style=\"width: 25%\" aria-valuenow=\"25\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div><!--/.col-->\r\n    <div class=\"col-sm-6 col-md-2\">\r\n      <div class=\"card\">\r\n        <div class=\"card-body\">\r\n          <div class=\"h1 text-muted text-right mb-4\">\r\n            <i class=\"icon-pie-chart\"></i>\r\n          </div>\r\n          <div class=\"h4 mb-0\">28%</div>\r\n          <small class=\"text-muted text-uppercase font-weight-bold\">Returning Visitors</small>\r\n          <div class=\"progress progress-xs mt-3 mb-0\">\r\n            <div class=\"progress-bar\" role=\"progressbar\" style=\"width: 25%\" aria-valuenow=\"25\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div><!--/.col-->\r\n    <div class=\"col-sm-6 col-md-2\">\r\n      <div class=\"card\">\r\n        <div class=\"card-body\">\r\n          <div class=\"h1 text-muted text-right mb-4\">\r\n            <i class=\"icon-speedometer\"></i>\r\n          </div>\r\n          <div class=\"h4 mb-0\">5:34:11</div>\r\n          <small class=\"text-muted text-uppercase font-weight-bold\">Avg. Time</small>\r\n          <div class=\"progress progress-xs mt-3 mb-0\">\r\n            <div class=\"progress-bar bg-danger\" role=\"progressbar\" style=\"width: 25%\" aria-valuenow=\"25\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div><!--/.col-->\r\n    <div class=\"col-sm-6 col-md-2\">\r\n      <div class=\"card\">\r\n        <div class=\"card-body\">\r\n          <div class=\"h1 text-muted text-right mb-4\">\r\n            <i class=\"icon-speech\"></i>\r\n          </div>\r\n          <div class=\"h4 mb-0\">972</div>\r\n          <small class=\"text-muted text-uppercase font-weight-bold\">Comments</small>\r\n          <div class=\"progress progress-xs mt-3 mb-0\">\r\n            <div class=\"progress-bar bg-info\" role=\"progressbar\" style=\"width: 25%\" aria-valuenow=\"25\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div><!--/.col-->\r\n  </div><!--/.row-->\r\n\r\n  <div class=\"row\">\r\n    <div class=\"col-sm-6 col-md-2\">\r\n      <div class=\"card text-white bg-info\">\r\n        <div class=\"card-body\">\r\n          <div class=\"h1 text-muted text-right mb-4\">\r\n            <i class=\"icon-people\"></i>\r\n          </div>\r\n          <div class=\"h4 mb-0\">87.500</div>\r\n          <small class=\"text-muted text-uppercase font-weight-bold\">Visitors</small>\r\n          <div class=\"progress progress-white progress-xs mt-3\">\r\n            <div class=\"progress-bar\" role=\"progressbar\" style=\"width: 25%\" aria-valuenow=\"25\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div><!--/.col-->\r\n    <div class=\"col-sm-6 col-md-2\">\r\n      <div class=\"card text-white bg-success\">\r\n        <div class=\"card-body\">\r\n          <div class=\"h1 text-muted text-right mb-4\">\r\n            <i class=\"icon-user-follow\"></i>\r\n          </div>\r\n          <div class=\"h4 mb-0\">385</div>\r\n          <small class=\"text-muted text-uppercase font-weight-bold\">New Clients</small>\r\n          <div class=\"progress progress-white progress-xs mt-3\">\r\n            <div class=\"progress-bar\" role=\"progressbar\" style=\"width: 25%\" aria-valuenow=\"25\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div><!--/.col-->\r\n    <div class=\"col-sm-6 col-md-2\">\r\n      <div class=\"card text-white bg-warning\">\r\n        <div class=\"card-body\">\r\n          <div class=\"h1 text-muted text-right mb-4\">\r\n            <i class=\"icon-basket-loaded\"></i>\r\n          </div>\r\n          <div class=\"h4 mb-0\">1238</div>\r\n          <small class=\"text-muted text-uppercase font-weight-bold\">Products sold</small>\r\n          <div class=\"progress progress-white progress-xs mt-3\">\r\n            <div class=\"progress-bar\" role=\"progressbar\" style=\"width: 25%\" aria-valuenow=\"25\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div><!--/.col-->\r\n    <div class=\"col-sm-6 col-md-2\">\r\n      <div class=\"card text-white bg-primary\">\r\n        <div class=\"card-body\">\r\n          <div class=\"h1 text-muted text-right mb-4\">\r\n            <i class=\"icon-pie-chart\"></i>\r\n          </div>\r\n          <div class=\"h4 mb-0\">28%</div>\r\n          <small class=\"text-muted text-uppercase font-weight-bold\">Returning Visitors</small>\r\n          <div class=\"progress progress-white progress-xs mt-3\">\r\n            <div class=\"progress-bar\" role=\"progressbar\" style=\"width: 25%\" aria-valuenow=\"25\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div><!--/.col-->\r\n    <div class=\"col-sm-6 col-md-2\">\r\n      <div class=\"card text-white bg-danger\">\r\n        <div class=\"card-body\">\r\n          <div class=\"h1 text-muted text-right mb-4\">\r\n            <i class=\"icon-speedometer\"></i>\r\n          </div>\r\n          <div class=\"h4 mb-0\">5:34:11</div>\r\n          <small class=\"text-muted text-uppercase font-weight-bold\">Avg. Time</small>\r\n          <div class=\"progress progress-white progress-xs mt-3\">\r\n            <div class=\"progress-bar\" role=\"progressbar\" style=\"width: 25%\" aria-valuenow=\"25\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div><!--/.col-->\r\n    <div class=\"col-sm-6 col-md-2\">\r\n      <div class=\"card text-white bg-info\">\r\n        <div class=\"card-body\">\r\n          <div class=\"h1 text-muted text-right mb-4\">\r\n            <i class=\"icon-speech\"></i>\r\n          </div>\r\n          <div class=\"h4 mb-0\">972</div>\r\n          <small class=\"text-muted text-uppercase font-weight-bold\">Comments</small>\r\n          <div class=\"progress progress-white progress-xs mt-3\">\r\n            <div class=\"progress-bar\" role=\"progressbar\" style=\"width: 25%\" aria-valuenow=\"25\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div><!--/.col-->\r\n  </div><!--/.row-->\r\n</div>\r\n");
+
+/***/ }),
+
+/***/ "Q2d6":
+/*!****************************************************!*\
+  !*** ./src/app/views/widgets/widgets.component.ts ***!
+  \****************************************************/
+/*! exports provided: WidgetsComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WidgetsComponent", function() { return WidgetsComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
+/* harmony import */ var _raw_loader_widgets_component_html__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! raw-loader!./widgets.component.html */ "O5IU");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "8Y7J");
+/* harmony import */ var _coreui_coreui_dist_js_coreui_utilities__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @coreui/coreui/dist/js/coreui-utilities */ "NuRj");
+/* harmony import */ var _coreui_coreui_dist_js_coreui_utilities__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_coreui_coreui_dist_js_coreui_utilities__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _coreui_coreui_plugin_chartjs_custom_tooltips__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @coreui/coreui-plugin-chartjs-custom-tooltips */ "H++W");
+/* harmony import */ var _coreui_coreui_plugin_chartjs_custom_tooltips__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_coreui_coreui_plugin_chartjs_custom_tooltips__WEBPACK_IMPORTED_MODULE_4__);
+
+
+
+
+
+let WidgetsComponent = class WidgetsComponent {
+    constructor() {
+        // lineChart1
+        this.lineChart1Data = [
+            {
+                data: [65, 59, 84, 84, 51, 55, 40],
+                label: 'Series A'
+            }
+        ];
+        this.lineChart1Labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+        this.lineChart1Options = {
+            tooltips: {
+                enabled: false,
+                custom: _coreui_coreui_plugin_chartjs_custom_tooltips__WEBPACK_IMPORTED_MODULE_4__["CustomTooltips"]
+            },
+            maintainAspectRatio: false,
+            scales: {
+                xAxes: [{
+                        gridLines: {
+                            color: 'transparent',
+                            zeroLineColor: 'transparent'
+                        },
+                        ticks: {
+                            fontSize: 2,
+                            fontColor: 'transparent',
+                        }
+                    }],
+                yAxes: [{
+                        display: false,
+                        ticks: {
+                            display: false,
+                            min: 40 - 5,
+                            max: 84 + 5,
+                        }
+                    }],
+            },
+            elements: {
+                line: {
+                    borderWidth: 1
+                },
+                point: {
+                    radius: 4,
+                    hitRadius: 10,
+                    hoverRadius: 4,
+                },
+            },
+            legend: {
+                display: false
+            }
+        };
+        this.lineChart1Colours = [
+            {
+                backgroundColor: Object(_coreui_coreui_dist_js_coreui_utilities__WEBPACK_IMPORTED_MODULE_3__["getStyle"])('--primary'),
+                borderColor: 'rgba(255,255,255,.55)'
+            }
+        ];
+        this.lineChart1Legend = false;
+        this.lineChart1Type = 'line';
+        // lineChart2
+        this.lineChart2Data = [
+            {
+                data: [1, 18, 9, 17, 34, 22, 11],
+                label: 'Series A'
+            }
+        ];
+        this.lineChart2Labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+        this.lineChart2Options = {
+            tooltips: {
+                enabled: false,
+                custom: _coreui_coreui_plugin_chartjs_custom_tooltips__WEBPACK_IMPORTED_MODULE_4__["CustomTooltips"]
+            },
+            maintainAspectRatio: false,
+            scales: {
+                xAxes: [{
+                        gridLines: {
+                            color: 'transparent',
+                            zeroLineColor: 'transparent'
+                        },
+                        ticks: {
+                            fontSize: 2,
+                            fontColor: 'transparent',
+                        }
+                    }],
+                yAxes: [{
+                        display: false,
+                        ticks: {
+                            display: false,
+                            min: 1 - 5,
+                            max: 34 + 5,
+                        }
+                    }],
+            },
+            elements: {
+                line: {
+                    tension: 0.00001,
+                    borderWidth: 1
+                },
+                point: {
+                    radius: 4,
+                    hitRadius: 10,
+                    hoverRadius: 4,
+                },
+            },
+            legend: {
+                display: false
+            }
+        };
+        this.lineChart2Colours = [
+            {
+                backgroundColor: Object(_coreui_coreui_dist_js_coreui_utilities__WEBPACK_IMPORTED_MODULE_3__["getStyle"])('--info'),
+                borderColor: 'rgba(255,255,255,.55)'
+            }
+        ];
+        this.lineChart2Legend = false;
+        this.lineChart2Type = 'line';
+        // lineChart3
+        this.lineChart3Data = [
+            {
+                data: [78, 81, 80, 45, 34, 12, 40],
+                label: 'Series A'
+            }
+        ];
+        this.lineChart3Labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+        this.lineChart3Options = {
+            tooltips: {
+                enabled: false,
+                custom: _coreui_coreui_plugin_chartjs_custom_tooltips__WEBPACK_IMPORTED_MODULE_4__["CustomTooltips"]
+            },
+            maintainAspectRatio: false,
+            scales: {
+                xAxes: [{
+                        display: false
+                    }],
+                yAxes: [{
+                        display: false
+                    }]
+            },
+            elements: {
+                line: {
+                    borderWidth: 2
+                },
+                point: {
+                    radius: 0,
+                    hitRadius: 10,
+                    hoverRadius: 4,
+                },
+            },
+            legend: {
+                display: false
+            }
+        };
+        this.lineChart3Colours = [
+            {
+                backgroundColor: 'rgba(255,255,255,.2)',
+                borderColor: 'rgba(255,255,255,.55)',
+            }
+        ];
+        this.lineChart3Legend = false;
+        this.lineChart3Type = 'line';
+        // barChart1
+        this.barChart1Data = [
+            {
+                data: [78, 81, 80, 45, 34, 12, 40, 78, 81, 80, 45, 34, 12, 40, 12, 40],
+                label: 'Series A',
+                barPercentage: 0.6
+            }
+        ];
+        this.barChart1Labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16'];
+        this.barChart1Options = {
+            tooltips: {
+                enabled: false,
+                custom: _coreui_coreui_plugin_chartjs_custom_tooltips__WEBPACK_IMPORTED_MODULE_4__["CustomTooltips"]
+            },
+            maintainAspectRatio: false,
+            scales: {
+                xAxes: [{
+                        display: false,
+                    }],
+                yAxes: [{
+                        display: false
+                    }]
+            },
+            legend: {
+                display: false
+            }
+        };
+        this.barChart1Colours = [
+            {
+                backgroundColor: 'rgba(255,255,255,.3)',
+                borderWidth: 0
+            }
+        ];
+        this.barChart1Legend = false;
+        this.barChart1Type = 'bar';
+        // lineChart4
+        this.lineChart4Data = [
+            {
+                data: [4, 18, 9, 17, 34, 22, 11, 3, 15, 12, 18, 9],
+                label: 'Series A'
+            }
+        ];
+        this.lineChart4Labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        this.lineChart4Options = {
+            tooltips: {
+                enabled: false,
+                custom: _coreui_coreui_plugin_chartjs_custom_tooltips__WEBPACK_IMPORTED_MODULE_4__["CustomTooltips"]
+            },
+            maintainAspectRatio: false,
+            scales: {
+                xAxes: [{
+                        display: false,
+                        points: false,
+                    }],
+                yAxes: [{
+                        display: false,
+                    }]
+            },
+            elements: { point: { radius: 0 } },
+            legend: {
+                display: false
+            }
+        };
+        this.lineChart4Colours = [
+            {
+                backgroundColor: 'transparent',
+                borderColor: 'rgba(255,255,255,.55)',
+                borderWidth: 2
+            }
+        ];
+        this.lineChart4Legend = false;
+        this.lineChart4Type = 'line';
+        // barChart2
+        this.barChart2Data = [
+            {
+                data: [4, 18, 9, 17, 34, 22, 11, 3, 15, 12, 18, 9],
+                label: 'Series A',
+                barPercentage: 0.6
+            }
+        ];
+        this.barChart2Labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        this.barChart2Options = {
+            tooltips: {
+                enabled: false,
+                custom: _coreui_coreui_plugin_chartjs_custom_tooltips__WEBPACK_IMPORTED_MODULE_4__["CustomTooltips"]
+            },
+            maintainAspectRatio: false,
+            scales: {
+                xAxes: [{
+                        display: false,
+                    }],
+                yAxes: [{
+                        display: false,
+                        ticks: {
+                            beginAtZero: true,
+                        }
+                    }]
+            },
+            legend: {
+                display: false
+            }
+        };
+        this.barChart2Colours = [
+            {
+                backgroundColor: 'rgba(0,0,0,.2)',
+                borderWidth: 0
+            }
+        ];
+        this.barChart2Legend = false;
+        this.barChart2Type = 'bar';
+        // barChart3
+        this.barChart3Data = [
+            {
+                data: [4, 18, 9, 17, 34, 22, 11, 3, 15, 12, 18, 9],
+                label: 'Series A'
+            }
+        ];
+        this.barChart3Labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        this.barChart3Options = {
+            tooltips: {
+                enabled: false,
+                custom: _coreui_coreui_plugin_chartjs_custom_tooltips__WEBPACK_IMPORTED_MODULE_4__["CustomTooltips"]
+            },
+            maintainAspectRatio: false,
+            scales: {
+                xAxes: [{
+                        display: false
+                    }],
+                yAxes: [{
+                        display: false
+                    }]
+            },
+            legend: {
+                display: false
+            }
+        };
+        this.barChart3Primary = [
+            {
+                backgroundColor: Object(_coreui_coreui_dist_js_coreui_utilities__WEBPACK_IMPORTED_MODULE_3__["getStyle"])('--primary'),
+                borderColor: 'transparent',
+                borderWidth: 1
+            }
+        ];
+        this.barChart3Danger = [
+            {
+                backgroundColor: Object(_coreui_coreui_dist_js_coreui_utilities__WEBPACK_IMPORTED_MODULE_3__["getStyle"])('--danger'),
+                borderColor: 'transparent',
+                borderWidth: 1
+            }
+        ];
+        this.barChart3Success = [
+            {
+                backgroundColor: Object(_coreui_coreui_dist_js_coreui_utilities__WEBPACK_IMPORTED_MODULE_3__["getStyle"])('--success'),
+                borderColor: 'transparent',
+                borderWidth: 1
+            }
+        ];
+        this.barChart3Legend = false;
+        this.barChart3Type = 'bar';
+        // lineChart5
+        this.lineChart5Data = [
+            {
+                data: [65, 59, 84, 84, 51, 55, 40],
+                label: 'Series A'
+            }
+        ];
+        this.lineChart5Labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+        this.lineChart5Options = {
+            tooltips: {
+                enabled: false,
+                custom: _coreui_coreui_plugin_chartjs_custom_tooltips__WEBPACK_IMPORTED_MODULE_4__["CustomTooltips"]
+            },
+            maintainAspectRatio: false,
+            scales: {
+                xAxes: [{
+                        display: false,
+                        points: false,
+                    }],
+                yAxes: [{
+                        display: false,
+                    }]
+            },
+            elements: { point: { radius: 0 } },
+            legend: {
+                display: false
+            }
+        };
+        this.lineChart5Info = [
+            {
+                backgroundColor: 'transparent',
+                borderColor: Object(_coreui_coreui_dist_js_coreui_utilities__WEBPACK_IMPORTED_MODULE_3__["getStyle"])('--info'),
+                borderWidth: 2
+            }
+        ];
+        this.lineChart5Success = [
+            {
+                backgroundColor: 'transparent',
+                borderColor: Object(_coreui_coreui_dist_js_coreui_utilities__WEBPACK_IMPORTED_MODULE_3__["getStyle"])('--info'),
+                borderWidth: 2
+            }
+        ];
+        this.lineChart5Warning = [
+            {
+                backgroundColor: 'transparent',
+                borderColor: Object(_coreui_coreui_dist_js_coreui_utilities__WEBPACK_IMPORTED_MODULE_3__["getStyle"])('--warning'),
+                borderWidth: 2
+            }
+        ];
+        this.lineChart5Legend = false;
+        this.lineChart5Type = 'line';
+    }
+};
+WidgetsComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
+        template: _raw_loader_widgets_component_html__WEBPACK_IMPORTED_MODULE_1__["default"]
+    })
+], WidgetsComponent);
+
+
+
+/***/ }),
+
+/***/ "XVX6":
+/*!*************************************************!*\
+  !*** ./src/app/views/widgets/widgets.module.ts ***!
+  \*************************************************/
+/*! exports provided: WidgetsModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WidgetsModule", function() { return WidgetsModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "8Y7J");
+/* harmony import */ var ng2_charts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ng2-charts */ "hrfs");
+/* harmony import */ var ngx_bootstrap_dropdown__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-bootstrap/dropdown */ "FE24");
+/* harmony import */ var _widgets_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./widgets.component */ "Q2d6");
+/* harmony import */ var _widgets_routing_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./widgets-routing.module */ "DXaZ");
+
+
+
+
+
+
+let WidgetsModule = class WidgetsModule {
+};
+WidgetsModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+        imports: [
+            _widgets_routing_module__WEBPACK_IMPORTED_MODULE_5__["WidgetsRoutingModule"],
+            ng2_charts__WEBPACK_IMPORTED_MODULE_2__["ChartsModule"],
+            ngx_bootstrap_dropdown__WEBPACK_IMPORTED_MODULE_3__["BsDropdownModule"]
+        ],
+        declarations: [_widgets_component__WEBPACK_IMPORTED_MODULE_4__["WidgetsComponent"]]
+    })
+], WidgetsModule);
+
+
+
+/***/ })
+
+}]);
+//# sourceMappingURL=views-widgets-widgets-module-es2015.js.map

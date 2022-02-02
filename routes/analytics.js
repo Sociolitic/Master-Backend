@@ -75,10 +75,20 @@ router.get('/desc-analytics', validateProfile, (req,res)=>{
         'url': `http://analytics:5000/analytics/?brand=${brand}&duration=${req.query.duration}`,
     };
     request(options, function (error, response) {
-        if (error) throw new Error(error);
-        res.json(JSON.parse(response.body));
+        if (error) {
+            console.log(79,error);
+            res.send(error);
+            return ;
+        }
+        try {
+            let response2 = JSON.parse(response.body)
+            res.json(response2);
+        } catch (e) {
+            console.log(88,e);
+            res.send(response.body)
+        }
         profiles.findOneAndUpdate({_id: req.profile.id},{"$inc": {"quota": -10}},(err,docs)=>{
-            console.log(err,docs.quota);
+            console.log(err,docs);
         })
     });
 })
@@ -91,10 +101,18 @@ router.get('/text-analytics', validateProfile, (req,res)=>{
         'url': `http://analytics:5000/Text_analytics/?brand=${brand}&duration=${req.query.duration}`,
     };
     request(options, function (error, response) {
-        if (error) throw new Error(error);
-        res.json(JSON.parse(response.body));
+        if (error) {
+            res.send(error);
+            return ;
+        }
+        try {
+            let response = JSON.parse(response.body)
+            res.json(response);
+        } catch (e) {
+            res.send(response.body)
+        }
         profiles.findOneAndUpdate({_id: req.profile.id},{"$inc": {"quota": -10}},(err,docs)=>{
-            console.log(err,docs.quota);
+            console.log(err,docs);
         })
     });
 })
@@ -107,23 +125,68 @@ router.get('/recommend-competitor', validateProfile, (req,res)=>{
         'url': `http://analytics:5000/recommenderCompetitor/?brand=${brand}`,
     };
     request(options, function (error, response) {
-        if (error) throw new Error(error);
-        res.json(JSON.parse(response.body));
+        if (error) {
+            res.send(error);
+            return ;
+        }
+        try {
+            let response = JSON.parse(response.body)
+            res.json(response);
+        } catch (e) {
+            res.send(response.body)
+        }
         // profiles.findOneAndUpdate({_id: req.profile.id},{"$inc": {"quota": -10}},(err,docs)=>{
         //     console.log(err,docs.quota);
         // })
     });
 })
 
-router.get('/recommend-brand', validateProfile, (req,res)=>{
+router.get('/recommend-brand', (req,res)=>{
     res.setHeader('Content-type', 'application/json')
     var options = {
         'method': 'GET',
         'url': `http://analytics:5000/recommenderUser/?user=${req.decoded.userId}`,
     };
+    console.log(124,req.decoded);
     request(options, function (error, response) {
-        if (error) throw new Error(error);
-        res.json(JSON.parse(response.body));
+        if (error) {
+            res.send(error);
+            return ;
+        }
+        else{
+            try {
+                let response = JSON.parse(response.body)
+                res.json(response);
+            } catch (e) {
+                res.send(response.body)
+            }
+        }
+        // profiles.findOneAndUpdate({_id: req.profile.id},{"$inc": {"quota": -10}},(err,docs)=>{
+        //     console.log(err,docs.quota);
+        // })
+    });
+})
+
+router.get('/text-analytics-new', validateProfile, (req,res)=>{
+    res.setHeader('Content-type', 'application/json')
+    brand=req.profile.brand
+    var options = {
+        'method': 'GET',
+        'url': `http://analytics:5000/Text_analytics_New/?brand=${brand}`,
+    };
+    request(options, function (error, response) {
+        if (error) {
+            res.send(error);
+            return ;
+        }
+        else{
+            try {
+                let response = JSON.parse(response.body)
+                res.json(response);
+            } catch (e) {
+                res.send(response.body)
+            }
+        }
         // profiles.findOneAndUpdate({_id: req.profile.id},{"$inc": {"quota": -10}},(err,docs)=>{
         //     console.log(err,docs.quota);
         // })

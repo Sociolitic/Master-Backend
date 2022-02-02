@@ -13,12 +13,12 @@ const customSchema = new Schema(
     },
     "profiles": {
         "type": [
-        "String"
+            "String"
         ]
     },
     "years": {
         "type": [
-        "Mixed"
+            "Mixed"
         ]
     },
     "months": {
@@ -38,7 +38,7 @@ const customSchema = new Schema(
     },
     "mins": {
         "type": [
-        "String"
+        "Mixed"
         ]
     },
     "createdAt": {

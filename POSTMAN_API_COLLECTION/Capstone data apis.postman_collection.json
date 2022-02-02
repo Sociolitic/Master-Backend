@@ -1,0 +1,493 @@
+{
+	"info": {
+		"_postman_id": "d368f1a5-4ecc-4c6c-8cef-250e4b6ce4c0",
+		"name": "Capstone data apis",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Reddit",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://3.239.217.174:5000/reddit/search/?q=tesla&sort=hot&limit=3",
+					"protocol": "http",
+					"host": [
+						"3",
+						"239",
+						"217",
+						"174"
+					],
+					"port": "5000",
+					"path": [
+						"reddit",
+						"search",
+						""
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "tesla"
+						},
+						{
+							"key": "sort",
+							"value": "hot"
+						},
+						{
+							"key": "limit",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Twitter_stream",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://3.239.217.174:5000/twitter/stream/?q=Apple",
+					"protocol": "http",
+					"host": [
+						"3",
+						"239",
+						"217",
+						"174"
+					],
+					"port": "5000",
+					"path": [
+						"twitter",
+						"stream",
+						""
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "Apple"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Youtube crawler",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://3.239.217.174:5000/youtube/search/?q=Amazon&limit=3",
+					"protocol": "http",
+					"host": [
+						"3",
+						"239",
+						"217",
+						"174"
+					],
+					"port": "5000",
+					"path": [
+						"youtube",
+						"search",
+						""
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "Amazon"
+						},
+						{
+							"key": "limit",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Youtube video stats",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://3.239.217.174:5000/youtube/stats/?videoId=n-D1EB74Ckg",
+					"protocol": "http",
+					"host": [
+						"3",
+						"239",
+						"217",
+						"174"
+					],
+					"port": "5000",
+					"path": [
+						"youtube",
+						"stats",
+						""
+					],
+					"query": [
+						{
+							"key": "videoId",
+							"value": "n-D1EB74Ckg"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Youtube channel stats",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://3.239.217.174:5000/youtube/stats/?channelId=UC5WjFrtBdufl6CZojX3D8dQ",
+					"protocol": "http",
+					"host": [
+						"3",
+						"239",
+						"217",
+						"174"
+					],
+					"port": "5000",
+					"path": [
+						"youtube",
+						"stats",
+						""
+					],
+					"query": [
+						{
+							"key": "channelId",
+							"value": "UC5WjFrtBdufl6CZojX3D8dQ"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Twitter crawler",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://3.239.217.174:5000/twitter/search/?q=Tesla&limit=3",
+					"protocol": "http",
+					"host": [
+						"3",
+						"239",
+						"217",
+						"174"
+					],
+					"port": "5000",
+					"path": [
+						"twitter",
+						"search",
+						""
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "Tesla"
+						},
+						{
+							"key": "limit",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tumblr crawler",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://3.239.217.174:5000/tumblr/search/?q=Netflix",
+					"protocol": "http",
+					"host": [
+						"3",
+						"239",
+						"217",
+						"174"
+					],
+					"port": "5000",
+					"path": [
+						"tumblr",
+						"search",
+						""
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "Netflix"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crawl all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://3.239.217.174:5000/search/?q=Amazon",
+					"protocol": "http",
+					"host": [
+						"3",
+						"239",
+						"217",
+						"174"
+					],
+					"port": "5000",
+					"path": [
+						"search",
+						""
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "Amazon"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NER",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/ner/?q=PES University is in Bangalore",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"ner",
+						""
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "PES University is in Bangalore"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Aggregate (time independent)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://3.239.217.174:5000/mentions/?q=Tesla",
+					"protocol": "http",
+					"host": [
+						"3",
+						"239",
+						"217",
+						"174"
+					],
+					"port": "5000",
+					"path": [
+						"mentions",
+						""
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "Tesla"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NER Count (time independent)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/ner_mentions/?q=valorant",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"ner_mentions",
+						""
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "valorant"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Aggregate Time dependent",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://54.158.159.62:5000/aggregate/?q=valorant",
+					"protocol": "http",
+					"host": [
+						"54",
+						"158",
+						"159",
+						"62"
+					],
+					"port": "5000",
+					"path": [
+						"aggregate",
+						""
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "valorant"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Insertion",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/insertion/?id=615e8ca51fbbc867110481d8",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"insertion",
+						""
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "615e8ca51fbbc867110481d8"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deletion",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/deletion/?id=615e8ca51fbbc867110481d8",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"deletion",
+						""
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "615e8ca51fbbc867110481d8"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Aggregate Data (Time dependent)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/aggregate_data/?q=valorant",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"aggregate_data",
+						""
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "valorant"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Aggregate NER Data (Time  dependent)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/aggregate_ner_data/?q=valorant",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"aggregate_ner_data",
+						""
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "valorant"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

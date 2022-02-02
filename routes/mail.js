@@ -15,7 +15,7 @@ let transporter = nodemailer.createTransport({
   
 function sendMail(to,title,data){
     transporter.sendMail({
-      from: 'N-bot <admin@nbot.live>',
+      from: 'Sociolitic <admin@nbot.live>',
       to: to,
       subject: title,
       html: data

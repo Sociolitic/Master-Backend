@@ -10,14 +10,16 @@ let mailer = require('./mail');
 const Users=require('../models/users');
 const Profiles=require('../models/profiles');
 const { informAdmin,sendMail } = require('./mail');
-var cors = require('cors')
+var cors = require('cors');
+const user = require('../models/users');
 router.use(cors())
-
+const fs = require("fs");
+const alertEmail = fs.readFileSync("alert.html");
 
 function fullfillorder(session){
 	sendMail(session.customer_details.email,'Sociolitic Subscription','Transaction Id: '+session.id)
-	informAdmin(JSON.stringify(session))	
-	Users.findOneAndUpdate({email: session.customer_details.email},{plan: 'pro'},(err,userDocs)=>{
+	informAdmin(JSON.stringify(session))
+	Users.findOneAndUpdate({email: session.customer_details.email},{plan: session.plan},(err,userDocs)=>{
 		if(err){
 			informAdmin(session,err)
 		}else{
@@ -54,12 +56,13 @@ router.post('/confirm',bodyParser.raw({ type: 'application/json' }), (request, r
 		response.end('Done')
 })
 
-router.get('/testConfirm/:email',(req,res)=>{
+router.get('/testConfirm/:email/:plan',(req,res)=>{
 	var session = {
 		"id": "testTransactionId",
 		"customer_details":{
 			"email": req.params.email
-		}
+		},
+		"plan": req.params.plan==0 ? 'free' : (req.params.plan==1 ? 'pro' : 'enterprise')
 	}
 	fullfillorder(session);
 	res.status(200);
